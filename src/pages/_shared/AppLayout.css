@@ -1,0 +1,40 @@
+/* HORIZONTAL */
+
+.pageHorizontal {
+  display: flex;
+}
+
+.pageHorizontalMenu {
+  flex: 0;
+}
+
+.pageHorizontalContent {
+  flex: 1;
+  height: 100vh;
+}
+
+.pageHorizontalContentInner {
+  max-height: 100vh;
+}
+
+/* VERTICAL */
+
+.pageVertical {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding-bottom: 56px;
+}
+
+.pageVerticalContent {
+  flex-grow: 1;
+}
+
+.pageVerticalContentInner {
+  /* TODO does not work on phone */
+  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding-bottom: 50px; /* height of bottom app menu */
+}
