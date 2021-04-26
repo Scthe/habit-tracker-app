@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "baseUrl": "src",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "target": "es6",
+    "module": "es2020",
+    "lib": ["es6", "dom", "es2018.promise"],
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "alwaysStrict": true,
+    "strict": true,
+    "paths": {
+      "~contexts": ["contexts"],
+      "~components": ["components"],
+      "~hooks": ["hooks"],
+      "~utils": ["utils"],
+      "~types": ["_types"]
+    }
+  },
+  "include": ["./src"],
+  "exclude": [".husky", "public", "src/**/*.spec.ts*?"]
+}
