@@ -4,16 +4,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // import { useResponsive } from "~hooks";
 import { AppPage } from "../../_shared";
-import { WeekSelector, WeekPreview } from "../_shared";
-import { useHabitAgenda } from "./useHabitAgenda";
+import { WeekPreview } from "../_shared";
+import { useAgendaData } from "./api/useAgendaData";
 import { AgendaList } from "./AgendaList";
-import { Habit } from "../_types";
-
-export type SetHabitActivityStatusFn = (
-  date: Date,
-  habitId: Habit["id"],
-  nextStatus: "done" | "clear"
-) => void;
+import { zeroeTime } from "~utils";
+import { DateRangeSelector } from "~components";
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -29,7 +24,7 @@ const useStyles = makeStyles((_theme) => ({
     marginBottom: "15px",
   },
   weekPreview: {},
-  agendaListContainer: {
+  agendaList: {
     flex: 1,
     overflow: "auto",
     // maxHeight: "calc(100vh - 170px)", // HERE alt. solution
@@ -41,21 +36,17 @@ const HabitsList: React.FC<unknown> = () => {
   const styles = useStyles();
 
   // TODO add check != active day
-  const [currentDay, setCurrentDay] = useState(new Date());
-  const agendaData = useHabitAgenda(currentDay);
+  const [currentDay, setCurrentDayRAW] = useState(zeroeTime(new Date()));
+  const agendaData = useAgendaData(currentDay);
 
-  const handleResultChange = (
-    date: Date,
-    habitId: Habit["id"],
-    nextStatus: "done" | "clear"
-  ) => {
-    console.log(`Habit '${habitId}', set '${nextStatus}' for ${date}`);
-  };
+  const setCurrentDay = (d: Date) => setCurrentDayRAW(zeroeTime(d));
 
   return (
     <AppPage className={styles.root} appMenuActiveItem="agenda">
+      {/* TODO put this in app bar */}
       <Paper square={true} className={styles.header}>
-        <WeekSelector
+        <DateRangeSelector
+          mode="week"
           currentDate={currentDay}
           setCurrentDate={setCurrentDay}
           className={styles.weekSelector}
@@ -67,13 +58,10 @@ const HabitsList: React.FC<unknown> = () => {
         />
       </Paper>
 
-      {/* TODO make scrollable */}
-      {/* className={styles.agendaList} */}
       <AgendaList
         currentDate={currentDay}
         data={agendaData}
-        className={styles.agendaListContainer}
-        setHabitActivityStatus={handleResultChange}
+        className={styles.agendaList}
       />
     </AppPage>
   );

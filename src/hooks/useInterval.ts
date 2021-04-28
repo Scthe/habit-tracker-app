@@ -17,7 +17,7 @@ export function useInterval(callback: CbFnType, delayMs: number): void {
       savedCallback.current && savedCallback.current();
     }
     if (delayMs !== null) {
-      let id = setInterval(tick, delayMs);
+      const id = setInterval(tick, delayMs);
       return () => clearInterval(id);
     }
     return undefined;

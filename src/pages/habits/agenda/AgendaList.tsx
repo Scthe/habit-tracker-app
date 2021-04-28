@@ -3,22 +3,19 @@ import React from "react";
 import { AsyncData } from "~types";
 import { AsyncList } from "~components";
 import { NoHabitsMessage } from "../_shared";
-import { HabitAgendaItem } from "./useHabitAgenda";
+import { HabitAgendaItem } from "./api/useAgendaData";
 import { AgendaListItem } from "./AgendaListItem";
-import { SetHabitActivityStatusFn } from ".";
 
 interface Props {
   data: AsyncData<HabitAgendaItem[]>;
   currentDate: Date;
   className?: string;
-  setHabitActivityStatus: SetHabitActivityStatusFn;
 }
 
 export const AgendaList: React.FC<Props> = ({
   data,
   currentDate,
   className,
-  setHabitActivityStatus,
 }) => {
   return (
     <AsyncList
@@ -28,8 +25,8 @@ export const AgendaList: React.FC<Props> = ({
       renderItem={(e) => (
         <AgendaListItem
           currentDate={currentDate}
-          data={e}
-          setHabitActivityStatus={setHabitActivityStatus}
+          habit={e.habit}
+          status={e.status}
         />
       )}
       emptyListMsg={NoHabitsMessage}

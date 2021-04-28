@@ -5,7 +5,7 @@ import Box from "@material-ui/core/Box";
 import clsx from "clsx";
 
 import { AppTheme } from "theme";
-import { Habit } from "../_types";
+import { Habit } from "../../_types";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   content: {
     flex: "1",
     marginTop: "5px",
+    cursor: "pointer",
   },
   action: {
     flex: "0",

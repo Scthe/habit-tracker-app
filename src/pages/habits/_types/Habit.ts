@@ -1,3 +1,5 @@
+import type { Day as DateFnDay } from "date-fns";
+
 export enum HabitColor {
   Transparent,
   Red,
@@ -5,18 +7,21 @@ export enum HabitColor {
   Blue,
 }
 
-export enum Weekday {
-  Monday = "monday",
-  Tuesday = "tuesday",
-  Wednesday = "wednesday",
-  Thursday = "thursday",
-  Friday = "friday",
-  Saturday = "saturday",
-  Sunday = "sunday",
-}
+/*export enum Weekday {
+  Monday = 1,
+  Tuesday = 2,
+  Wednesday = 3,
+  Thursday = 4,
+  Friday = 5,
+  Saturday = 6,
+  Sunday = 0,
+}*/
+/** date-fn uses us locale that starts week with mondays */
+export type Weekday = DateFnDay;
 
 // TODO Agenda for days past can contain habits that are now disabled/removed. The repetition
 // could also have changed (e.g. Mon, Fri turned into Wed). Need CRON?
+
 // export enum Status {
 // Active,
 // Disabled,

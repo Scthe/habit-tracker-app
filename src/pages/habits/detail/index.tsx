@@ -1,63 +1,64 @@
-import React, { useState } from "react";
-import Paper from "@material-ui/core/Paper";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import { useParams } from "react-router-dom";
+import clsx from "clsx";
 
-// import { useResponsive } from "~hooks";
 import { AppPage } from "../../_shared";
-import { WeekSelector, WeekPreview } from "../_shared";
-import { useHabitAgenda } from "./useHabitAgenda";
-import { AgendaList } from "./AgendaList";
-import { Habit } from "../_types";
+import { Habit, HabitCompletionStatus } from "../_types";
+import { useHabitDetails } from "./api/useHabitDetails";
+import { DetailsHeader } from "./DetailsHeader";
+import { DetailsFields } from "./DetailsFields";
+import { ActivityCalendar } from "./ActivityCalendar";
 
-export type SetHabitActivityStatusFn = (
-  date: Date,
-  habitId: Habit["id"],
-  nextStatus: "done" | "clear"
-) => void;
-
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    // maxHeight: "100vh",
   },
-  header: {
-    padding: "25px 25px 15px",
-    flex: 0,
-  },
-  weekSelector: {
-    marginBottom: "15px",
-  },
-  weekPreview: {},
-  agendaListContainer: {
-    flex: 1,
+  toolbarOffset: theme.mixins.toolbar,
+  content: {
+    padding: "25px 25px 0",
     overflow: "auto",
-    // maxHeight: "calc(100vh - 170px)", // HERE alt. solution
+    marginBottom: "20px",
   },
+  // divider: { marginBottom: "10px" },
+  fields: { marginBottom: "20px" },
 }));
 
 // TODO breadcrumbs on desktop
-const HabitsList: React.FC<unknown> = () => {
-  // const resp = useResponsive();
+const HabitDetails: React.FC<unknown> = () => {
+  const { id } = useParams<{ id: string }>();
   const styles = useStyles();
+  const habitAsync = useHabitDetails(id);
 
-  // TODO add check != active day
-  const [currentDay, setCurrentDay] = useState(new Date());
-  const agendaData = useHabitAgenda(currentDay);
+  // TODO add loading/error handling
+  // if (!hasAsyncData(habitAsync)) { return <AsyncDataStatusNotDone/> }
 
-  const handleResultChange = (
-    date: Date,
-    habitId: Habit["id"],
-    nextStatus: "done" | "clear"
-  ) => {
-    console.log(`Habit '${habitId}', set '${nextStatus}' for ${date}`);
-  };
+  // TODO fix scrolling
+
+  const habit: Habit = (habitAsync as any).data;
+  const currentStatus = HabitCompletionStatus.DONE;
+  const today = new Date();
 
   return (
-    <AppPage className={styles.root} appMenuActiveItem="agenda">
-      <Paper square={true} className={styles.header}></Paper>
+    <AppPage className={styles.root}>
+      <DetailsHeader id={id} />
+
+      <div className={clsx(styles.toolbarOffset, styles.content)}>
+        <DetailsFields
+          habit={habit}
+          currentStatus={currentStatus}
+          today={today}
+          className={styles.fields}
+        />
+
+        {/* <Divider className={styles.divider} /> */}
+
+        <ActivityCalendar initMonth={today} />
+      </div>
     </AppPage>
   );
 };
 
-export default HabitsList;
+export default HabitDetails;

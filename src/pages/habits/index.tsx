@@ -5,6 +5,7 @@ import { withAppMenuActive } from "~contexts";
 import Agenda from "./agenda";
 import Calendar from "./calendar";
 import ManageHabits from "./manage";
+import Details from "./detail";
 
 const HabitDefault = (props: unknown) => {
   return (
@@ -41,7 +42,7 @@ export default () => {
         component={withAppMenuActive(HabitDefault, "create")}
       />
       <Route exact path={`${path}/:id/edit`} component={HabitDefault} />
-      <Route exact path={`${path}/:id/details`} component={HabitDefault} />
+      <Route exact path={`${path}/:id/details`} component={Details} />
 
       {/* fallback */}
       <Redirect path="*" to={`${path}/agenda`} />

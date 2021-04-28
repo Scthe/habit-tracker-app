@@ -14,11 +14,11 @@ import {
 const REPEAT_DAILY: RepetitionDaily = { type: "daily" };
 const REPEAT_WEEKLY: RepetitionWeekly = {
   type: "weekly",
-  weekdays: [Weekday.Friday, Weekday.Thursday],
+  weekdays: [0, 4, 5], // Sun, Thu, Fri
 };
 const REPEAT_WEEKLY_SUMMARY: RepetitionWeeklySummary = {
   type: "weekly_summary",
-  endsOn: Weekday.Friday,
+  endsOn: 5, // Fri
 };
 const REPEAT_MONTHLY_SUMMARY: RepetitionMonthlySummary = {
   type: "monthly_summary",

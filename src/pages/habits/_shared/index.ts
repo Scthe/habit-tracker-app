@@ -1,5 +1,9 @@
-export * from "./HabitsListItem";
-export * from "./NoHabitsMessage";
-export * from "./useHabitTimeLeft";
-export * from "./WeekPreview";
-export * from "./WeekSelector";
+export * from "./components/HabitsListItem";
+export * from "./components/NoHabitsMessage";
+export * from "./components/WeekPreview";
+
+export * from "./hooks/useHabitTimeLeft";
+
+export * from "./utils/canMarkHabitDone";
+export * from "./utils/getHabitsForFutureDate";
+export * from "./utils/getNextHabitActivityDate";
