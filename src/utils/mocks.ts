@@ -21,5 +21,9 @@ export const randomEnum = <T>(myEnum: T): T[keyof T] => {
 };
 
 export const getFromEnum = <T>(myEnum: T, idx: number): T[keyof T] => {
-  return getFromArray(Object.values(myEnum), idx);
+  const enumKeys = (Object.keys(myEnum).filter((n) =>
+    Number.isNaN(Number.parseInt(n))
+  ) as unknown) as T[keyof T][];
+  const key = getFromArray(enumKeys, idx);
+  return (myEnum as any)[key]; // return values
 };

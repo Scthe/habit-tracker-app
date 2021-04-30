@@ -5,7 +5,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 // import { DAY_SIZE, DAY_MARGIN } from './constants/dimensions';
 // import { withDefaultProps } from './_shared/withDefaultProps';
-import { useStyles as useCalendarStyles } from "./Calendar";
+import { useStyles as useCalendarStyles } from "./DaysGrid";
 
 interface Props {
   className: string;

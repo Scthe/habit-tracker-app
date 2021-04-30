@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, HashRouter as Router } from "react-router-dom";
-import { useCurrentUser, withAppMenuActive } from "~contexts";
+import { useCurrentUser } from "~contexts";
 import { AppLayout, PageLoader } from "pages/_shared";
 
 const Habits = lazy(() => import("./pages/habits"));
@@ -25,7 +25,7 @@ export const AppRouter: React.FC<unknown> = () => {
     <Router>
       <AppPages>
         <Switch>
-          <Route path="/me" component={withAppMenuActive(User, "me")} />
+          <Route path="/me" component={User} />
           <Route path="*" component={Habits} />
         </Switch>
       </AppPages>

@@ -56,6 +56,7 @@ export const HabitTodayStatus: React.FC<Props> = ({
     }
   };
 
+  // TODO or just 2 big buttons: start timer, mark as done. Timer is a separate `/timer` scren
   return (
     <FormControlLabel
       label="Done today"

@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { withAppMenuActive } from "~contexts";
 
 import Agenda from "./agenda";
 import Calendar from "./calendar";
 import ManageHabits from "./manage";
 import Details from "./detail";
+import HabitForm from "./form";
 
 const HabitDefault = (props: unknown) => {
   return (
@@ -26,22 +26,10 @@ export default () => {
   return (
     <Switch>
       <Route path={`${path}/agenda`} component={Agenda} />
-      <Route
-        exact
-        path={`${path}/calendar`}
-        component={withAppMenuActive(Calendar, "calendar")}
-      />
-      <Route
-        exact
-        path={`${path}/manage`}
-        component={withAppMenuActive(ManageHabits, "manage")}
-      />
-      <Route
-        exact
-        path={`${path}/create`}
-        component={withAppMenuActive(HabitDefault, "create")}
-      />
-      <Route exact path={`${path}/:id/edit`} component={HabitDefault} />
+      <Route exact path={`${path}/calendar`} component={Calendar} />
+      <Route exact path={`${path}/manage`} component={ManageHabits} />
+      <Route exact path={`${path}/create`} component={HabitForm} />
+      <Route exact path={`${path}/:id/edit`} component={HabitForm} />
       <Route exact path={`${path}/:id/details`} component={Details} />
 
       {/* fallback */}

@@ -18,16 +18,16 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     display: "flex",
     flexDirection: "row",
   },
-  rootPhone: {},
-  rootDesktop: {},
   icon: {
     flex: "0",
   },
   text: {
     flex: "1",
-    textAlign: "center",
     fontWeight: "bold",
-    paddingTop: "14px",
+    paddingTop: "15px",
+  },
+  textInCenter: {
+    textAlign: "center",
   },
   onWhiteBg: activableOnWhiteBg(theme),
 }));
@@ -78,11 +78,12 @@ export const DateRangeSelector: React.FC<Props> = ({
     mode === "week" ? getWeekText(currentDate) : getMonthText(currentDate);
 
   const bgRelatedClass = onWhiteBg ? styles.onWhiteBg : "";
+  const rootClass = clsx(styles.root, bgRelatedClass, className);
 
   const iconL = (
     <IconButton
       className={styles.icon}
-      onClick={handleClickNext}
+      onClick={handleClickPrev}
       color="inherit"
     >
       <Icon>chevron_left</Icon>
@@ -91,35 +92,26 @@ export const DateRangeSelector: React.FC<Props> = ({
   const iconR = (
     <IconButton
       className={styles.icon}
-      onClick={handleClickPrev}
+      onClick={handleClickNext}
       color="inherit"
     >
       <Icon>chevron_right</Icon>
     </IconButton>
   );
   const text = (
-    <div className={styles.text}>
+    <div className={clsx(styles.text, textInCenter && styles.textInCenter)}>
       <span>{name}</span>
     </div>
   );
 
   return textInCenter ? (
-    <div
-      className={clsx(
-        styles.root,
-        bgRelatedClass,
-        styles.rootDesktop,
-        className
-      )}
-    >
+    <div className={rootClass}>
       {iconL}
       {text}
       {iconR}
     </div>
   ) : (
-    <div
-      className={clsx(styles.root, bgRelatedClass, styles.rootPhone, className)}
-    >
+    <div className={rootClass}>
       {iconL}
       {iconR}
       {text}

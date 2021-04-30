@@ -27,24 +27,3 @@ export const useSetAppMenuActiveLink = (
     }
   }, [setActiveAppMenuItem, itemId]);
 };
-
-// TODO remove code below
-export const withAppMenuActive = (
-  Comp: React.ComponentType,
-  itemId: CurrentActiveElement
-) => {
-  const WithAppMenuActive: React.FC<unknown> = (props) => {
-    const setActiveAppMenuItem = useActiveAppMenuStorage(
-      (s) => s.setActiveItem
-    );
-    useEffect(() => setActiveAppMenuItem(itemId), [
-      setActiveAppMenuItem,
-      itemId,
-    ]);
-
-    return <Comp {...props} />;
-  };
-
-  setHocName(WithAppMenuActive, Comp);
-  return WithAppMenuActive;
-};

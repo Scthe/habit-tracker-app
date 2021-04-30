@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
 import { useParams } from "react-router-dom";
 import clsx from "clsx";
 
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     marginBottom: "20px",
   },
-  // divider: { marginBottom: "10px" },
   fields: { marginBottom: "20px" },
 }));
 
@@ -34,8 +32,6 @@ const HabitDetails: React.FC<unknown> = () => {
 
   // TODO add loading/error handling
   // if (!hasAsyncData(habitAsync)) { return <AsyncDataStatusNotDone/> }
-
-  // TODO fix scrolling
 
   const habit: Habit = (habitAsync as any).data;
   const currentStatus = HabitCompletionStatus.DONE;
@@ -52,9 +48,6 @@ const HabitDetails: React.FC<unknown> = () => {
           today={today}
           className={styles.fields}
         />
-
-        {/* <Divider className={styles.divider} /> */}
-
         <ActivityCalendar initMonth={today} />
       </div>
     </AppPage>

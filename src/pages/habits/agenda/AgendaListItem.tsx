@@ -7,9 +7,8 @@ import { Habit, HabitCompletionStatus } from "../_types";
 import { AgendaItemStatus } from "./AgendaItemStatus";
 
 const useStyles = makeStyles(() => ({
-  rootNotDone: {},
-  rootDone: {
-    opacity: 0.5,
+  doneState: {
+    textDecoration: "line-through",
   },
 }));
 
@@ -32,18 +31,17 @@ export const AgendaListItem: React.FC<Props> = ({
     history.push(`/habits/${habit.id}/details`);
   };
 
-  // TODO this UI sucks, maybe cross off items that are done?
-  // TBH this is like a 'disabled' state
-  const classByStatus =
-    status === HabitCompletionStatus.DONE
-      ? styles.rootDone
-      : styles.rootNotDone;
+  const isDone = status === HabitCompletionStatus.DONE;
+  const classByStatus = isDone ? styles.doneState : "";
 
   return (
     <HabitsListItem
       item={habit}
       className={classByStatus}
-      renderSubtext={() => timeLeftStr}
+      classes={{
+        title: classByStatus,
+      }}
+      renderSubtext={() => <span className={classByStatus}>{timeLeftStr}</span>}
       onClick={handleClick}
       actionElement={
         <AgendaItemStatus

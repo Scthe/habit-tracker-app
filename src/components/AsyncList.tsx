@@ -12,14 +12,16 @@ const DefaultEmptyListMsg: React.FC<unknown> = () => (
 
 interface Props<T> {
   data: AsyncData<T[]>;
+  filterPredicate?: (item: T) => boolean;
   className?: string;
   keyExtractor: ValueExtractor<T, ReactListKey>;
   renderItem: (item: T) => ReactNode;
   emptyListMsg?: ReactNode;
 }
 
-export function AsyncList<T>({
+const AsyncList = function AsyncList<T>({
   data,
+  filterPredicate,
   renderItem,
   keyExtractor,
   className,
@@ -34,18 +36,28 @@ export function AsyncList<T>({
   if (data.status === "error") {
     return <div>Error...</div>;
   }
-  if (data.data.length === 0) {
+
+  const dataAfterFilter = data.data.filter((e) => filterPredicate!(e)); // defaultProps ehh..
+  if (dataAfterFilter.length === 0) {
     const Comp = emptyListMsg != null ? emptyListMsg : DefaultEmptyListMsg;
-    return React.createElement(Comp as any);
+    return React.createElement(Comp as any, {
+      wasFilteredOut: data.data.length > 0,
+    });
   }
 
   return (
     <List className={className}>
-      {data.data.map((item) => (
+      {dataAfterFilter.map((item) => (
         <Fragment key={extractProperty(item, keyExtractor)}>
           {renderItem(item)}
         </Fragment>
       ))}
     </List>
   );
-}
+};
+
+AsyncList.defaultProps = {
+  filterPredicate: () => true,
+};
+
+export { AsyncList };

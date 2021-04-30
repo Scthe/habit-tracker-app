@@ -3,10 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
 import clsx from "clsx";
-import isFuture from "date-fns/isFuture";
-import isToday from "date-fns/isToday";
 
 import { CalendarDayProps } from "~components";
+import { TodayStatus } from "components/Calendar/DaysGrid";
 
 type Props = CalendarDayProps;
 
@@ -39,26 +38,25 @@ const useStyles = makeStyles((theme) => ({
 
 export const ActivityDay: React.FC<Props> = ({
   day,
+  today,
   isDayInCurrentMonth,
   className,
   role,
 }) => {
   const styles = useStyles();
   const isDone = day.getDate() % 2 == 0;
-  const isDayToday = isToday(day);
-  const isDayFuture = isFuture(day);
 
   const getColor = (): string => {
     if (!isDayInCurrentMonth) {
       return styles.notThisMonth;
     }
-    if (isDayToday) {
+    if (today === TodayStatus.Today) {
       return styles.today;
     }
     if (isDone) {
       return styles.wasDone;
     }
-    if (isDayFuture) {
+    if (today === TodayStatus.Future) {
       return styles.neutral;
     }
     return styles.wasFailed;

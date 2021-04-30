@@ -9,13 +9,16 @@ import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
 import { canMarkHabitDone } from "../_shared";
 import { useSetHabitDone } from "./api/useSetHabitDone";
 import { isPastDate } from "~utils";
+import Checkbox from "@material-ui/core/Checkbox";
+
+const DONE_GREEN = green[500];
 
 const useStyles = makeStyles((theme) => ({
   itemIconButton: {
     borderRadius: "0",
   },
   statusDone: {
-    color: green[500],
+    color: DONE_GREEN,
   },
   statusRed: {
     color: theme.palette.error.main,
@@ -81,12 +84,7 @@ export const AgendaItemStatus: React.FC<AgendaItemStatusProps> = ({
 
   // TODO on desktop add tooltip what the action will do
   return (
-    <IconButton
-      className={clsx(styles.itemIconButton, classStr)}
-      centerRipple={false}
-      onClick={handleToggle}
-    >
-      <Icon>{iconStr}</Icon>
-    </IconButton>
+    <Checkbox checked={isDone} onChange={handleToggle} color="primary" />
+    // style ={{ color: DONE_GREEN }}
   );
 };
