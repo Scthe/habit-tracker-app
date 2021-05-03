@@ -1,10 +1,14 @@
 import React from "react";
 
 import { Habit, HabitCompletionStatus } from "../_types";
-import { getWeekdayName } from "utils/time";
-import { assertUnreachable, stringifyNumber } from "~utils";
+import { getWeekdayNames } from "utils/time";
+import { assertUnreachable, getFromArray, stringifyNumber } from "~utils";
 import { DetailHabitField } from "./DetailHabitField";
 import { HabitTodayStatus } from "./HabitTodayStatus";
+
+const WEEKDAY_NAMES = getWeekdayNames("NNNN");
+const getWeekdayName = (weekdayIdx: number) =>
+  getFromArray(WEEKDAY_NAMES, weekdayIdx);
 
 const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
   switch (repeat.type) {
@@ -13,13 +17,13 @@ const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
     }
     case "weekly": {
       const dayNames = repeat.weekdays.map(getWeekdayName);
-      return ["Every week on", dayNames.join(", ")];
+      return ["On", dayNames.join(", ")];
     }
     case "weekly_summary": {
-      return ["Whole week till", getWeekdayName(repeat.endsOn)];
+      return ["Every week till", getWeekdayName(repeat.endsOn)];
     }
     case "monthly_summary": {
-      return ["Whole month till", stringifyNumber(repeat.endsOn)];
+      return ["Every month till", stringifyNumber(repeat.endsOn)];
     }
     default: {
       return assertUnreachable(repeat); // compile time error if some case is not handled

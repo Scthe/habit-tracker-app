@@ -78,7 +78,7 @@ export const getHabitHtmlTextColor = (theme: Theme, c: HabitColor): string => {
   }
 };
 
-/*export enum Weekday {
+export enum Weekday {
   Monday = 1,
   Tuesday = 2,
   Wednesday = 3,
@@ -86,9 +86,21 @@ export const getHabitHtmlTextColor = (theme: Theme, c: HabitColor): string => {
   Friday = 5,
   Saturday = 6,
   Sunday = 0,
-}*/
+}
+
+/** Order is random, so that you use User's first day of the week preferences,
+ * and not this list. This array should only be used with `.includes` or tests. */
+export const ALL_WEEK_DAYS: Weekday[] = [
+  Weekday.Thursday,
+  Weekday.Wednesday,
+  Weekday.Saturday,
+  Weekday.Tuesday,
+  Weekday.Monday,
+  Weekday.Sunday,
+  Weekday.Friday,
+];
 /** date-fn uses us locale that starts week with mondays */
-export type Weekday = DateFnDay;
+// export type Weekday = DateFnDay;
 
 // TODO Agenda for days past can contain habits that are now disabled/removed. The repetition
 // could also have changed (e.g. Mon, Fri turned into Wed). Need CRON?

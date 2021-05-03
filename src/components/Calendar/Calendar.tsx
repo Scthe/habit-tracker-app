@@ -4,9 +4,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 // import { useGlobalKeyDown, keycode } from '../../_shared/hooks/useKeyDown';
-import { WEEKDAY_NAMES } from "~utils";
+import { getWeekdayNames } from "~utils";
 import { CalendarSkeleton } from "./CalendarSkeleton";
 import { DaysGrid, Props as DaysGridProps } from "./DaysGrid";
+
+const WEEKDAY_NAMES = getWeekdayNames("N");
 
 export type Props = DaysGridProps & {
   allowKeyboardControl?: boolean;
@@ -56,10 +58,10 @@ export const Calendar: React.FC<Props> = (props) => {
   return (
     <div className={clsx(className, styles.root)}>
       <div className={styles.daysHeader}>
-        {WEEKDAY_NAMES.map((day) => (
+        {WEEKDAY_NAMES.map((day, dayIdx) => (
           <Typography
             aria-hidden
-            key={day}
+            key={dayIdx}
             variant="caption"
             className={styles.weekDayLabel}
           >

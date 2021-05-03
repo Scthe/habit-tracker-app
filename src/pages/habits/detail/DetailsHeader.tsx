@@ -46,7 +46,7 @@ export const DetailsHeader: React.FC<Props> = ({ id }) => {
           Habit Details
         </Typography>
 
-        <Link to={`habits/${id}/edit`} className={styles.editLink}>
+        <Link to={`/habits/${id}/edit`} className={styles.editLink}>
           <Button color="inherit">Edit</Button>
         </Link>
       </Toolbar>

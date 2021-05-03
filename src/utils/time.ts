@@ -14,7 +14,6 @@ import eachWeekOfInterval from "date-fns/eachWeekOfInterval";
 import addDays from "date-fns/addDays";
 
 import { pluralize1 } from "~utils";
-import { getFromArray } from "./mocks";
 
 export const sec2ms = (x: number) => Math.floor(x * 1000);
 export const min2ms = (x: number) => sec2ms(x) * 60;
@@ -59,16 +58,23 @@ export const isPastDate = (date_: Date) => {
   return isBefore(checkedDate, nowDate);
 };
 
-export const WEEKDAY_NAMES = (() => {
+export const getWeekdayNames = (() => {
   const date = new Date();
   const days = eachDayOfInterval({
     start: startOfWeek(date),
     end: lastDayOfWeek(date),
   });
-  return days.map((dd) => format(dd, "EEEE"));
+  // there is some stupid ISO standard for this? Cause 'EEEEEE' for [Mo, Tu, ...] does not make sense..
+  const fmtBetterPatterns = {
+    N: "EEEEE", // M, T, W, T, F, S, S
+    NN: "EEEEEE", // Mo, Tu, We, Th, Fr, Su, Sa
+    NNN: "E", // Mon, Tue, Wed, ..., Sun
+    NNNN: "EEEE", // Monday, Tuesday, ..., Sunday
+  };
+  return (fmtStr: "N" | "NN" | "NNN" | "NNNN") => {
+    return days.map((dd) => format(dd, fmtBetterPatterns[fmtStr]));
+  };
 })();
-export const getWeekdayName = (weekdayIdx: number) =>
-  getFromArray(WEEKDAY_NAMES, weekdayIdx);
 
 export interface DateDiff {
   days: number;

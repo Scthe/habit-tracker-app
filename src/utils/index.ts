@@ -1,7 +1,7 @@
-import { PickByValueType } from "~types";
-
+export * from "./extractProperty";
 export * from "./mocks";
 export * from "./reactUtils";
+export * from "./stringifyNumber";
 export * from "./time";
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -20,70 +20,26 @@ export const sortStringCmpFn = (a: string, b: string): 1 | -1 | 0 => {
 export const pluralize1 = (num: number, text1: string, textMany: string) =>
   num === 1 ? text1 : textMany;
 
-export const stringifyNumber = (n: number) => {
-  const special = [
-    "zeroth",
-    "first",
-    "second",
-    "third",
-    "fourth",
-    "fifth",
-    "sixth",
-    "seventh",
-    "eighth",
-    "ninth",
-    "tenth",
-    "eleventh",
-    "twelfth",
-    "thirteenth",
-    "fourteenth",
-    "fifteenth",
-    "sixteenth",
-    "seventeenth",
-    "eighteenth",
-    "nineteenth",
-  ];
-  const deca = [
-    "twent",
-    "thirt",
-    "fort",
-    "fift",
-    "sixt",
-    "sevent",
-    "eight",
-    "ninet",
-  ];
-
-  if (n < 0 || n >= 100) {
-    throw new Error(
-      `Invalid argument '${n}' was provided to 'stringifyNumber'. Expected: 0 <= n < 100`
-    );
-  }
-  if (n < 20) {
-    return special[n];
-  }
-  if (n % 10 === 0) {
-    return deca[Math.floor(n / 10) - 2] + "ieth";
-  }
-  return deca[Math.floor(n / 10) - 2] + "y-" + special[n % 10];
-};
-
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Didn't expect to get here with x: '${JSON.stringify(x)}'`);
 };
 
-type ValueExtractorFn<ObjType, RetType> = (obj: ObjType) => RetType;
-export type ValueExtractor<ObjType, RetType> =
-  | ValueExtractorFn<ObjType, RetType> // function (v: Value)=>RetType
-  | keyof PickByValueType<ObjType, RetType>; // property name
-
-/** Extract value from object. Can provide object's key as string or a function */
-export const extractProperty = function <ObjType, RetType>(
-  item: ObjType,
-  keyExtractor: ValueExtractor<ObjType, RetType>
-): RetType {
-  const defaultExtractor = (e: ObjType) => (e as any)[keyExtractor];
-  const keyExtractFn: ValueExtractor<ObjType, RetType> =
-    typeof keyExtractor === "function" ? keyExtractor : defaultExtractor;
-  return keyExtractFn(item);
+export const getFromArray = <T>(arr: T[], idx: number): T => {
+  if (arr.length === 0) {
+    throw new Error(
+      `getFromArray received array of length 0. How can I select something from this?`
+    );
+  }
+  return arr[Math.abs(idx) % arr.length];
 };
+
+export const getFromEnum = <T>(myEnum: T, idx: number): T[keyof T] => {
+  const enumKeys = (Object.keys(myEnum).filter((n) =>
+    Number.isNaN(Number.parseInt(n))
+  ) as unknown) as T[keyof T][];
+  const key = getFromArray(enumKeys, idx);
+  return (myEnum as any)[key]; // return values
+};
+
+export const floorToDivisibleBy = (n: number, divisibleBy: number) =>
+  Math.floor(n / divisibleBy) * divisibleBy;

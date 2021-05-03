@@ -42,7 +42,7 @@ const getIconString = (
   const showIcon =
     isDone || // we want to know this!
     isActionable || // always show action
-    isPastDate(currentDate); // always show past status
+    isPastDate(currentDate); // always show past status. Ignore hours in comparison
 
   if (!showIcon) {
     return null;

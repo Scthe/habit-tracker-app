@@ -15,6 +15,7 @@ const links = [
   { to: "/habits/wtf" },
 ];
 
+// TODO remove me
 const Home: React.FC<unknown> = () => {
   return (
     <div>

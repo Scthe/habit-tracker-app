@@ -1,3 +1,4 @@
+import { FieldMetaProps } from "formik";
 import React from "react";
 
 export const getComponentName = (Comp: React.ComponentType): string => {
@@ -16,4 +17,12 @@ export const setHocName = (
   const hocName = getComponentName(HocComp);
   const compName = getComponentName(Comp);
   HocComp.displayName = `${hocName}_${compName}`;
+};
+
+export const getFieldError = (meta: FieldMetaProps<any>) => {
+  const showError = meta.touched && meta.error != null && meta.error.length > 0;
+  return {
+    error: showError,
+    helperText: showError ? meta.error : undefined,
+  };
 };
