@@ -2,9 +2,9 @@ import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 import isBefore from "date-fns/isBefore";
 import isSameDay from "date-fns/isSameDay";
 import subDays from "date-fns/subDays";
-import { assertUnreachable, zeroeTime } from "~utils";
 import { Habit } from "../../_types";
 import { getNextHabitActivityDate } from "./getNextHabitActivityDate";
+import { assertUnreachable, zeroeTime } from "~utils";
 
 // TODO test me!
 

@@ -3,14 +3,14 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 
 // import { useResponsive } from "~hooks";
-import { DateRangeSelector } from "~components";
 import { AppPage } from "../../_shared";
 import { WeekPreview } from "../_shared";
 import { useAgendaData } from "./api/useAgendaData";
 import { AgendaList } from "./AgendaList";
 import { useCurrentDay } from "./useCurrentDay";
+import { DateRangeSelector } from "~components";
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",

@@ -3,15 +3,13 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-// import { DAY_SIZE, DAY_MARGIN } from './constants/dimensions';
-// import { withDefaultProps } from './_shared/withDefaultProps';
 import { useStyles as useCalendarStyles } from "./DaysGrid";
 
 interface Props {
   className: string;
 }
 
-export const useStyles = makeStyles({
+const useStyles = makeStyles({
   root: {},
   daySkeleton: {
     margin: `0 5px`,

@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 
-import { AsyncData } from "~types";
-import { floorToDivisibleBy } from "~utils";
 import { Habit, HabitColor } from "../_types";
 import { useGetHabit } from "./api/useGetHabit";
+import { AsyncData } from "~types";
+import { floorToDivisibleBy } from "~utils";
 
 export type FormValues = Omit<Habit, "id">;
 

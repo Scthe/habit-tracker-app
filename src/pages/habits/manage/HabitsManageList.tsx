@@ -1,10 +1,10 @@
 import React from "react";
 
+import { NoHabitsMessage } from "../_shared";
+import { Habit } from "../_types";
+import { HabitsManageListItem } from "./HabitsManageListItem";
 import { AsyncData } from "~types";
 import { AsyncList } from "~components";
-import { NoHabitsMessage } from "../_shared";
-import { HabitsManageListItem } from "./HabitsManageListItem";
-import { Habit } from "../_types";
 
 interface Props {
   search: string;

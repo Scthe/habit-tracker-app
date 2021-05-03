@@ -24,13 +24,13 @@ SOFTWARE.
 
 import * as React from "react";
 
-export const useIsomorphicEffect =
+const useIsomorphicEffect =
   typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 
 type KeyCb = () => void;
 type KeyHandlers = Record<string, KeyCb>;
 
-export function runKeyHandler(
+function runKeyHandler(
   event: KeyboardEvent | React.KeyboardEvent,
   keyHandlers: KeyHandlers
 ) {
@@ -41,7 +41,10 @@ export function runKeyHandler(
     event.preventDefault();
   }
 }
-export function useGlobalKeyDown(active: boolean, keyHandlers: KeyHandlers) {
+export function useGlobalKeyDown(
+  active: boolean,
+  keyHandlers: KeyHandlers
+): void {
   const keyHandlersRef = React.useRef(keyHandlers);
   keyHandlersRef.current = keyHandlers;
 

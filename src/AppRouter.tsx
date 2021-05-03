@@ -1,11 +1,12 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, HashRouter as Router } from "react-router-dom";
+
+import Home from "./pages/home"; // do not lazy load this. TODO just make this static page. Unless logged in?
+import { AppLayout, PageLoader } from "./pages/_shared";
 import { useCurrentUser } from "~contexts";
-import { AppLayout, PageLoader } from "pages/_shared";
 
 const Habits = lazy(() => import("./pages/habits"));
 const User = lazy(() => import("./pages/user"));
-import Home from "./pages/home"; // do not lazy load this. TODO just make this static page. Unless logged in?
 
 const AppPages: React.FC<unknown> = ({ children }) => {
   return (

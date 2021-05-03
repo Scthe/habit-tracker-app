@@ -1,4 +1,5 @@
-import { times } from "lodash";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import times from "lodash/times";
 import { is } from "superstruct";
 import {
   ALL_WEEK_DAYS,

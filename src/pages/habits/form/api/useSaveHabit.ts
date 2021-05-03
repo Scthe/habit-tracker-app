@@ -1,13 +1,6 @@
 import { useCallback } from "react";
-import { AsyncData } from "~types";
-import { Habit, HabitCompletionStatus } from "../../_types";
+import { Habit } from "../../_types";
 import { FormValues } from "../useFormInitValues";
-
-export interface HabitAgendaItem {
-  id: string;
-  habit: Habit;
-  status: HabitCompletionStatus;
-}
 
 export type SaveHabitFn = (values: FormValues) => Promise<void>;
 

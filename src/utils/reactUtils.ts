@@ -19,7 +19,13 @@ export const setHocName = (
   HocComp.displayName = `${hocName}_${compName}`;
 };
 
-export const getFieldError = (meta: FieldMetaProps<any>) => {
+type MaterialUIFieldErrorProps = {
+  error: boolean;
+  helperText?: string;
+};
+export const getFieldError = (
+  meta: FieldMetaProps<unknown>
+): MaterialUIFieldErrorProps => {
   const showError = meta.touched && meta.error != null && meta.error.length > 0;
   return {
     error: showError,

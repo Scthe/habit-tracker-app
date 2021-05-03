@@ -32,7 +32,10 @@ const canBeDoneOn = (habit: Habit, date: Date): boolean => {
   }
 };
 
-export const getHabitsForFutureDate = (date_: Date, habits: Habit[]) => {
+export const getHabitsForFutureDate = (
+  date_: Date,
+  habits: Habit[]
+): Habit[] => {
   const checkedDate = zeroeTime(date_);
   const nowDate = zeroeTime(new Date());
   const isTodayOrInFuture =

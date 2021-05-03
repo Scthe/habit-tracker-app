@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { lighten, makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 
-import { HabitStatus } from "./api/useHabitStatuses";
 import { getHabitHtmlColor, getHabitHtmlTextColor } from "../_types";
+import { HabitStatus } from "./api/useHabitStatuses";
 import { CalendarDayProps } from "~components";
 import { byCalendarSize } from "components/Calendar/DaysGrid";
 

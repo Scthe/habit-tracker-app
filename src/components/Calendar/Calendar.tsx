@@ -4,9 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 // import { useGlobalKeyDown, keycode } from '../../_shared/hooks/useKeyDown';
-import { getWeekdayNames } from "~utils";
 import { CalendarSkeleton } from "./CalendarSkeleton";
 import { DaysGrid, Props as DaysGridProps } from "./DaysGrid";
+import { getWeekdayNames } from "~utils";
 
 const WEEKDAY_NAMES = getWeekdayNames("N");
 

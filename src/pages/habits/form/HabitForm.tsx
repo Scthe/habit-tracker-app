@@ -35,6 +35,7 @@ interface Props {
   onSubmit: SaveHabitFn;
 }
 
+// eslint-disable-next-line import/no-unused-modules
 export const HabitForm: React.FC<Props & FormikProps<FormValues>> = ({
   isEdit,
 }) => {

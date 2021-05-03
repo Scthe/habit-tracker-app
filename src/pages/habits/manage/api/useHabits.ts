@@ -1,7 +1,7 @@
-import { AsyncData } from "~types";
-import { sortStringCmpFn } from "~utils";
 import { Habit } from "../../_types";
 import { HabitsListMock } from "../../_types/mocks/Habit";
+import { AsyncData } from "~types";
+import { sortStringCmpFn } from "~utils";
 
 export const useHabits = (): AsyncData<Habit[]> => {
   return {

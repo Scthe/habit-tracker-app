@@ -10,6 +10,7 @@ export const extractProperty = function <ObjType, RetType>(
   item: ObjType,
   keyExtractor: ValueExtractor<ObjType, RetType>
 ): RetType {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const defaultExtractor = (e: ObjType) => (e as any)[keyExtractor];
   const keyExtractFn: ValueExtractor<ObjType, RetType> =
     typeof keyExtractor === "function" ? keyExtractor : defaultExtractor;

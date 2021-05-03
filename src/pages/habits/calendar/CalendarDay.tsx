@@ -4,14 +4,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import clsx from "clsx";
 
+import { HabitDayStatus } from "./api/useHabitStatuses";
+import { HabitRectangle } from "./HabitRectangle";
 import { CalendarDayProps } from "~components";
 import {
   byCalendarSize,
   StyleCalendarDayProps,
   TodayStatus,
 } from "components/Calendar/DaysGrid";
-import { HabitDayStatus } from "./api/useHabitStatuses";
-import { HabitRectangle } from "./HabitRectangle";
 import { AppTheme } from "theme";
 
 const SHOWN_HABITS = 2;

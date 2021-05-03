@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import defaultsDeep from "lodash/defaultsDeep";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     marginBottom: "20px",
   },

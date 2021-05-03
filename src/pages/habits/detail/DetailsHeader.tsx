@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { Habit } from "../_types";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   menuButton: {},
   title: {
     flexGrow: 1,

@@ -27,8 +27,6 @@ const AsyncList = function AsyncList<T>({
   className,
   emptyListMsg,
 }: Props<T>): ReactElement {
-  // const styles = useStyles();
-
   // TODO handle loading/error better
   if (data.status === "loading") {
     return <div>Loading...</div>;
@@ -37,9 +35,11 @@ const AsyncList = function AsyncList<T>({
     return <div>Error...</div>;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const dataAfterFilter = data.data.filter((e) => filterPredicate!(e)); // defaultProps ehh..
   if (dataAfterFilter.length === 0) {
     const Comp = emptyListMsg != null ? emptyListMsg : DefaultEmptyListMsg;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return React.createElement(Comp as any, {
       wasFilteredOut: data.data.length > 0,
     });

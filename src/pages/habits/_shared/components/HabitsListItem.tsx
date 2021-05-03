@@ -2,12 +2,12 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import Box from "@material-ui/core/Box";
+import { darken } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 
-import { AppTheme } from "theme";
 import { getHabitHtmlColor, Habit } from "../../_types";
-import { darken } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { AppTheme } from "theme";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {

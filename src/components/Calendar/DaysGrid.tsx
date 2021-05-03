@@ -26,11 +26,12 @@ export interface CalendarDayProps {
 }
 
 export type StyleCalendarDayProps = Pick<CalendarDayProps, "size">;
+
 export const byCalendarSize = function <PropT extends StyleCalendarDayProps>(
   valSmall: string,
   valLarge: string
 ) {
-  return (p: PropT) => (p.size === "small" ? valSmall : valLarge);
+  return (p: PropT): string => (p.size === "small" ? valSmall : valLarge);
 };
 
 export interface Props {

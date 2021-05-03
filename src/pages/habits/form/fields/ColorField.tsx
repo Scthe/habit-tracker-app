@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import { HabitColor } from "../../_types";
 import { FormValues } from "../useFormInitValues";
 import { ColorPreview, ColorSelectDialog } from "../dialogs/ColorSelectDialog";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import { ExtraValidationText } from "~components";
 
 const useStyles = makeStyles(() => ({

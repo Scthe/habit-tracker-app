@@ -1,16 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import getDate from "date-fns/getDate";
 
-import { Calendar } from "~components";
 import { CalendarDay } from "./CalendarDay";
-import { useDesktopLayout } from "~hooks";
 import {
   HabitDayStatus,
   HabitStatusPerMonthData,
 } from "./api/useHabitStatuses";
-import { getDate } from "date-fns";
+import { Calendar } from "~components";
+import { useDesktopLayout } from "~hooks";
 
-export const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles((theme) => {
   const borderColor = theme.palette.grey["300"];
   return {
     calendar: {

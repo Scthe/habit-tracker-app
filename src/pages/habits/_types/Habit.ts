@@ -1,6 +1,4 @@
-import type { Day as DateFnDay } from "date-fns";
 import { Theme } from "@material-ui/core/styles";
-import { assertUnreachable } from "~utils";
 
 import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
@@ -12,6 +10,7 @@ import teal from "@material-ui/core/colors/teal";
 import lime from "@material-ui/core/colors/lime";
 import yellow from "@material-ui/core/colors/yellow";
 import orange from "@material-ui/core/colors/orange";
+import { assertUnreachable } from "~utils";
 
 export enum HabitColor {
   Transparent,

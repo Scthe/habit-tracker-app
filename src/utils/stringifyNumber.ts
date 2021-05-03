@@ -1,4 +1,4 @@
-export const stringifyNumber = (n: number) => {
+export const stringifyNumber = (n: number): string => {
   const special = [
     "zeroth",
     "first",
@@ -46,9 +46,10 @@ export const stringifyNumber = (n: number) => {
   return deca[Math.floor(n / 10) - 2] + "y-" + special[n % 10];
 };
 
-export const numberOrderingSufix = (n: number) => {
+export const numberOrderingSufix = (n: number): string => {
   const a = stringifyNumber(n);
   return a.substring(a.length - 2); // :)
 };
 
-export const numberOrdering = (n: number) => `${n}${numberOrderingSufix(n)}`;
+export const numberOrdering = (n: number): string =>
+  `${n}${numberOrderingSufix(n)}`;

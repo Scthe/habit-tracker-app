@@ -1,15 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
-import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import clsx from "clsx";
 
+import Checkbox from "@material-ui/core/Checkbox";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
 import { canMarkHabitDone } from "../_shared";
 import { useSetHabitDone } from "./api/useSetHabitDone";
 import { isPastDate } from "~utils";
-import Checkbox from "@material-ui/core/Checkbox";
 
 const DONE_GREEN = green[500];
 

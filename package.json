@@ -14,6 +14,7 @@
     "prettier": "prettier --check src",
     "prettier:write": "prettier --write src",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint src --fix --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -54,6 +55,8 @@
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.2",
     "eslint": "^7.20.0",
+    "eslint-import-resolver-ts": "^0.4.2",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.1.0",
     "husky": "^5.0.9",

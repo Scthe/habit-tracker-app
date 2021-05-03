@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const DescriptionField: React.FC<Props> = (props) => {
-  const [field, meta, helpers] = useField(props);
+  const [field, meta] = useField(props);
 
   return (
     <TextField

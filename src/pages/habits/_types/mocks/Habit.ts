@@ -1,5 +1,4 @@
 import times from "lodash/times";
-import { createMock, getFromArray, getFromEnum } from "~utils";
 import {
   Habit,
   HabitColor,
@@ -10,15 +9,16 @@ import {
   RepetitionWeeklySummary,
   Weekday,
 } from "../Habit";
+import { createMock, getFromArray, getFromEnum } from "~utils";
 
 const REPEAT_DAILY: RepetitionDaily = { type: "daily" };
 const REPEAT_WEEKLY: RepetitionWeekly = {
   type: "weekly",
-  weekdays: [0, 4, 5], // Sun, Thu, Fri
+  weekdays: [Weekday.Sunday, Weekday.Thursday, Weekday.Friday],
 };
 const REPEAT_WEEKLY_SUMMARY: RepetitionWeeklySummary = {
   type: "weekly_summary",
-  endsOn: 5, // Fri
+  endsOn: Weekday.Friday,
 };
 const REPEAT_MONTHLY_SUMMARY: RepetitionMonthlySummary = {
   type: "monthly_summary",
@@ -40,7 +40,7 @@ export const HabitMock = createMock<Habit>({
   repeat: REPEAT_DAILY,
 });
 
-export const HabitsListMock = (count = 25, offset = 0) =>
+export const HabitsListMock = (count = 25, offset = 0): Habit[] =>
   times(count, (ii) => {
     const i = ii + offset;
     return HabitMock({
@@ -49,7 +49,5 @@ export const HabitsListMock = (count = 25, offset = 0) =>
       color: getFromEnum(HabitColor, i),
       repeat: getFromArray(REPEATS, i),
       reminderTime: { hour: i % 24, minute: (15 + i) % 60 },
-      // status: i % 3,// randomEnum(HabitStatus),
-      // nextReminderDate: addHours(new Date, i * 30 + 1),
     });
   });

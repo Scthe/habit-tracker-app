@@ -1,14 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
 import { HabitsListItem } from "../_shared";
 import { Habit } from "../_types";
 import { assertUnreachable } from "~utils";
-
-const useStyles = makeStyles(() => ({
-  root: {},
-}));
 
 interface Props {
   habit: Habit;
@@ -34,7 +29,6 @@ const getSubtext = (habit: Habit): string => {
 
 export const HabitsManageListItem: React.FC<Props> = ({ habit }) => {
   const history = useHistory();
-  const styles = useStyles();
 
   const handleClick = () => {
     history.push(`/habits/${habit.id}/details`);

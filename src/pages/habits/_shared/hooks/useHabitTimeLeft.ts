@@ -1,10 +1,10 @@
 import { useState, useCallback } from "react";
 import isBefore from "date-fns/isBefore";
 
-import { useInterval } from "~hooks";
-import { getDateDiff, min2ms, stringifyDateDiff } from "~utils";
 import { Habit } from "../../_types";
 import { createHabitActivityDate } from "../utils/getNextHabitActivityDate";
+import { useInterval } from "~hooks";
+import { getDateDiff, min2ms, stringifyDateDiff } from "~utils";
 
 const recalcTimeLeft = (habitDate: Date): string => {
   const now = new Date();

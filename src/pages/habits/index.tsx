@@ -7,22 +7,15 @@ import ManageHabits from "./manage";
 import Details from "./detail";
 import HabitForm from "./form";
 
-const HabitDefault = (props: unknown) => {
-  return (
-    <div>
-      <h1>HabitDefault</h1>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
-    </div>
-  );
-};
-
 const path = "/habits";
 
 // TODO router is different between mobile/desktop. e.g. details view is same as agenda on desktop
 //      or maybe remove details view from desktop altogether?
 //      useDesktopLayout();
 //      You can always use HOC that will make responsive data availabie in makeStyles
-export default () => {
+
+// eslint-disable-next-line import/no-unused-modules
+export default (): JSX.Element => {
   return (
     <Switch>
       <Route path={`${path}/agenda`} component={Agenda} />

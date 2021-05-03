@@ -3,14 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
-import { getDateDiff, stringifyDateDiff } from "~utils";
+import isSameDay from "date-fns/isSameDay";
 import { getNextHabitActivityDate } from "../_shared";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
-import { DetailHabitField } from "./DetailHabitField";
-import isSameDay from "date-fns/isSameDay";
 import { useSetHabitDone } from "../agenda/api/useSetHabitDone";
+import { DetailHabitField } from "./DetailHabitField";
+import { getDateDiff, stringifyDateDiff } from "~utils";
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles(() => ({
   activeLabelRoot: {
     display: "flex",
     margin: "0 0 15px",

@@ -1,17 +1,16 @@
 import React from "react";
 import getDate from "date-fns/getDate";
 import getMonth from "date-fns/getMonth";
-import addDays from "date-fns/addDays";
 import format from "date-fns/format";
+import addMonths from "date-fns/addMonths";
+import addWeeks from "date-fns/addWeeks";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
+import IconButton from "@material-ui/core/IconButton";
 import { getWeekRange } from "~utils";
 import { activableOnWhiteBg, AppTheme } from "theme";
-import { addMonths, addWeeks } from "date-fns";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {

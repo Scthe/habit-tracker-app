@@ -61,6 +61,7 @@ export const WeekdaySelection: React.FC<Props> = ({
 
       <Box display="flex" justifyContent="center" marginTop="10px">
         {weekdayNames.map((dayName, idx) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const dayId: Weekday = idx as any;
           const isSelected = currentValues.includes(dayId);
           return (
@@ -69,7 +70,7 @@ export const WeekdaySelection: React.FC<Props> = ({
                 variant="contained"
                 color={isSelected ? "primary" : undefined}
                 disableElevation
-                onClick={() => onWeekdayChanged(dayId as any)}
+                onClick={() => onWeekdayChanged(dayId)}
                 classes={{
                   root: styles.dayButtonRoot,
                   label: styles.dayButtonLabel,

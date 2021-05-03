@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 // AppMenuItem
 
 interface AppMenuItemProps {
-  currentItem: CurrentActiveElement;
+  currentItem?: CurrentActiveElement;
   item: AppMenuItemType;
 }
 
@@ -66,7 +66,7 @@ const AppMenuItem: React.FC<AppMenuItemProps> = ({ currentItem, item }) => {
 // AppMenuHorizontal
 
 interface Props {
-  currentItem: CurrentActiveElement;
+  currentItem?: CurrentActiveElement;
   flex: string;
 }
 

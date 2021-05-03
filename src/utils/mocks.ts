@@ -1,4 +1,4 @@
-import sample from "lodash/sample";
+import { getFromEnum } from "~utils";
 
 export const createMock = <T>(defaultVal: T) => {
   return (override: Partial<T> = {}): T => ({
@@ -8,5 +8,6 @@ export const createMock = <T>(defaultVal: T) => {
 };
 
 export const randomEnum = <T>(myEnum: T): T[keyof T] => {
-  return sample(Object.values(myEnum)) as any;
+  const randIdx = Object.values(myEnum).length * Math.random();
+  return getFromEnum(myEnum, Math.floor(randIdx));
 };

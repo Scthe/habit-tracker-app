@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 
+import IconButton from "@material-ui/core/IconButton";
 import {
   ITEM_AGENDA,
   ITEM_CALENDAR,
@@ -17,7 +18,6 @@ import {
   CurrentActiveElement,
   AppMenuItem as AppMenuItemType,
 } from "./constants";
-import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 // AppMenuItem
 
 interface AppMenuItemProps {
-  currentItem: CurrentActiveElement;
+  currentItem?: CurrentActiveElement;
   item: AppMenuItemType;
 }
 
@@ -80,7 +80,7 @@ const AppMenuItem: React.FC<AppMenuItemProps> = ({ currentItem, item }) => {
 
 interface Props {
   className?: string;
-  currentItem: CurrentActiveElement;
+  currentItem?: CurrentActiveElement;
 }
 
 export const AppMenuVertical: React.FC<Props> = ({

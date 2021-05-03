@@ -1,6 +1,7 @@
 import { createMuiTheme, Theme } from "@material-ui/core/styles";
 // import grey from '@material-ui/core/colors/grey';
 
+// TODO define all colors here
 const customTheme = {
   palette: {
     actionOnWhiteBg: {
@@ -21,4 +22,5 @@ export const activableOnWhiteBg = (theme: AppTheme) => ({
 
 export type AppTheme = Theme & typeof customTheme;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default createMuiTheme(customTheme as any);

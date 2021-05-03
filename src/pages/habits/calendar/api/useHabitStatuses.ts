@@ -1,7 +1,7 @@
 import times from "lodash/times";
+import { Habit, HabitColor, HabitCompletionStatus } from "../../_types";
 import { AsyncData } from "~types";
 import { getFromArray, getFromEnum } from "~utils";
-import { Habit, HabitColor, HabitCompletionStatus } from "../../_types";
 
 export interface HabitStatus {
   habitId: Habit["id"];

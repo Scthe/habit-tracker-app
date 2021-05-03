@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import List from "@material-ui/core/List";
@@ -21,7 +21,7 @@ interface Props<T> {
   children: ItenRenderFn<T>;
 }
 
-export function ValuePickDialog<T>({
+const ValuePickDialog = function <T>({
   name,
   title,
   open,
@@ -29,7 +29,7 @@ export function ValuePickDialog<T>({
   selectedValue,
   data,
   children,
-}: Props<T>) {
+}: Props<T>): ReactElement {
   const isDesktop = useDesktopLayout();
 
   const titleId = `${name}-dialog-title`;
@@ -57,4 +57,6 @@ export function ValuePickDialog<T>({
       </List>
     </Dialog>
   );
-}
+};
+
+export { ValuePickDialog };

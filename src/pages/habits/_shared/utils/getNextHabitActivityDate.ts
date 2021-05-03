@@ -3,8 +3,8 @@ import closestIndexTo from "date-fns/closestIndexTo";
 import getDate from "date-fns/getDate";
 import getDay from "date-fns/getDay";
 import nextDay from "date-fns/nextDay";
-import { assertUnreachable, setDateOfMonth, zeroeTime } from "~utils";
 import { Habit, Weekday } from "../../_types";
+import { assertUnreachable, setDateOfMonth, zeroeTime } from "~utils";
 
 /** Inserts the `$habit.reminderTime` time into date. */
 export const createHabitActivityDate = (habit: Habit, date: Date): Date => {

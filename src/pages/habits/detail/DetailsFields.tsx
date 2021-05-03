@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Habit, HabitCompletionStatus } from "../_types";
-import { getWeekdayNames } from "utils/time";
-import { assertUnreachable, getFromArray, stringifyNumber } from "~utils";
 import { DetailHabitField } from "./DetailHabitField";
 import { HabitTodayStatus } from "./HabitTodayStatus";
+import { getWeekdayNames } from "utils/time";
+import { assertUnreachable, getFromArray, stringifyNumber } from "~utils";
 
 const WEEKDAY_NAMES = getWeekdayNames("NNNN");
 const getWeekdayName = (weekdayIdx: number) =>

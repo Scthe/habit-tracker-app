@@ -1,15 +1,15 @@
 import React from "react";
 import { useField } from "formik";
-import { FormValues } from "../../useFormInitValues";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import { FormValues } from "../../useFormInitValues";
 
-import { HabitRepetition, Weekday } from "pages/habits/_types";
-import { assertUnreachable, getWeekdayNames } from "~utils";
 import { WeekdaySelection } from "./WeekdaySelection";
 import { DayOfMonthSelection } from "./DayOfMonthSelection";
+import { assertUnreachable, getWeekdayNames } from "~utils";
+import { HabitRepetition, Weekday } from "pages/habits/_types";
 import { ExtraValidationText } from "~components";
 
 type RepeatType = HabitRepetition["type"];

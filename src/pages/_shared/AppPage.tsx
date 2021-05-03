@@ -2,8 +2,8 @@ import React from "react";
 import clsx from "clsx";
 
 import { CurrentActiveElement } from "../../components/AppMenu/constants";
-import { useSetAppMenuActiveLink } from "~contexts";
 import { useAppLayoutStyle } from "./AppLayout";
+import { useSetAppMenuActiveLink } from "~contexts";
 
 interface Props {
   appMenuActiveItem?: CurrentActiveElement;

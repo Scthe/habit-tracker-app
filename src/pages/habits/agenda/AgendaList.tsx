@@ -1,10 +1,10 @@
 import React from "react";
 
-import { AsyncData } from "~types";
-import { AsyncList } from "~components";
 import { NoHabitsMessage } from "../_shared";
 import { HabitAgendaItem } from "./api/useAgendaData";
 import { AgendaListItem } from "./AgendaListItem";
+import { AsyncList } from "~components";
+import { AsyncData } from "~types";
 
 interface Props {
   data: AsyncData<HabitAgendaItem[]>;

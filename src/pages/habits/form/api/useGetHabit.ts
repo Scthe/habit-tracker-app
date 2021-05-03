@@ -1,12 +1,6 @@
-import { AsyncData } from "~types";
-import { Habit, HabitCompletionStatus } from "../../_types";
+import { Habit } from "../../_types";
 import { HabitMock } from "../../_types/mocks/Habit";
-
-export interface HabitAgendaItem {
-  id: string;
-  habit: Habit;
-  status: HabitCompletionStatus;
-}
+import { AsyncData } from "~types";
 
 // TODO remove, use location.state instead
 export const useGetHabit = (id?: Habit["id"]): AsyncData<Habit> | null => {

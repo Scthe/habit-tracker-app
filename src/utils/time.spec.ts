@@ -3,18 +3,13 @@ import { DateDiff, getDateDiff } from "./time";
 describe("getDateDiff", () => {
   const MOCK_DATE = new Date("2020-05-15T11:30:00.00Z");
 
-  /*const mockDateNow = (date: Date) => {
-    jest
-      .spyOn(global, "Date")
-      .mockImplementationOnce(() => date as any);
-  }*/
   const expectDateDiffEquals = (diff: DateDiff, ...exp: number[]) => {
     const diffStr = `${diff.days} days, ${diff.hours} hours, ${diff.minutes} minutes`;
     const expStr = `${exp[0]} days, ${exp[1]} hours, ${exp[2]} minutes`;
     expect(diffStr).toBe(expStr);
   };
 
-  const CASES = [
+  const CASES: Array<[string, number, number, number]> = [
     // date, days diff, hours diff, minutes diff
     ["2020-05-15T11:30:00.00Z", 0, 0, 0],
     ["2020-05-15T11:50:00.00Z", 0, 0, 20],
@@ -28,7 +23,7 @@ describe("getDateDiff", () => {
   describe("when date is in the future", () => {
     test.each(CASES)(
       "should calculate from $mockDate to '%s' as %i days, %i hours, %i minutes",
-      (date, ...exps: any[]) => {
+      (date, ...exps: number[]) => {
         const diff = getDateDiff(MOCK_DATE, new Date(date));
         expectDateDiffEquals(diff, ...exps);
       }
@@ -38,7 +33,7 @@ describe("getDateDiff", () => {
   describe("when date is in the past", () => {
     test.each(CASES)(
       "should calculate from '%s' to $mockDate as %i days, %i hours, %i minutes",
-      (date, ...exps: any[]) => {
+      (date, ...exps: number[]) => {
         const diff = getDateDiff(new Date(date), MOCK_DATE); // just reverse args :)
         expectDateDiffEquals(diff, ...exps);
       }

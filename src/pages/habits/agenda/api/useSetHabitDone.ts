@@ -1,12 +1,6 @@
 import { Habit, HabitCompletionStatus } from "../../_types";
 
-export interface HabitAgendaItem {
-  id: string;
-  habit: Habit;
-  status: HabitCompletionStatus;
-}
-
-export type SetHabitDoneStatusFn = (
+type SetHabitDoneStatusFn = (
   date: Date,
   habitId: Habit["id"],
   nextStatus: HabitCompletionStatus

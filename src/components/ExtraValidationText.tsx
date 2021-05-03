@@ -5,7 +5,7 @@ import { getFieldError } from "~utils";
 
 interface Props {
   error?: boolean;
-  meta?: FieldMetaProps<any>;
+  meta?: FieldMetaProps<unknown>;
 }
 
 /**

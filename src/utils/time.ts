@@ -15,11 +15,11 @@ import addDays from "date-fns/addDays";
 
 import { pluralize1 } from "~utils";
 
-export const sec2ms = (x: number) => Math.floor(x * 1000);
-export const min2ms = (x: number) => sec2ms(x) * 60;
-export const hours2ms = (x: number) => min2ms(x) * 60;
-export const min2hours = (x: number) => Math.floor(x / 60);
-export const hours2days = (x: number) => Math.floor(x / 24);
+export const sec2ms = (x: number): number => Math.floor(x * 1000);
+export const min2ms = (x: number): number => sec2ms(x) * 60;
+export const hours2ms = (x: number): number => min2ms(x) * 60;
+export const min2hours = (x: number): number => Math.floor(x / 60);
+export const hours2days = (x: number): number => Math.floor(x / 24);
 
 export const getWeekRange = (date: Date): [Date, Date] => {
   const monday = startOfWeek(date, { weekStartsOn: 1 }); // TODO locale?
@@ -52,7 +52,7 @@ export const getDaysInCalendar = (date: Date): Array<Date[]> => {
 };
 
 /** Check if day is before today. Works on calendar days, so hours/minutes are ignored. */
-export const isPastDate = (date_: Date) => {
+export const isPastDate = (date_: Date): boolean => {
   const checkedDate = zeroeTime(date_);
   const nowDate = zeroeTime(new Date());
   return isBefore(checkedDate, nowDate);

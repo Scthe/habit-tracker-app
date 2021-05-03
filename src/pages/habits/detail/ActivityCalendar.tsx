@@ -1,13 +1,13 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Calendar, DateRangeSelector } from "~components";
 import { useState } from "react";
-import { ActivityDay } from "./ActivityDay";
 import Paper from "@material-ui/core/Paper";
+import { ActivityDay } from "./ActivityDay";
+import { Calendar, DateRangeSelector } from "~components";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
   header: { marginBottom: "10px" },
   calendarWrapper: {
