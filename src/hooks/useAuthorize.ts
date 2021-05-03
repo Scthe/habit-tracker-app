@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { useCurrentUser } from "~contexts";
+import { useCurrentUser } from "~storage";
 
 /** TODO remove */
 export const useAuthorize = (): ReturnType<typeof useCurrentUser> => {

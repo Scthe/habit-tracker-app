@@ -16,7 +16,7 @@ import {
   RepetitionMonthlySummary,
   RepetitionWeekly,
   RepetitionWeeklySummary,
-} from "../_types/Habit";
+} from "../_types";
 import { FormValues } from "./useFormInitValues";
 
 const HabitColor = refine(number(), "isColor", (v) =>

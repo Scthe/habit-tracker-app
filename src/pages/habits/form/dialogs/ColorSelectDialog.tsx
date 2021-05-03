@@ -8,7 +8,8 @@ import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import grey from "@material-ui/core/colors/grey";
 
-import { getHabitHtmlColor, HabitColor, HabitColorList } from "../../_types";
+import { getHabitHtmlColor } from "../../_shared";
+import { HabitColor, HabitColorList } from "../../_types";
 import { useDesktopLayout } from "~hooks";
 
 export const ColorPreview: React.FC<{

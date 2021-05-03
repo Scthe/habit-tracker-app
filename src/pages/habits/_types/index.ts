@@ -1,2 +1,4 @@
 export * from "./Habit";
-export * from "./HabitActivity";
+export * from "./HabitColor";
+export * from "./HabitCompletionStatus";
+export * from "./HabitRepetition";

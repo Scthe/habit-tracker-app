@@ -8,13 +8,11 @@ import { FormValues } from "../../useFormInitValues";
 
 import { WeekdaySelection } from "./WeekdaySelection";
 import { DayOfMonthSelection } from "./DayOfMonthSelection";
-import { assertUnreachable, getWeekdayNames } from "~utils";
-import { HabitRepetition, Weekday } from "pages/habits/_types";
+import { assertUnreachable, Weekday } from "~utils";
+import { HabitRepetition } from "pages/habits/_types";
 import { ExtraValidationText } from "~components";
 
 type RepeatType = HabitRepetition["type"];
-
-const WEEKDAY_NAMES_LONG = getWeekdayNames("N");
 
 const VALUES: Array<{ type: RepeatType; label: string }> = [
   {
@@ -109,7 +107,6 @@ export const RepeatField: React.FC<Props> = (props) => {
           allowMany={true}
           currentValues={currentValue.weekdays || []}
           onChange={handleWeeklyChange}
-          weekdayNames={WEEKDAY_NAMES_LONG}
           className={props.className}
         />
       ) : null}
@@ -120,7 +117,6 @@ export const RepeatField: React.FC<Props> = (props) => {
           allowMany={false}
           currentValues={[currentValue.endsOn]}
           onChange={handleWeeklySummaryChange}
-          weekdayNames={WEEKDAY_NAMES_LONG}
           className={props.className}
         />
       ) : null}

@@ -7,3 +7,4 @@ export * from "./hooks/useHabitTimeLeft";
 export * from "./utils/canMarkHabitDone";
 export * from "./utils/getHabitsForFutureDate";
 export * from "./utils/getNextHabitActivityDate";
+export * from "./utils/habitColor";

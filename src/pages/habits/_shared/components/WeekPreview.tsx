@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import times from "lodash/times";
 
-import { getWeekRange } from "~utils";
 import { activableOnWhiteBg, AppTheme } from "theme";
+import { useUserDateSettings } from "~hooks";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -45,8 +45,9 @@ export const WeekPreview: React.FC<Props> = ({
   className,
 }) => {
   const styles = useStyles();
+  const dateUtils = useUserDateSettings();
 
-  const [mondayDate] = getWeekRange(currentDate);
+  const [mondayDate] = dateUtils.getWeekStartEndDays(currentDate);
   const currentDayOfMonth = getDate(currentDate);
 
   const items = times(7, (i) => {

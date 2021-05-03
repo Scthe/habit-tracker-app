@@ -4,7 +4,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 
 import { AppRouter } from "./AppRouter";
-import { UserContext } from "./contexts";
+import { UserContext } from "./storage";
 import appTheme from "./theme";
 
 const App: React.FC<unknown> = () => {

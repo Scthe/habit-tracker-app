@@ -1,0 +1,26 @@
+export enum HabitColor {
+  Transparent,
+  Red,
+  Pink,
+  Purple,
+  Blue,
+  Cyan,
+  Teal,
+  Green,
+  Lime,
+  Yellow,
+  Orange,
+}
+export const HabitColorList = [
+  HabitColor.Transparent,
+  HabitColor.Red,
+  HabitColor.Pink,
+  HabitColor.Purple,
+  HabitColor.Blue,
+  HabitColor.Cyan,
+  HabitColor.Teal,
+  HabitColor.Green,
+  HabitColor.Lime,
+  HabitColor.Yellow,
+  HabitColor.Orange,
+];

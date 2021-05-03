@@ -3,12 +3,7 @@ import React from "react";
 import { Habit, HabitCompletionStatus } from "../_types";
 import { DetailHabitField } from "./DetailHabitField";
 import { HabitTodayStatus } from "./HabitTodayStatus";
-import { getWeekdayNames } from "utils/time";
-import { assertUnreachable, getFromArray, stringifyNumber } from "~utils";
-
-const WEEKDAY_NAMES = getWeekdayNames("NNNN");
-const getWeekdayName = (weekdayIdx: number) =>
-  getFromArray(WEEKDAY_NAMES, weekdayIdx);
+import { assertUnreachable, stringifyNumber, getWeekdayName } from "~utils";
 
 const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
   switch (repeat.type) {
@@ -16,11 +11,11 @@ const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
       return ["Repeat", "Everyday"];
     }
     case "weekly": {
-      const dayNames = repeat.weekdays.map(getWeekdayName);
+      const dayNames = repeat.weekdays.map((wd) => getWeekdayName(wd, "NNNN"));
       return ["On", dayNames.join(", ")];
     }
     case "weekly_summary": {
-      return ["Every week till", getWeekdayName(repeat.endsOn)];
+      return ["Every week till", getWeekdayName(repeat.endsOn, "NNNN")];
     }
     case "monthly_summary": {
       return ["Every month till", stringifyNumber(repeat.endsOn)];

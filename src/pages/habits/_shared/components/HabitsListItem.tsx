@@ -6,8 +6,9 @@ import { darken } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 
-import { getHabitHtmlColor, Habit } from "../../_types";
-import { AppTheme } from "theme";
+import { AppTheme } from "../../../../theme";
+import { Habit } from "../../_types";
+import { getHabitHtmlColor } from "..";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {

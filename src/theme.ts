@@ -12,6 +12,7 @@ const customTheme = {
   },
 };
 
+// TODO remove?
 export const activableOnWhiteBg = (theme: AppTheme) => ({
   color: theme.palette.actionOnWhiteBg.activable,
   cursor: "pointer",

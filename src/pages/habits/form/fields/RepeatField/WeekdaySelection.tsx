@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import uniq from "lodash/uniq";
 
-import { Weekday } from "pages/habits/_types";
+import { Weekday } from "~utils";
+import { useUserDateSettings } from "~hooks";
 
 const useStyles = makeStyles(() => ({
   weekdayWrapper: {
@@ -22,7 +23,6 @@ interface Props {
   allowMany: boolean;
   currentValues: Weekday[];
   onChange: (day: Weekday[]) => void; // TODO this will have validation != empty
-  weekdayNames: string[];
   className?: string;
 }
 
@@ -31,10 +31,12 @@ export const WeekdaySelection: React.FC<Props> = ({
   allowMany,
   currentValues,
   onChange,
-  weekdayNames,
   className,
 }) => {
   const styles = useStyles();
+  const dateUtil = useUserDateSettings();
+
+  const weekdayNames = dateUtil.getWeekdayNames("N");
 
   const onWeekdayChanged = (clickedWeekday: Weekday) => {
     let newValue: Weekday[];

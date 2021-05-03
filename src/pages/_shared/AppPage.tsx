@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 import { CurrentActiveElement } from "../../components/AppMenu/constants";
 import { useAppLayoutStyle } from "./AppLayout";
-import { useSetAppMenuActiveLink } from "~contexts";
+import { useSetAppMenuActiveLink } from "~storage";
 
 interface Props {
   appMenuActiveItem?: CurrentActiveElement;

@@ -84,7 +84,7 @@ module.exports = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     '^.+\\.(css|less)$': '<rootDir>/src/tests/CSSStub.js',
-    "^~contexts$": '<rootDir>/src/contexts/index.ts',
+    "^~storage$": '<rootDir>/src/storage/index.ts',
     "^~components$": '<rootDir>/src/components/index.ts',
     "^~hooks$": '<rootDir>/src/hooks/index.ts',
     "^~utils$": '<rootDir>/src/utils/index.ts',

@@ -2,8 +2,7 @@ import React from "react";
 
 import { useDesktopLayout } from "~hooks";
 import { AppMenuVertical, AppMenuHorizontal } from "~components";
-import { useAppMenuActiveLink } from "~contexts";
-// import {setHocName} from "~utils";
+import { useAppMenuActiveLink } from "~storage";
 
 const CSS = require("./AppLayout.css").default;
 
@@ -37,17 +36,3 @@ export const AppLayout: React.FC<unknown> = ({ children }) => {
     );
   }
 };
-
-/*
-const withAppLayout = (Comp: React.ComponentType) => {
-  const WithAppLayout: React.FC<unknown> = props => {
-    return (
-      <AppLayout>
-        <Comp {...props} />
-      </AppLayout>
-    );
-  };
-  setHocName(WithAppLayout, Comp);
-  return WithAppLayout;
-};
-*/

@@ -21,7 +21,7 @@
     "alwaysStrict": true,
     "strict": true,
     "paths": {
-      "~contexts": ["contexts"],
+      "~storage": ["storage"],
       "~components": ["components"],
       "~hooks": ["hooks"],
       "~utils": ["utils"],

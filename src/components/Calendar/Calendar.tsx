@@ -6,9 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // import { useGlobalKeyDown, keycode } from '../../_shared/hooks/useKeyDown';
 import { CalendarSkeleton } from "./CalendarSkeleton";
 import { DaysGrid, Props as DaysGridProps } from "./DaysGrid";
-import { getWeekdayNames } from "~utils";
-
-const WEEKDAY_NAMES = getWeekdayNames("N");
+import { useUserDateSettings } from "~hooks";
 
 export type Props = DaysGridProps & {
   allowKeyboardControl?: boolean;
@@ -35,9 +33,12 @@ export const useStyles = makeStyles((theme) => ({
 
 // https://github.com/mui-org/material-ui-pickers/blob/next/lib/src/views/Calendar/Calendar.tsx
 export const Calendar: React.FC<Props> = (props) => {
+  const dateUtil = useUserDateSettings();
+
   const { size, loading, className } = props;
   const styles = useStyles();
   const isSmall = size === "small";
+  const weekdayNames = dateUtil.getWeekdayNames("N");
 
   /*
   const initialDate = Array.isArray(date) ? date[0] : date;
@@ -58,7 +59,7 @@ export const Calendar: React.FC<Props> = (props) => {
   return (
     <div className={clsx(className, styles.root)}>
       <div className={styles.daysHeader}>
-        {WEEKDAY_NAMES.map((day, dayIdx) => (
+        {weekdayNames.map((day, dayIdx) => (
           <Typography
             aria-hidden
             key={dayIdx}

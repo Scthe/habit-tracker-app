@@ -6,7 +6,7 @@ import isFuture from "date-fns/isFuture";
 import isToday from "date-fns/isToday";
 import clsx from "clsx";
 
-import { getDaysInCalendar } from "~utils";
+import { useUserDateSettings } from "~hooks";
 
 export enum TodayStatus {
   Past,
@@ -67,9 +67,10 @@ export const DaysGrid: React.FC<Props> = ({
   classes,
 }) => {
   const styles = useStyles();
+  const dateUtil = useUserDateSettings();
 
   const currentMonthNumber = getMonth(shownMonth);
-  const weeksInCalendar = getDaysInCalendar(shownMonth);
+  const weeksInCalendar = dateUtil.getDaysInCalendar(shownMonth);
 
   const createDaysProps = (day: Date): CalendarDayProps => {
     const isDayToday = isToday(day);

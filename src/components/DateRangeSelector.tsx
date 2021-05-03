@@ -9,8 +9,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import IconButton from "@material-ui/core/IconButton";
-import { getWeekRange } from "~utils";
 import { activableOnWhiteBg, AppTheme } from "theme";
+import { UserDateUtils, useUserDateSettings } from "~hooks";
+import { ToolbarTitle } from "~components";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -25,24 +26,21 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     fontWeight: "bold",
     paddingTop: "15px",
   },
-  textInCenter: {
-    textAlign: "center",
-  },
   onWhiteBg: activableOnWhiteBg(theme),
 }));
 
-const getWeekText = (date: Date): string => {
-  const [mondayDate, sundayDate] = getWeekRange(date);
-  const monthStart = getMonth(mondayDate);
-  const monthEnd = getMonth(sundayDate);
+const getWeekText = (date: Date, dateUtil: UserDateUtils): string => {
+  const [weekStart, weekEnd] = dateUtil.getWeekStartEndDays(date);
+  const monthStart = getMonth(weekStart);
+  const monthEnd = getMonth(weekEnd);
 
   if (monthStart == monthEnd) {
-    const dayStart = getDate(mondayDate);
-    const dayEnd = getDate(sundayDate);
+    const dayStart = getDate(weekStart);
+    const dayEnd = getDate(weekEnd);
     return `${dayStart}-${dayEnd} ${format(date, "MMMM")}`;
   } else {
     const fmt = (d: Date) => `${getDate(d)} ${format(d, "MMM")}`;
-    return `${fmt(mondayDate)} - ${fmt(sundayDate)}`;
+    return `${fmt(weekStart)} - ${fmt(weekEnd)}`;
   }
 };
 
@@ -67,6 +65,7 @@ export const DateRangeSelector: React.FC<Props> = ({
   className,
 }) => {
   const styles = useStyles();
+  const dateUtil = useUserDateSettings();
 
   // TODO add ripple effect or just make these into buttons
   const changeFn = mode === "week" ? addWeeks : addMonths;
@@ -74,7 +73,9 @@ export const DateRangeSelector: React.FC<Props> = ({
   const handleClickPrev = () => setCurrentDate(changeFn(currentDate, -1));
   // TODO on TODAY click: popup the calendar dialog to better select across months/years
   const name =
-    mode === "week" ? getWeekText(currentDate) : getMonthText(currentDate);
+    mode === "week"
+      ? getWeekText(currentDate, dateUtil)
+      : getMonthText(currentDate);
 
   const bgRelatedClass = onWhiteBg ? styles.onWhiteBg : "";
   const rootClass = clsx(styles.root, bgRelatedClass, className);
@@ -97,11 +98,7 @@ export const DateRangeSelector: React.FC<Props> = ({
       <Icon>chevron_right</Icon>
     </IconButton>
   );
-  const text = (
-    <div className={clsx(styles.text, textInCenter && styles.textInCenter)}>
-      <span>{name}</span>
-    </div>
-  );
+  const text = <ToolbarTitle alignLeft={!textInCenter}>{name}</ToolbarTitle>;
 
   return textInCenter ? (
     <div className={rootClass}>

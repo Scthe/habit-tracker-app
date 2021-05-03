@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import times from "lodash/times";
 import { is } from "superstruct";
+
 import {
-  ALL_WEEK_DAYS,
   HabitColor,
   HabitColorList,
   RepetitionMonthlySummary,
   RepetitionWeekly,
   RepetitionWeeklySummary,
-  Weekday,
 } from "../_types";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormValidationSchema } from "./validation.schema";
+import { Weekday, ALL_WEEK_DAYS } from "~utils";
 
 // The amount of errors in validation schemas i've seen is staggering.
 // Because someone forgot to update after changing typescripts typedefs.
