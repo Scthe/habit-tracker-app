@@ -6,7 +6,7 @@ export * from "./List/AsyncList";
 export * from "./List/ListEmpty";
 
 export * from "./ButtonLoading";
-export * from "./DateRangeSelector";
+export * from "./DateNextPrevSelector";
 export * from "./Debug";
 export * from "./ExtraValidationText";
 export * from "./ToolbarTitle";

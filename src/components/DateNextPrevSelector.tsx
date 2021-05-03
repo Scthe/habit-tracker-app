@@ -50,8 +50,7 @@ interface Props {
   className?: string;
 }
 
-// TODO rename, this component does not select range
-export const DateRangeSelector: React.FC<Props> = ({
+export const DateNextPrevSelector: React.FC<Props> = ({
   mode,
   textInCenter,
   currentDate,
@@ -110,6 +109,6 @@ export const DateRangeSelector: React.FC<Props> = ({
   );
 };
 
-DateRangeSelector.defaultProps = {
+DateNextPrevSelector.defaultProps = {
   textInCenter: true,
 };

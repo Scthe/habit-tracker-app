@@ -44,7 +44,9 @@ export const HabitFormHeader: React.FC<Props> = ({ isEdit }) => {
           </IconButton>
         ) : null}
 
-        <ToolbarTitle>{isEdit ? "Edit habit" : "Create habit"}</ToolbarTitle>
+        <ToolbarTitle alignLeft>
+          {isEdit ? "Edit habit" : "Create habit"}
+        </ToolbarTitle>
 
         <ButtonLoading
           type="submit"

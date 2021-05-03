@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import { ActivityDay } from "./ActivityDay";
-import { Calendar, DateRangeSelector } from "~components";
+import { Calendar, DateNextPrevSelector } from "~components";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -41,7 +41,7 @@ export const ActivityCalendar: React.FC<Props> = ({ initMonth }) => {
 
       <div className={styles.calendarWrapper}>
         <Paper square={true} className={styles.monthsSwitcher}>
-          <DateRangeSelector
+          <DateNextPrevSelector
             mode="month"
             currentDate={shownMonth}
             setCurrentDate={setShownMonth}

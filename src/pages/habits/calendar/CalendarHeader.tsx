@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { DateRangeSelector } from "~components";
+import { DateNextPrevSelector } from "~components";
 import { useDesktopLayout } from "~hooks";
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +25,7 @@ export const CalendarHeader: React.FC<Props> = ({
   return (
     <AppBar position="static">
       <Toolbar>
-        <DateRangeSelector
+        <DateNextPrevSelector
           mode="month"
           currentDate={shownMonth}
           setCurrentDate={setShownMonth}
