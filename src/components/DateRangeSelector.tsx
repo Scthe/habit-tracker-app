@@ -9,11 +9,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import IconButton from "@material-ui/core/IconButton";
-import { activableOnWhiteBg, AppTheme } from "theme";
 import { UserDateUtils, useUserDateSettings } from "~hooks";
 import { ToolbarTitle } from "~components";
 
-const useStyles = makeStyles((theme: AppTheme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "row",
@@ -22,11 +21,8 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     flex: "0",
   },
   text: {
-    flex: "1",
-    fontWeight: "bold",
-    paddingTop: "15px",
+    paddingTop: "7px",
   },
-  onWhiteBg: activableOnWhiteBg(theme),
 }));
 
 const getWeekText = (date: Date, dateUtil: UserDateUtils): string => {
@@ -48,7 +44,6 @@ const getMonthText = (date: Date) => format(date, "MMMM yyyy");
 
 interface Props {
   mode: "week" | "month";
-  onWhiteBg?: boolean;
   currentDate: Date;
   setCurrentDate: (newDate: Date) => void;
   textInCenter?: boolean;
@@ -58,7 +53,6 @@ interface Props {
 // TODO rename, this component does not select range
 export const DateRangeSelector: React.FC<Props> = ({
   mode,
-  onWhiteBg,
   textInCenter,
   currentDate,
   setCurrentDate,
@@ -67,18 +61,15 @@ export const DateRangeSelector: React.FC<Props> = ({
   const styles = useStyles();
   const dateUtil = useUserDateSettings();
 
-  // TODO add ripple effect or just make these into buttons
   const changeFn = mode === "week" ? addWeeks : addMonths;
   const handleClickNext = () => setCurrentDate(changeFn(currentDate, 1));
   const handleClickPrev = () => setCurrentDate(changeFn(currentDate, -1));
-  // TODO on TODAY click: popup the calendar dialog to better select across months/years
   const name =
     mode === "week"
       ? getWeekText(currentDate, dateUtil)
       : getMonthText(currentDate);
 
-  const bgRelatedClass = onWhiteBg ? styles.onWhiteBg : "";
-  const rootClass = clsx(styles.root, bgRelatedClass, className);
+  const rootClass = clsx(styles.root, className);
 
   const iconL = (
     <IconButton
@@ -98,7 +89,11 @@ export const DateRangeSelector: React.FC<Props> = ({
       <Icon>chevron_right</Icon>
     </IconButton>
   );
-  const text = <ToolbarTitle alignLeft={!textInCenter}>{name}</ToolbarTitle>;
+  const text = (
+    <ToolbarTitle alignLeft={!textInCenter} className={styles.text}>
+      {name}
+    </ToolbarTitle>
+  );
 
   return textInCenter ? (
     <div className={rootClass}>
@@ -117,5 +112,4 @@ export const DateRangeSelector: React.FC<Props> = ({
 
 DateRangeSelector.defaultProps = {
   textInCenter: true,
-  onWhiteBg: true,
 };

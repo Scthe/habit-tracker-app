@@ -17,7 +17,6 @@ interface Props {
   alignLeft?: boolean;
 }
 
-// TODO use everywhere, amybe add 'align to left' prop with some default
 export const ToolbarTitle: React.FC<Props> = ({
   className,
   alignLeft,

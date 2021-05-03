@@ -30,7 +30,6 @@ export const CalendarHeader: React.FC<Props> = ({
           currentDate={shownMonth}
           setCurrentDate={setShownMonth}
           textInCenter={!isDesktop}
-          onWhiteBg={false}
           className={styles.selector}
         />
       </Toolbar>

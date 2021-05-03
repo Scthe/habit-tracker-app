@@ -7,18 +7,20 @@ import { getHabitHtmlColor, getHabitHtmlTextColor } from "../_shared";
 import { HabitStatus } from "./api/useHabitStatuses";
 import { CalendarDayProps } from "~components";
 import { byCalendarSize } from "components/Calendar/DaysGrid";
+import { AppTheme } from "theme";
 
 type RectStyleProps = {
   col: HabitStatus["habitColor"];
   size: CalendarDayProps["size"];
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
     marginBottom: byCalendarSize("3px", "5px"),
     padding: "0",
   },
   habitName: (props: RectStyleProps) => ({
+    ...theme.mixins.overflow,
     textDecoration: "none",
     color: getHabitHtmlTextColor(theme, props.col),
     padding: "3px 3px",
@@ -29,10 +31,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: () => lighten(getHabitHtmlColor(props.col), 0.1),
     },
-
-    textOverflow: "ellipsis", // TODO make ellipsis mixin
-    overflow: "hidden",
-    whiteSpace: "nowrap",
   }),
 }));
 

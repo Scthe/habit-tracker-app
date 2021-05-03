@@ -3,24 +3,28 @@ import getDate from "date-fns/getDate";
 import addDays from "date-fns/addDays";
 import format from "date-fns/format";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import times from "lodash/times";
 
-import { activableOnWhiteBg, AppTheme } from "theme";
-import { useUserDateSettings } from "~hooks";
+import { useDesktopLayout, useUserDateSettings } from "~hooks";
 
-const useStyles = makeStyles((theme: AppTheme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   itemDay: {
-    ...activableOnWhiteBg(theme),
+    flex: 1,
+    minWidth: 0,
   },
-  itemDayActive: {
-    cursor: "pointer",
-    color: theme.palette.actionOnWhiteBg.selected,
+  itemDayNotActive: {
+    opacity: 0.4,
+  },
+  itemDayActive: {},
+  itemDayButtonLabel: {
+    display: "block",
   },
   itemDayName: {
     textAlign: "center",
@@ -38,14 +42,15 @@ interface Props {
   className?: string;
 }
 
-// TODO add ripple effect
 export const WeekPreview: React.FC<Props> = ({
   currentDate,
   setCurrentDate,
   className,
 }) => {
+  // material-ui tabs do not allow multiline
   const styles = useStyles();
   const dateUtils = useUserDateSettings();
+  const isDesktop = useDesktopLayout();
 
   const [mondayDate] = dateUtils.getWeekStartEndDays(currentDate);
   const currentDayOfMonth = getDate(currentDate);
@@ -55,11 +60,14 @@ export const WeekPreview: React.FC<Props> = ({
     const dayOfMonth = getDate(date);
     const isActive = dayOfMonth === currentDayOfMonth;
     return {
-      dayOfWeek: format(date, "eee"),
+      dayOfWeek: format(date, isDesktop ? "eee" : "eeeee"),
       dayOfMonth,
       onClick: () => setCurrentDate(date),
       isActive,
-      className: isActive ? styles.itemDayActive : styles.itemDay,
+      className: clsx(
+        styles.itemDay,
+        isActive ? styles.itemDayActive : styles.itemDayNotActive
+      ),
     };
   });
 
@@ -67,14 +75,16 @@ export const WeekPreview: React.FC<Props> = ({
     <div className={clsx(styles.root, className)}>
       {items.map((date) => {
         return (
-          <div
+          <Button
             key={date.dayOfMonth}
             className={date.className}
             onClick={date.onClick}
+            color="inherit"
+            classes={{ label: styles.itemDayButtonLabel }}
           >
             <span className={styles.itemDayName}>{date.dayOfWeek}</span>
             <span className={styles.itemDayNo}>{date.dayOfMonth}</span>
-          </div>
+          </Button>
         );
       })}
     </div>

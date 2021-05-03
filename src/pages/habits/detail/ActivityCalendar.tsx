@@ -46,7 +46,6 @@ export const ActivityCalendar: React.FC<Props> = ({ initMonth }) => {
             currentDate={shownMonth}
             setCurrentDate={setShownMonth}
             textInCenter={true}
-            onWhiteBg={false}
           />
         </Paper>
 
