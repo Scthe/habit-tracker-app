@@ -24,11 +24,11 @@ const VALUES: Array<{ type: RepeatType; label: string }> = [
     label: "On selected days",
   },
   {
-    type: "weekly_summary", // TODO add helper text below select
+    type: "weekly_summary",
     label: "Weekly goal",
   },
   {
-    type: "monthly_summary", // TODO add helper text below select
+    type: "monthly_summary",
     label: "Monthly goal",
   },
 ];

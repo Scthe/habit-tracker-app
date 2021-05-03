@@ -4,7 +4,13 @@ import { NoHabitsMessage } from "../_shared";
 import { Habit } from "../_types";
 import { HabitsManageListItem } from "./HabitsManageListItem";
 import { AsyncData } from "~types";
-import { AsyncList } from "~components";
+import { AsyncList, ListEmptyProps } from "~components";
+
+const EmptyMsg: React.FC<ListEmptyProps> = (props) => (
+  <NoHabitsMessage {...props}>
+    Create a habit and it will show up here.
+  </NoHabitsMessage>
+);
 
 interface Props {
   search: string;
@@ -29,7 +35,7 @@ export const HabitsManageList: React.FC<Props> = ({
       className={className}
       keyExtractor="id"
       renderItem={(habit) => <HabitsManageListItem habit={habit} />}
-      emptyListMsg={NoHabitsMessage}
+      emptyListMsg={EmptyMsg}
     />
   );
 };

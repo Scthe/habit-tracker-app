@@ -22,7 +22,7 @@ interface Props {
   label: string;
   allowMany: boolean;
   currentValues: Weekday[];
-  onChange: (day: Weekday[]) => void; // TODO this will have validation != empty
+  onChange: (day: Weekday[]) => void;
   className?: string;
 }
 

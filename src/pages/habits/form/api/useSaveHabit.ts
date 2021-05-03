@@ -5,6 +5,7 @@ import { FormValues } from "../useFormInitValues";
 export type SaveHabitFn = (values: FormValues) => Promise<void>;
 
 export const useSaveHabit = (id?: Habit["id"]): SaveHabitFn => {
+  // example error: name is not unique
   return useCallback(
     (values) => {
       if (id == null) {

@@ -77,6 +77,7 @@ export default withFormik<Props, FormValues>({
     return props.initialValues;
   },
   validate: (values: FormValues) => {
+    // TODO add snackbar when this happens
     const errors: FormikErrors<FormValues> = {};
 
     try {
