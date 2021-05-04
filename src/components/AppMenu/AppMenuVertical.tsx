@@ -19,6 +19,8 @@ import {
   AppMenuItem as AppMenuItemType,
 } from "./constants";
 
+// TODO add logout here too
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "57px",

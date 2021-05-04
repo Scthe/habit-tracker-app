@@ -41,7 +41,7 @@ interface AppMenuItemProps {
   item: AppMenuItemType;
 }
 
-// TODO add aria-label everywhere
+// TODO add aria-label everywhere. Read docs on material-ui for each element
 const AppMenuItem: React.FC<AppMenuItemProps> = ({ currentItem, item }) => {
   const styles = useStyles();
   const isActive = currentItem === item.id;

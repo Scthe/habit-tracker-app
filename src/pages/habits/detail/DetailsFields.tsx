@@ -5,6 +5,8 @@ import { DetailHabitField } from "./DetailHabitField";
 import { HabitTodayStatus } from "./HabitTodayStatus";
 import { assertUnreachable, stringifyNumber, getWeekdayName } from "~utils";
 
+// TODO count how many times done
+
 const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
   switch (repeat.type) {
     case "daily": {
@@ -60,7 +62,7 @@ export const DetailsFields: React.FC<Props> = ({
       <DetailHabitField
         {...fieldProps("description", "Notes", habit.description)}
       />
-      {/* TODO <DetailHabitField {...fieldProps("created_at", "I've done this since", habit.createdAt)} /> */}
+      {/* TODO [feature] <DetailHabitField {...fieldProps("created_at", "I've done this since", habit.createdAt)} /> */}
     </div>
   );
 };

@@ -31,7 +31,7 @@ export interface Habit {
   /** Remind me on 18:00 etc. */
   reminderTime: { hour: number; minute: number };
   /** Allow to add a countdown clock. */
-  // timer: HabitTimer; // TODO timer
-  // subtasks: HabitSubtask[]; // TODO subtasks
-  // status: Status; // TODO habits can be disabled
+  // timer: HabitTimer; // TODO [feature] timer
+  // subtasks: HabitSubtask[]; // TODO [feature] subtasks
+  // status: Status; // TODO [feature] habits can be disabled
 }

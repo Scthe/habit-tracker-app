@@ -73,7 +73,6 @@ const TextShowMore: React.FC<{
   styles: ReturnType<typeof useStyles>;
 }> = ({ day, habitStatusesCount, styles }) => {
   const agendaLocation = {
-    // TODO handle in agenda
     pathname: "/habits/agenda",
     state: { day },
   };
