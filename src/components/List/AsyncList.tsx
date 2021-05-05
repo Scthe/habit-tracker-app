@@ -35,7 +35,6 @@ const AsyncList = function AsyncList<T>({
     return <ListError retry={retry} />;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const dataAfterFilter = data.data.filter((e) => filterPredicate!(e)); // defaultProps ehh..
   if (dataAfterFilter.length === 0) {
     const Comp = emptyListMsg != null ? emptyListMsg : ListEmpty;

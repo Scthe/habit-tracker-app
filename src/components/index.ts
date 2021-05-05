@@ -9,5 +9,6 @@ export * from "./ButtonLoading";
 export * from "./DateNextPrevSelector";
 export * from "./Debug";
 export * from "./ExtraValidationText";
+export * from "./PageViewAnalytics";
 export * from "./ToolbarTitle";
 export * from "./ValuePickDialog";

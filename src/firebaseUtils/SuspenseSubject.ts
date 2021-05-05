@@ -14,6 +14,7 @@ export class SuspenseSubject<T> {
       .catch((error) => {
         this._status = "error";
         this._error = error;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return undefined as any;
       });
   }
@@ -32,7 +33,7 @@ export class SuspenseSubject<T> {
     }
   }
 
-  get promise() {
+  get promise(): Promise<T> {
     return this._promise;
   }
 }

@@ -34,8 +34,8 @@ SOFTWARE.
 // Throws if there was some actual problem.
 
 import firebase from "firebase/app";
-import { useFirebaseApp } from "./";
 import { SuspenseSubject } from "./SuspenseSubject";
+import { useFirebaseApp } from "./";
 
 type ComponentName =
   | "analytics"
@@ -54,7 +54,7 @@ type FirebaseNamespaceComponent = ValueOf<Pick<typeof firebase, ComponentName>>;
 
 /** lazy import the required module. Returns promise that contains the module thingies */
 function importSDK(sdk: ComponentName): Promise<unknown> {
-  // prettier-ignore-start
+  // prettier-ignore
   switch (sdk) {
     case "analytics": return import(/* webpackChunkName: "analytics" */ "firebase/analytics");
     case "auth": return import(/* webpackChunkName: "auth" */ "firebase/auth");
@@ -66,10 +66,9 @@ function importSDK(sdk: ComponentName): Promise<unknown> {
     case "remoteConfig": return import(/* webpackChunkName: "remoteConfig" */ "firebase/remote-config");
     case "storage": return import(/* webpackChunkName: "storage" */ "firebase/storage");
   }
-  // prettier-ignore-end
 }
 
-// prettier-ignore-start
+// prettier-ignore
 function proxyComponent(componentName: "auth"): typeof firebase.auth;
 function proxyComponent(componentName: "analytics"): typeof firebase.analytics;
 // function proxyComponent(componentName: 'database'): typeof firebase.database;
@@ -80,7 +79,6 @@ function proxyComponent(componentName: "performance"): typeof firebase.performan
 function proxyComponent(componentName: "remoteConfig"): typeof firebase.remoteConfig;
 function proxyComponent(componentName: "storage"): typeof firebase.storage;
 function proxyComponent(componentName: ComponentName): FirebaseNamespaceComponent {
-  // prettier-ignore-end
   let contextualApp: App | undefined;
 
   /** This function only returns if module was loaded. It throws before that  */
@@ -97,6 +95,7 @@ function proxyComponent(componentName: ComponentName): FirebaseNamespaceComponen
   return ((app?: App) => {
     const componentFn = useComponent();
     return componentFn(app || contextualApp);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }) as any;
 }
 
@@ -117,7 +116,7 @@ type PreloadFn<componentName extends keyof App> = (
   opts: PreloadOpts
 ) => Promise<App[componentName]>;
 
-// prettier-ignore-start
+// prettier-ignore
 function preloadFactory(componentName: "auth"): PreloadFn<typeof componentName>;
 function preloadFactory(componentName: "analytics"): PreloadFn<typeof componentName>;
 // function preloadFactory(componentName: 'database'): PreloadFn<typeof componentName>;
@@ -131,7 +130,6 @@ function preloadFactory(componentName: ComponentName) {
   return (opts: PreloadOpts) =>
     preload(componentName, opts.firebaseApp).promise; // just await this, do not use the result..
 }
-// prettier-ignore-end
 
 type ComponentModulePromise = SuspenseSubject<App[ComponentName]>;
 const firebaseModulesCache = new Map<ComponentName, ComponentModulePromise>();
@@ -140,7 +138,7 @@ function preload(
   componentName: ComponentName,
   firebaseApp: App
 ): ComponentModulePromise {
-  console.log(`Load firebase module '${componentName}'`);
+  // console.log(`Load firebase module '${componentName}'`);
 
   if (firebaseModulesCache.has(componentName)) {
     return firebaseModulesCache.get(componentName)!;
@@ -148,13 +146,14 @@ function preload(
 
   const promise = importSDK(componentName)
     .then(() => {
-      console.log(`Firebase module '${componentName}' loading SUCCESS`);
+      // console.log(`Firebase module '${componentName}' loading SUCCESS`);
       // this is e.g. `app.auth` function
       const instanceFactory = firebaseApp[componentName].bind(firebaseApp);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return instanceFactory as any;
     })
-    .catch((e) => {
-      console.error(`Firebase module '${componentName}' loading ERROR`, e);
+    .catch(() => {
+      // console.error(`Firebase module '${componentName}' loading ERROR`, e);
       throw new Error(`Could not lazy load firebase module '${componentName}'`);
     });
 

@@ -7,6 +7,7 @@ interface AsyncDataError {
   message: string;
 }
 interface AsyncDataLoading {
+  // this is pointeless if we use suspense, but necessary if not
   status: "loading";
 }
 interface AsyncDataInit {

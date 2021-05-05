@@ -20,6 +20,7 @@ import {
 } from "./constants";
 
 // TODO add logout here too
+// TODO add dark/light here too
 
 const useStyles = makeStyles((theme) => ({
   root: {
