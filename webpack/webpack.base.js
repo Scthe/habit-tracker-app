@@ -26,8 +26,8 @@ const baseWebpackConfig = (mode) => ({
   context: ROOT,
   entry: {
     app: "./index.tsx",
-    login: "./_static/login.js",
-    index: "./_static/landingPage.js",
+    login: "./pages/_login/index.ts",
+    index: "./pages/_landingPage/index.ts",
   },
   output: {
     filename: createFilename(mode, "js"),
@@ -77,27 +77,26 @@ const baseWebpackConfig = (mode) => ({
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new MiniCssExtractPlugin({
       filename: createFilename(mode, "css"),
-      // chunkFilename: "[id].css",
     }),
     new HtmlWebpackPlugin({
       ...HTML_PLUGIN_OPTS,
       template: "app.html",
-      chunks: ["app"],
       filename: "app/index.html",
+      chunks: ["app"],
     }),
     new HtmlWebpackPlugin({
       ...HTML_PLUGIN_OPTS,
       ...HTML_PLUGIN_STATIC_OPTS,
-      template: "_static/landingPage.html",
-      chunks: ["index"],
+      template: "pages/_landingPage/landingPage.html",
       filename: "index.html",
+      chunks: ["index"],
     }),
     new HtmlWebpackPlugin({
       ...HTML_PLUGIN_OPTS,
       ...HTML_PLUGIN_STATIC_OPTS,
-      template: "_static/login.html",
-      chunks: ["login"],
+      template: "pages/_login/login.html",
       filename: "login/index.html",
+      chunks: ["login"],
     }),
   ],
 });

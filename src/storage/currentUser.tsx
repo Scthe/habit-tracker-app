@@ -1,34 +1,34 @@
 import React, { useRef, useContext } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import { useAuth } from "~firebaseUtils";
+// import { auth } from "firebaseUtils/init";
 
 export type CurrentUser = {
-  name: string;
-  surname: string;
-  mail: string;
+  uid: string;
+  displayName: string | null;
+  isAnonymous: boolean;
+  email: string | null;
+  emailVerified: boolean;
+  creationTime?: string; // from metadata
+  lastSignInTime?: string; // from metadata
+  providerId: string;
 };
-type AuthCtxType = { user: CurrentUser };
+type AuthCtxType = { user: CurrentUser } | null;
 
-const INIT_USER_STATE: AuthCtxType = {
-  user: {
-    name: "m",
-    surname: "m",
-    mail: "m@gmai.com",
-  },
-};
 
-export const CurrentUserContext = React.createContext<AuthCtxType>(
-  INIT_USER_STATE
-);
+export const CurrentUserContext = React.createContext<AuthCtxType>(null);
 
-export const UserContext: React.FC = ({ children }) => {
-  const appState = useRef<AuthCtxType>(cloneDeep(INIT_USER_STATE));
+export const UserProvider: React.FC = ({ children }) => {
+  const appState = useRef<AuthCtxType>(null);
 
-  // TODO subscribe to firebase
-  // const applyChange = (from: number, to: number) => {
-  // const newState = ...;
-  // ...
-  // };
-  // return [appState.current, applyChange];
+  // usePreloadUser();
+  // usePreloadQuery(); // for light/dark theme and other settings
+
+  const auth = useAuth();
+
+  auth.onAuthStateChanged((user) => {
+    console.log("auth.onAuthStateChanged", user);
+  });
 
   return (
     <CurrentUserContext.Provider value={appState.current}>
@@ -37,7 +37,7 @@ export const UserContext: React.FC = ({ children }) => {
   );
 };
 
-export const useCurrentUser = (): CurrentUser | null => {
-  const ctx = useContext(CurrentUserContext);
-  return ctx.user;
-};
+// export const useCurrentUser = (): CurrentUser | null => {
+  // const ctx = useContext(CurrentUserContext);
+  // return ctx.user;
+// };

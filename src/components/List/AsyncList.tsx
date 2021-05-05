@@ -28,7 +28,7 @@ const AsyncList = function AsyncList<T>({
   emptyListMsg,
   retry,
 }: Props<T>): ReactElement {
-  if (data.status === "loading") {
+  if (data.status === "loading" || data.status === "init") {
     return <ListLoader />;
   }
   if (data.status === "error") {

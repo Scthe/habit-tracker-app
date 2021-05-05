@@ -25,7 +25,8 @@
       "~components": ["components"],
       "~hooks": ["hooks"],
       "~utils": ["utils"],
-      "~types": ["_types"]
+      "~types": ["_types"],
+      "~firebaseUtils": ["firebaseUtils"]
     }
   },
   "include": ["./src"],

@@ -1,4 +1,4 @@
-require("../index.css").default;
+require("../../index.css").default;
 require("./landingPage.css").default;
 
 // TODO add sentry & google analytics

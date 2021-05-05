@@ -8,6 +8,8 @@ import { AgendaList } from "./AgendaList";
 import { useCurrentDay } from "./useCurrentDay";
 import { AgendaHeader } from "./AgendaHeader";
 
+// TOOD swipe left/right for prev/next item
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
