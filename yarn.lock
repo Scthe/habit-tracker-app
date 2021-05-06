@@ -5229,6 +5229,7 @@ __metadata:
     prettier: ^2.2.1
     prop-types: ^15.7.2
     react: ^17.0.1
+    react-async-hook: ^3.6.2
     react-dom: ^17.0.1
     react-error-boundary: ^3.1.1
     react-router-dom: ^5.2.0
@@ -9292,6 +9293,15 @@ __metadata:
     iconv-lite: 0.4.24
     unpipe: 1.0.0
   checksum: 46dc02f8b4f358786d41e18fb55533fbe4702d390e22bbe2b9c98c88dec41cab23ea2315f3ae0bf4bc0213a2872c89943d3df6857f4e21f996ea9d2d92f1bcaa
+  languageName: node
+  linkType: hard
+
+"react-async-hook@npm:^3.6.2":
+  version: 3.6.2
+  resolution: "react-async-hook@npm:3.6.2"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 539d93b40f1c43a6766d4346f5225cffc636764534a22750aa0fc66ab30c17e5db947317769212de60fc694114fd5e3f1f4b9ae31b677cdec9116b3b7a7cef3c
   languageName: node
   linkType: hard
 

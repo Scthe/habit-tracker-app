@@ -2,7 +2,9 @@ import { HabitColor } from "./HabitColor";
 import { HabitRepetition } from "./HabitRepetition";
 
 // TODO Agenda for days past can contain habits that are now disabled/removed. The repetition
-// could also have changed (e.g. Mon, Fri turned into Wed). Need CRON?
+// could also have changed (e.g. Mon, Fri turned into Wed). Need CRON? Or just store
+// (changeDate, repeat) on create/edit and should be good enough? Then sort and
+// binary search for value back then
 
 // export enum Status {
 // Active,
@@ -34,4 +36,7 @@ export interface Habit {
   // timer: HabitTimer; // TODO [feature] timer
   // subtasks: HabitSubtask[]; // TODO [feature] subtasks
   // status: Status; // TODO [feature] habits can be disabled
+  createdAt: Date;
+  editedAt: Date;
+  userId: string;
 }

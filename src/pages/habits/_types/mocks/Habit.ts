@@ -30,6 +30,7 @@ const REPEATS: HabitRepetition[] = [
   REPEAT_MONTHLY_SUMMARY,
 ];
 
+// eslint-disable-next-line import/no-unused-modules
 export const HabitMock = createMock<Habit>({
   id: "mock-id",
   name: "mock-name",
@@ -37,6 +38,9 @@ export const HabitMock = createMock<Habit>({
   description: "mock-description",
   reminderTime: { hour: 18, minute: 15 },
   repeat: REPEAT_DAILY,
+  userId: "mock-user-id",
+  createdAt: new Date("2021/1/20"),
+  editedAt: new Date("2021/2/1"),
 });
 
 export const HabitsListMock = (count = 25, offset = 0): Habit[] =>

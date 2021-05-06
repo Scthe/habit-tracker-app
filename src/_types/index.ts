@@ -4,7 +4,7 @@ interface AsyncDataSuccess<T> {
 }
 interface AsyncDataError {
   status: "error";
-  message: string;
+  error: Error;
 }
 interface AsyncDataLoading {
   // this is pointeless if we use suspense, but necessary if not

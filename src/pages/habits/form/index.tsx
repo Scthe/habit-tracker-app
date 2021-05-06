@@ -2,8 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { AppPage } from "../../_shared";
+import { useSaveHabit } from "../api/useSaveHabit";
 import { useFormInitValues } from "./useFormInitValues";
-import { useSaveHabit } from "./api/useSaveHabit";
 import HabitFormImpl from "./HabitForm";
 
 const useStyles = makeStyles(() => ({

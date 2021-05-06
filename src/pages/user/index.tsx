@@ -2,14 +2,14 @@ import Button from "@material-ui/core/Button";
 import React from "react";
 import { Debug } from "~components";
 import { useAuth, useStorage } from "~firebaseUtils";
-import { useCurrentUser } from "~storage";
+import { useUserStatus } from "~storage";
 
 // eslint-disable-next-line import/no-unused-modules
 export default (): JSX.Element => {
   const storage = useStorage();
   console.log({ storage }); // test lazy load?
   const auth = useAuth();
-  const user = useCurrentUser();
+  const user = useUserStatus();
 
   return (
     <div>

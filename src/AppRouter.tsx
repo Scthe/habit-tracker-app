@@ -2,15 +2,15 @@ import React, { lazy, Suspense } from "react";
 import { Switch, Route, HashRouter as Router } from "react-router-dom";
 import { PageViewAnalytics } from "./components";
 
-// import Home from "./pages/home"; // do not lazy load this. TODO just make this static page. Unless logged in?
 import { AppLayout, PageLoader } from "./pages/_shared";
-import { useCurrentUserWithSuspense } from "~storage";
+import { useUserWithSuspense } from "~storage";
 
 // TODO other subpages in habits also can be lazy loaded
 const Habits = lazy(() => import("./pages/habits"));
 const User = lazy(() => import("./pages/user"));
 
 const AppPages: React.FC<unknown> = ({ children }) => {
+  // TODO verify Suspense strategy. May change with final layouts/split-views
   return (
     <AppLayout>
       <Suspense fallback={<PageLoader />}>{children}</Suspense>
@@ -19,7 +19,7 @@ const AppPages: React.FC<unknown> = ({ children }) => {
 };
 
 export const AppRouter: React.FC<unknown> = () => {
-  const user = useCurrentUserWithSuspense();
+  const user = useUserWithSuspense();
   console.log("[AppRouter] user:", user);
   if (user.status === "notlogged") {
     window.location.replace("/login");

@@ -44,7 +44,7 @@ export const ActivityDay: React.FC<Props> = ({
   role,
 }) => {
   const styles = useStyles();
-  const isDone = day.getDate() % 2 == 0;
+  const isDone = day.getDate() % 2 == 0; // TODO this is mocked too
 
   const getColor = (): string => {
     if (!isDayInCurrentMonth) {

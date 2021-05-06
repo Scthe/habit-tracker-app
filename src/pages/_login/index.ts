@@ -8,6 +8,8 @@ import * as firebaseui from "firebaseui";
 import { firebaseConfig } from "firebaseUtils/firebase.config";
 
 // TODO add sentry & google analytics
+// TODO add demo option. Either auto login with url parameter `?demo=true`
+// or have predefined user. How to mock data for demo? Maybe popup/intro is good enough?
 
 // Firebase config
 firebase.initializeApp(firebaseConfig);

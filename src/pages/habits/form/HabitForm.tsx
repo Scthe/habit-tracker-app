@@ -5,7 +5,7 @@ import { assert, StructError } from "superstruct";
 import set from "lodash/set";
 import clsx from "clsx";
 
-import { SaveHabitFn } from "./api/useSaveHabit";
+import { SaveHabitFn } from "../api/useSaveHabit";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormHeader } from "./HabitFormHeader";
 import { HabitFormValidationSchema } from "./validation.schema";
@@ -91,7 +91,15 @@ export default withFormik<Props, FormValues>({
 
     return errors;
   },
-  handleSubmit: (values, formikBag) => {
-    return formikBag.props.onSubmit(values);
+  handleSubmit: async (values, formikBag) => {
+    // TODO handle errors and redirect
+    try {
+      const id = await formikBag.props.onSubmit(values);
+      return id;
+    } catch (e) {
+      console.error("Failed to submit the form");
+      console.log(e);
+      throw e;
+    }
   },
 })(HabitForm);

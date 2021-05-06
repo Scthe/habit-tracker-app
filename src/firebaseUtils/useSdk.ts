@@ -75,10 +75,16 @@ function proxyComponent(componentName: "analytics"): typeof firebase.analytics;
 function proxyComponent(componentName: "firestore"): typeof firebase.firestore;
 function proxyComponent(componentName: "functions"): typeof firebase.functions;
 function proxyComponent(componentName: "messaging"): typeof firebase.messaging;
-function proxyComponent(componentName: "performance"): typeof firebase.performance;
-function proxyComponent(componentName: "remoteConfig"): typeof firebase.remoteConfig;
+function proxyComponent(
+  componentName: "performance"
+): typeof firebase.performance;
+function proxyComponent(
+  componentName: "remoteConfig"
+): typeof firebase.remoteConfig;
 function proxyComponent(componentName: "storage"): typeof firebase.storage;
-function proxyComponent(componentName: ComponentName): FirebaseNamespaceComponent {
+function proxyComponent(
+  componentName: ComponentName
+): FirebaseNamespaceComponent {
   let contextualApp: App | undefined;
 
   /** This function only returns if module was loaded. It throws before that  */
@@ -118,14 +124,28 @@ type PreloadFn<componentName extends keyof App> = (
 
 // prettier-ignore
 function preloadFactory(componentName: "auth"): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "analytics"): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "analytics"
+): PreloadFn<typeof componentName>;
 // function preloadFactory(componentName: 'database'): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "firestore"): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "functions"): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "messaging"): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "performance"): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "remoteConfig"): PreloadFn<typeof componentName>;
-function preloadFactory(componentName: "storage"): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "firestore"
+): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "functions"
+): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "messaging"
+): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "performance"
+): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "remoteConfig"
+): PreloadFn<typeof componentName>;
+function preloadFactory(
+  componentName: "storage"
+): PreloadFn<typeof componentName>;
 function preloadFactory(componentName: ComponentName) {
   return (opts: PreloadOpts) =>
     preload(componentName, opts.firebaseApp).promise; // just await this, do not use the result..

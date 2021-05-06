@@ -28,7 +28,13 @@ module.exports = {
     ],
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "error",
+      {
+        additionalHooks: "(useAsync|useAsyncCallback)",
+      },
+    ],
     "import/order": "error",
     "import/no-duplicates": "off", // default eslint is good enough?
     "import/no-unused-modules": ["error", { unusedExports: true }],

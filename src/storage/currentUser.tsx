@@ -59,9 +59,24 @@ export const UserProvider: React.FC = ({ children }) => {
   );
 };
 
-export const useCurrentUser = (): AuthCtxType => {
+/**
+ * Returns user regrdless of the status. Can be no user if still "init",
+ * can be user that is null (not logged). This is more of a util method,
+ * as it will be hard to get `user.uid` from it. If you need user that
+ * is logged, use `useLoggedUser`, that automatically throws.
+ */
+export const useUserStatus = (): AuthCtxType => {
   const ctx = useContext(CurrentUserContext);
   return ctx;
+};
+
+/** Get currently logged user (with uid, email etc.). Throws if no user is logged in. */
+export const useLoggedUser = (): CurrentUser => {
+  const user = useUserStatus();
+  if (user.status !== "logged") {
+    throw new Error("Tried to use current logged user, but we are not logged.");
+  }
+  return user.user;
 };
 
 /** Throws till status is different than 'init' */
@@ -69,8 +84,12 @@ const useUserSuspenseImpl = createSuspendedPreloadHook(
   (c: AuthCtxType): c is Logged => c.status !== "init"
 );
 
-export const useCurrentUserWithSuspense = (): Logged | NotLogged => {
-  const user = useCurrentUser();
+/**
+ * Throws a promise till status is different than 'init'. This is a hook to use
+ * with `Suspense`, probably only once in the whole app.
+ */
+export const useUserWithSuspense = (): Logged | NotLogged => {
+  const user = useUserStatus();
   useUserSuspenseImpl(user);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return user as any;

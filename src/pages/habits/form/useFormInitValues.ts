@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 
 import { Habit, HabitColor } from "../_types";
-import { useGetHabit } from "./api/useGetHabit";
 import { AsyncData } from "~types";
 import { floorToDivisibleBy } from "~utils";
 
-export type FormValues = Omit<Habit, "id">;
+export type FormValues = Omit<
+  Habit,
+  "id" | "userId" | "createdAt" | "editedAt"
+>;
 
 const DEFAULT_VALUES: FormValues = {
   name: "",
@@ -21,7 +23,7 @@ export const REMINDER_MINUTES_STEP = 5;
 
 export const useFormInitValues = (): [boolean, AsyncData<FormValues>] => {
   const { id } = useParams<{ id?: string }>();
-  const habitApiData = useGetHabit(id); // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
+  const habitApiData = null; // useGetHabit(id); // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
 
   if (id == null || habitApiData == null) {
     const t = new Date();

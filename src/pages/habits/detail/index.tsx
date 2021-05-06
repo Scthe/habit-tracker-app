@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import clsx from "clsx";
 
 import { AppPage } from "../../_shared";
-import { Habit, HabitCompletionStatus } from "../_types";
-import { useHabitDetails } from "./api/useHabitDetails";
+import { HabitCompletionStatus } from "../_types";
+import { useGetHabit } from "../api/useGetHabit";
 import { DetailsHeader } from "./DetailsHeader";
 import { DetailsFields } from "./DetailsFields";
 import { ActivityCalendar } from "./ActivityCalendar";
@@ -28,28 +28,31 @@ const useStyles = makeStyles((theme) => ({
 const HabitDetails: React.FC<unknown> = () => {
   const { id } = useParams<{ id: string }>();
   const styles = useStyles();
-  const habitAsync = useHabitDetails(id);
+  const { data } = useGetHabit(id);
 
   // TODO add loading/error handling
   // if (!hasAsyncData(habitAsync)) { return <AsyncDataStatusNotDone/> }
 
-  const habit: Habit = (habitAsync as any).data;
-  const currentStatus = HabitCompletionStatus.DONE;
+  const currentStatus = HabitCompletionStatus.DONE; // TODO get current status
   const today = new Date();
 
   return (
     <AppPage className={styles.root}>
       <DetailsHeader id={id} />
 
-      <div className={clsx(styles.toolbarOffset, styles.content)}>
-        <DetailsFields
-          habit={habit}
-          currentStatus={currentStatus}
-          today={today}
-          className={styles.fields}
-        />
-        <ActivityCalendar initMonth={today} />
-      </div>
+      {data.status === "success" && data.data != null ? (
+        <div className={clsx(styles.toolbarOffset, styles.content)}>
+          <DetailsFields
+            habit={data.data}
+            currentStatus={currentStatus}
+            today={today}
+            className={styles.fields}
+          />
+          <ActivityCalendar initMonth={today} />
+        </div>
+      ) : (
+        <span>TODO handle erros and loading</span>
+      )}
     </AppPage>
   );
 };
