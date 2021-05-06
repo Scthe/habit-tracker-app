@@ -1,9 +1,10 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { AppPage } from "../../_shared";
 import { useSaveHabit } from "../api/useSaveHabit";
-import { useFormInitValues } from "./useFormInitValues";
+import { mapHabitToForm, useFormInitValues } from "./useFormInitValues";
 import HabitFormImpl from "./HabitForm";
 
 const useStyles = makeStyles(() => ({
@@ -15,22 +16,24 @@ const useStyles = makeStyles(() => ({
 
 const HabitForm: React.FC<unknown> = () => {
   const styles = useStyles();
-  const [isEdit, initValuesAsync] = useFormInitValues();
-  const saveHabit = useSaveHabit();
-
-  // TODO add loading/error handling
-  // if (!hasAsyncData(habitAsync)) { return <AsyncDataStatusNotDone/> }
+  const { id } = useParams<{ id?: string }>();
+  const [isEdit, initValuesAsync] = useFormInitValues(id);
+  const saveHabit = useSaveHabit(id);
 
   return (
     <AppPage
       className={styles.root}
       appMenuActiveItem={isEdit ? undefined : "create"}
     >
-      <HabitFormImpl
-        isEdit={isEdit}
-        initialValues={(initValuesAsync as any).data}
-        onSubmit={saveHabit}
-      />
+      {initValuesAsync.status === "success" && initValuesAsync.data != null ? (
+        <HabitFormImpl
+          isEdit={isEdit}
+          initialValues={mapHabitToForm(initValuesAsync.data as any)}
+          onSubmit={saveHabit}
+        />
+      ) : (
+        <span>TODO handle erros and loading</span>
+      )}
     </AppPage>
   );
 };

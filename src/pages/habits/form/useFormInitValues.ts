@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
+import cloneDeep from "lodash/cloneDeep";
+import pick from "lodash/pick";
 
 import { Habit, HabitColor } from "../_types";
+import { useGetHabit } from "../api/useGetHabit";
 import { AsyncData } from "~types";
 import { floorToDivisibleBy } from "~utils";
 
@@ -21,24 +23,35 @@ const DEFAULT_VALUES: FormValues = {
 
 export const REMINDER_MINUTES_STEP = 5;
 
-export const useFormInitValues = (): [boolean, AsyncData<FormValues>] => {
-  const { id } = useParams<{ id?: string }>();
-  const habitApiData = null; // useGetHabit(id); // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
+const createDefaultValues = (): FormValues => {
+  const now = new Date();
+  const data = cloneDeep(DEFAULT_VALUES);
+  data.reminderTime.hour = now.getHours();
+  data.reminderTime.minute = floorToDivisibleBy(
+    now.getMinutes(),
+    REMINDER_MINUTES_STEP
+  );
+  return data;
+};
 
-  if (id == null || habitApiData == null) {
-    const t = new Date();
-    DEFAULT_VALUES.reminderTime.hour = t.getHours();
-    DEFAULT_VALUES.reminderTime.minute = floorToDivisibleBy(
-      t.getMinutes(),
-      REMINDER_MINUTES_STEP
-    );
-    return [
-      false,
-      {
-        status: "success",
-        data: DEFAULT_VALUES,
-      },
-    ];
+// TODO if we throw for suspense in useFormInitValues, we can get a much better flow
+export const mapHabitToForm = (habit: Habit): FormValues =>
+  pick(habit, "name", "color", "description", "reminderTime", "repeat");
+
+export const useFormInitValues = (
+  id: Habit["id"] | undefined
+): [boolean, AsyncData<FormValues | null>] => {
+  const habitApiData = useGetHabit(id); // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
+
+  if (id != null) {
+    return [true, habitApiData.data];
   }
-  return [true, habitApiData];
+
+  return [
+    false,
+    {
+      status: "success",
+      data: createDefaultValues(),
+    },
+  ];
 };

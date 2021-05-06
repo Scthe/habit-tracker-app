@@ -20,7 +20,7 @@ const createHabit = async (
   const now = new Date();
   const doc = await db.collection("habits").add({
     ...values,
-    createdAt: firebase.firestore.Timestamp.fromDate(now), // TODO use habit converter
+    createdAt: firebase.firestore.Timestamp.fromDate(now),
     editedAt: firebase.firestore.Timestamp.fromDate(now),
     userId,
   });
@@ -45,7 +45,7 @@ const editHabit = async (
   return id;
 };
 
-export const useSaveHabit = (id?: HabitId): SaveHabitFn => {
+export const useSaveHabit = (id: HabitId | undefined): SaveHabitFn => {
   const db = useFirestore();
   const { uid } = useLoggedUser();
 

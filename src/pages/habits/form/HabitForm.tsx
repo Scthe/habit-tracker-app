@@ -87,7 +87,6 @@ export default withFormik<Props, FormValues>({
         applyError(errors, failure);
       }
     }
-    console.log("Validation result:", errors);
 
     return errors;
   },

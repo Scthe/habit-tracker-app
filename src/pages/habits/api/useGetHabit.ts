@@ -1,14 +1,20 @@
-import { useAsync } from "react-async-hook";
-
 import { Habit } from "../_types";
-import { adaptFromAsyncHook, habitConverter } from "./converters";
-import { useFirestore } from "~firebaseUtils";
+import { habitConverter } from "./converters";
+import {
+  useFirestore,
+  useFirestoreOnce,
+  UseFirestoreOnceType,
+} from "~firebaseUtils";
 
 type HabitId = Habit["id"];
 type Firestore = ReturnType<typeof useFirestore>;
 
-const getById = async (db: Firestore, id: HabitId): Promise<Habit | null> => {
+const getById = async (db: Firestore, id?: HabitId): Promise<Habit | null> => {
   console.log(`getByID '${id}'`);
+  if (id == null) {
+    return null;
+  }
+
   const docSnapshot = await db
     .collection("habits")
     .doc(id)
@@ -21,13 +27,8 @@ const getById = async (db: Firestore, id: HabitId): Promise<Habit | null> => {
   return docSnapshot.data()!;
 };
 
-export const useGetHabit = (id: HabitId) => {
-  const db = useFirestore();
-  const asyncGet = useAsync(getById, [db, id]);
-
-  return {
-    data: adaptFromAsyncHook(asyncGet),
-    currentPromise: asyncGet.currentPromise,
-    refetch: () => asyncGet.execute(db, id),
-  };
+export const useGetHabit = (
+  id: HabitId | undefined
+): UseFirestoreOnceType<Habit | null> => {
+  return useFirestoreOnce(getById, [id]);
 };

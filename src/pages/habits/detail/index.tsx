@@ -26,12 +26,9 @@ const useStyles = makeStyles((theme) => ({
 
 // TODO breadcrumbs on desktop
 const HabitDetails: React.FC<unknown> = () => {
-  const { id } = useParams<{ id: string }>();
   const styles = useStyles();
+  const { id } = useParams<{ id: string }>();
   const { data } = useGetHabit(id);
-
-  // TODO add loading/error handling
-  // if (!hasAsyncData(habitAsync)) { return <AsyncDataStatusNotDone/> }
 
   const currentStatus = HabitCompletionStatus.DONE; // TODO get current status
   const today = new Date();
@@ -51,7 +48,11 @@ const HabitDetails: React.FC<unknown> = () => {
           <ActivityCalendar initMonth={today} />
         </div>
       ) : (
-        <span>TODO handle erros and loading</span>
+        <>
+          <p>TODO handle erros and loading</p>
+          <p>{`e.g. <AsyncData data={} errorMessage="Could not load habit">Children if ok</>`}</p>
+          <p>Or Suspense / ErrorBoundary this</p>
+        </>
       )}
     </AppPage>
   );

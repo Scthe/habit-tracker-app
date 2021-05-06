@@ -23,6 +23,7 @@ const ManageHabits: React.FC<unknown> = () => {
   const [search, setSearch] = useState("");
   const habitsAsync = useGetHabits();
 
+  // TODO handle refetch now
   return (
     <AppPage className={styles.root} appMenuActiveItem="manage">
       <ManageHeader search={search} setSearch={setSearch} />
