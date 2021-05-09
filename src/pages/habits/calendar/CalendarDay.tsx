@@ -1,24 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
 import clsx from "clsx";
 
-import { HabitDayStatus } from "./api/useHabitStatuses";
-import { HabitRectangle } from "./HabitRectangle";
-import { CalendarDayProps } from "~components";
+import { HabitStatus } from "../_types";
+import { HabitsList } from "./HabitsList";
 import {
+  CalendarDayProps,
   byCalendarSize,
   StyleCalendarDayProps,
-  TodayStatus,
-} from "components/Calendar/DaysGrid";
+} from "~components";
 import { AppTheme } from "theme";
 
-const SHOWN_HABITS = 2;
 const TODAY_CIRCLE_SIZE = "25px";
 
 type Props = CalendarDayProps & {
-  habitStatuses: HabitDayStatus["habits"];
+  habitStatuses: HabitStatus[];
 };
 
 type StyleProps = StyleCalendarDayProps & { day: number };
@@ -53,87 +49,39 @@ const useStyles = makeStyles<AppTheme, StyleProps>((theme) => ({
   dayContent: {
     fontSize: byCalendarSize("0.5rem", "0.7rem"),
   },
-  habitsList: {
-    margin: "0 0 5px",
-    padding: "0",
-  },
-  moreHabitsText: {
-    textDecoration: "none",
-    color: theme.palette.text.secondary,
-    "&:hover": {
-      textDecoration: "underline",
-      color: theme.palette.text.primary,
-    },
-  },
 }));
-
-const TextShowMore: React.FC<{
-  day: Date;
-  habitStatusesCount: number;
-  styles: ReturnType<typeof useStyles>;
-}> = ({ day, habitStatusesCount, styles }) => {
-  const agendaLocation = {
-    pathname: "/habits/agenda",
-    state: { day },
-  };
-
-  return habitStatusesCount > SHOWN_HABITS ? (
-    <Link to={agendaLocation} className={styles.moreHabitsText}>
-      {`+ ${habitStatusesCount - SHOWN_HABITS} more`}
-    </Link>
-  ) : null;
-};
 
 export const CalendarDay: React.FC<Props> = ({
   day,
-  today,
+  relativeToToday,
   isDayInCurrentMonth,
   className,
   role,
   habitStatuses,
   size,
 }) => {
-  const styles = useStyles({ size, day: day.getDate() });
-  // const isDone = day.getDate() % 2 == 0;
+  const styles = useStyles({
+    size,
+    day: day.day,
+  });
 
-  const getColor = (): string => {
-    if (!isDayInCurrentMonth) {
-      return styles.notThisMonth;
-    }
-    return "";
-  };
-
-  const rootClassName = clsx(className, styles.root, getColor());
+  const isToday = relativeToToday === "today";
+  const rootClassName = clsx(
+    className,
+    styles.root,
+    isDayInCurrentMonth ? "" : styles.notThisMonth
+  );
+  const dayNumberClassName = clsx(styles.date, isToday ? styles.today2 : "");
 
   return (
     <div role={role} className={rootClassName}>
-      <div
-        className={clsx(
-          styles.date,
-          today === TodayStatus.Today ? styles.today2 : ""
-        )}
-      >
-        <span className={today === TodayStatus.Today ? styles.today : ""}>
-          {day.getDate()}
-        </span>
+      <div className={dayNumberClassName}>
+        <span className={isToday ? styles.today : ""}>{day.day}</span>
       </div>
 
-      {isDayInCurrentMonth ? (
+      {isDayInCurrentMonth && habitStatuses.length > 0 ? (
         <div className={styles.dayContent}>
-          <List className={styles.habitsList}>
-            {habitStatuses.slice(0, SHOWN_HABITS).map((habitStatus) => (
-              <HabitRectangle
-                key={habitStatus.habitId}
-                size={size}
-                habitStatus={habitStatus}
-              />
-            ))}
-          </List>
-          <TextShowMore
-            day={day}
-            habitStatusesCount={habitStatuses.length}
-            styles={styles}
-          />
+          <HabitsList day={day} size={size} habitStatuses={habitStatuses} />
         </div>
       ) : null}
     </div>

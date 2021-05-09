@@ -1,10 +1,11 @@
 import React from "react";
 
 import { NoHabitsMessage } from "../_shared";
-import { HabitAgendaItem } from "./api/useAgendaData";
+import { HabitAgendaItem } from "./useAgendaData";
 import { AgendaListItem } from "./AgendaListItem";
 import { AsyncList, ListEmptyProps } from "~components";
 import { AsyncData } from "~types";
+import { DayOfYear } from "~utils";
 
 const EmptyMsg: React.FC<ListEmptyProps> = (props) => (
   <NoHabitsMessage {...props}>Today is a free day!</NoHabitsMessage>
@@ -12,7 +13,7 @@ const EmptyMsg: React.FC<ListEmptyProps> = (props) => (
 
 interface Props {
   data: AsyncData<HabitAgendaItem[]>;
-  currentDate: Date;
+  currentDate: DayOfYear;
   className?: string;
 }
 
@@ -25,7 +26,7 @@ export const AgendaList: React.FC<Props> = ({
     <AsyncList
       data={data}
       className={className}
-      keyExtractor="id"
+      keyExtractor={(e) => e.habit.id}
       emptyListMsg={EmptyMsg}
       renderItem={(e) => (
         <AgendaListItem

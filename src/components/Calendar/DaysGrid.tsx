@@ -1,22 +1,19 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import isSameDay from "date-fns/isSameDay";
-import getMonth from "date-fns/getMonth";
-import isFuture from "date-fns/isFuture";
-import isToday from "date-fns/isToday";
 import clsx from "clsx";
 
 import { useUserDateSettings } from "~hooks";
-
-export enum TodayStatus {
-  Past,
-  Future,
-  Today,
-}
+import {
+  DayOfYear,
+  DaysRelation,
+  isSameDay,
+  MonthOfYear,
+  relativeToToday,
+} from "~utils";
 
 export interface CalendarDayProps {
-  day: Date;
-  today: TodayStatus;
+  day: DayOfYear;
+  relativeToToday: DaysRelation;
   size: "small" | "large";
   isDayInCurrentMonth: boolean;
   isSelected: boolean;
@@ -36,9 +33,9 @@ export const byCalendarSize = function <PropT extends StyleCalendarDayProps>(
 
 export interface Props {
   size: "small" | "large";
-  shownMonth: Date;
-  selectedDay?: Date;
-  onDaySelected?: (d: Date) => void;
+  shownMonth: MonthOfYear;
+  selectedDay?: DayOfYear;
+  onDaySelected?: (d: DayOfYear) => void;
   renderDay: (props: CalendarDayProps) => React.ReactNode;
   classes?: {
     daysGrid?: string;
@@ -69,21 +66,15 @@ export const DaysGrid: React.FC<Props> = ({
   const styles = useStyles();
   const dateUtil = useUserDateSettings();
 
-  const currentMonthNumber = getMonth(shownMonth);
+  const currentMonthNumber = shownMonth.month;
   const weeksInCalendar = dateUtil.getDaysInCalendar(shownMonth);
 
-  const createDaysProps = (day: Date): CalendarDayProps => {
-    const isDayToday = isToday(day);
-    const isDayFuture = isFuture(day);
+  const createDaysProps = (day: DayOfYear): CalendarDayProps => {
     return {
       day,
-      today: isDayToday
-        ? TodayStatus.Today
-        : isDayFuture
-        ? TodayStatus.Future
-        : TodayStatus.Past,
+      relativeToToday: relativeToToday(day),
       size,
-      isDayInCurrentMonth: getMonth(day) === currentMonthNumber,
+      isDayInCurrentMonth: day.month === currentMonthNumber,
       isSelected: selectedDay != null && isSameDay(selectedDay, day),
       onSelected: () => onDaySelected && onDaySelected(day),
       className: clsx(styles.day, classes?.day),

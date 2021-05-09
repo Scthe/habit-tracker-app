@@ -4,9 +4,8 @@ import { lighten, makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 
 import { getHabitHtmlColor, getHabitHtmlTextColor } from "../_shared";
-import { HabitStatus } from "./api/useHabitStatuses";
-import { CalendarDayProps } from "~components";
-import { byCalendarSize } from "components/Calendar/DaysGrid";
+import { HabitStatus } from "../_types";
+import { CalendarDayProps, byCalendarSize } from "~components";
 import { AppTheme } from "theme";
 
 type RectStyleProps = {

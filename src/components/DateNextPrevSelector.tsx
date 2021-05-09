@@ -1,6 +1,4 @@
 import React from "react";
-import getDate from "date-fns/getDate";
-import getMonth from "date-fns/getMonth";
 import format from "date-fns/format";
 import addMonths from "date-fns/addMonths";
 import addWeeks from "date-fns/addWeeks";
@@ -11,6 +9,7 @@ import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { UserDateUtils, useUserDateSettings } from "~hooks";
 import { ToolbarTitle } from "~components";
+import { createDateFromDay, DayOfYear, deconstructDate } from "~utils";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,27 +24,38 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const getWeekText = (date: Date, dateUtil: UserDateUtils): string => {
+const getWeekText = (date: DayOfYear, dateUtil: UserDateUtils): string => {
   const [weekStart, weekEnd] = dateUtil.getWeekStartEndDays(date);
-  const monthStart = getMonth(weekStart);
-  const monthEnd = getMonth(weekEnd);
 
-  if (monthStart == monthEnd) {
-    const dayStart = getDate(weekStart);
-    const dayEnd = getDate(weekEnd);
-    return `${dayStart}-${dayEnd} ${format(date, "MMMM")}`;
+  if (weekStart.month == weekEnd.month) {
+    const d = createDateFromDay(date);
+    return `${weekStart.day}-${weekEnd.day} ${format(d, "MMMM")}`;
   } else {
-    const fmt = (d: Date) => `${getDate(d)} ${format(d, "MMM")}`;
+    const fmt = (d: DayOfYear) =>
+      `${d.day} ${format(createDateFromDay(d), "MMM")}`;
     return `${fmt(weekStart)} - ${fmt(weekEnd)}`;
   }
 };
 
-const getMonthText = (date: Date) => format(date, "MMMM yyyy");
+const getMonthText = (date: DayOfYear) => {
+  const d = createDateFromDay(date);
+  return format(d, "MMMM yyyy");
+};
+
+const applyDiff = (
+  date: DayOfYear,
+  mode: "week" | "month",
+  diff: number
+): DayOfYear => {
+  const d = createDateFromDay(date);
+  const changeFn = mode === "week" ? addWeeks : addMonths;
+  return deconstructDate(changeFn(d, diff));
+};
 
 interface Props {
   mode: "week" | "month";
-  currentDate: Date;
-  setCurrentDate: (newDate: Date) => void;
+  currentDate: DayOfYear;
+  setCurrentDate: (newDate: DayOfYear) => void;
   textInCenter?: boolean;
   className?: string;
 }
@@ -60,9 +70,9 @@ export const DateNextPrevSelector: React.FC<Props> = ({
   const styles = useStyles();
   const dateUtil = useUserDateSettings();
 
-  const changeFn = mode === "week" ? addWeeks : addMonths;
-  const handleClickNext = () => setCurrentDate(changeFn(currentDate, 1));
-  const handleClickPrev = () => setCurrentDate(changeFn(currentDate, -1));
+  const handleClickNext = () => setCurrentDate(applyDiff(currentDate, mode, 1));
+  const handleClickPrev = () =>
+    setCurrentDate(applyDiff(currentDate, mode, -1));
   const name =
     mode === "week"
       ? getWeekText(currentDate, dateUtil)

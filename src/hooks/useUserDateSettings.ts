@@ -6,23 +6,34 @@ import lastDayOfWeek from "date-fns/lastDayOfWeek";
 import startOfMonth from "date-fns/startOfMonth";
 import startOfWeek from "date-fns/startOfWeek";
 
-import { getWeekdayName, Weekday, WeekdayFmt } from "~utils";
+import {
+  createDateFromDay,
+  createDateFromMonth,
+  DayOfYear,
+  deconstructDate,
+  getWeekdayName,
+  MonthOfYear,
+  Weekday,
+  WeekdayFmt,
+} from "~utils";
 
 const getWeekStartEndDays = (weekStartsOn: Weekday) => {
-  return (date: Date): [Date, Date] => {
+  return (dayOfYear: DayOfYear): [DayOfYear, DayOfYear] => {
+    const date = createDateFromDay(dayOfYear);
     const monday = startOfWeek(date, { weekStartsOn });
     const sunday = lastDayOfWeek(date, { weekStartsOn });
-    return [monday, sunday];
+    return [deconstructDate(monday), deconstructDate(sunday)];
   };
 };
 
 const constructWeek = (startDate: Date) => [
-  startDate,
-  ...times(6, (i) => addDays(startDate, i)),
+  deconstructDate(startDate),
+  ...times(6, (i) => deconstructDate(addDays(startDate, i))),
 ];
 
 const getDaysInCalendar = (weekStartsOn: Weekday) => {
-  return (date: Date): Array<Date[]> => {
+  return (month: MonthOfYear): Array<DayOfYear[]> => {
+    const date = createDateFromMonth(month);
     const weeksStarts = eachWeekOfInterval(
       {
         start: startOfMonth(date),

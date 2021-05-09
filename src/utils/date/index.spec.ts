@@ -1,4 +1,4 @@
-import { DateDiff, getDateDiff } from "./time";
+import { DateDiff, getDateDiff } from ".";
 
 describe("getDateDiff", () => {
   const MOCK_DATE = new Date("2020-05-15T11:30:00.00Z");

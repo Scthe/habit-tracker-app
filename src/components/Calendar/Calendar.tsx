@@ -38,7 +38,7 @@ export const Calendar: React.FC<Props> = (props) => {
   const { size, loading, className } = props;
   const styles = useStyles();
   const isSmall = size === "small";
-  const weekdayNames = dateUtil.getWeekdayNames("N");
+  const weekdayNames = dateUtil.getWeekdayNames(isSmall ? "N" : "NNN");
 
   /*
   const initialDate = Array.isArray(date) ? date[0] : date;
@@ -66,7 +66,7 @@ export const Calendar: React.FC<Props> = (props) => {
             variant="caption"
             className={styles.weekDayLabel}
           >
-            {isSmall ? day.charAt(0).toUpperCase() : day}
+            {day}
           </Typography>
         ))}
       </div>

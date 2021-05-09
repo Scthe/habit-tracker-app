@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import get from "lodash/get";
-import isSameDay from "date-fns/isSameDay";
 import { useLocation } from "react-router-dom";
 
-import { zeroeTime } from "~utils";
+import { DayOfYear, deconstructDate, isSameDay } from "~utils";
 
-export const useCurrentDay = (): [Date, (d: Date) => void] => {
+export const useCurrentDay = (): [DayOfYear, (d: DayOfYear) => void] => {
   const location = useLocation();
-  const initCurrentDay = get(location, "state.day", new Date());
+  const initDate: DayOfYear = get(
+    location,
+    "state.day",
+    deconstructDate(new Date())
+  );
 
-  const [currentDay, setCurrentDayRAW] = useState(zeroeTime(initCurrentDay));
+  const [currentDay, setCurrentDayRAW] = useState<DayOfYear>(initDate);
 
-  const setCurrentDay = (d: Date) => {
-    if (!isSameDay(d, currentDay)) {
-      setCurrentDayRAW(zeroeTime(d));
-    }
-  };
+  const setCurrentDay = useCallback(
+    (d: DayOfYear) => {
+      if (!isSameDay(d, currentDay)) {
+        setCurrentDayRAW(d);
+      }
+    },
+    [currentDay]
+  );
 
   return [currentDay, setCurrentDay];
 };

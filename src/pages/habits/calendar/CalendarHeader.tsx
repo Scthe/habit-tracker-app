@@ -5,14 +5,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { DateNextPrevSelector } from "~components";
 import { useDesktopLayout } from "~hooks";
+import { MonthOfYear } from "~utils";
 
 const useStyles = makeStyles(() => ({
   selector: { flex: "1" },
 }));
 
 interface Props {
-  shownMonth: Date;
-  setShownMonth: (d: Date) => void;
+  shownMonth: MonthOfYear;
+  setShownMonth: (d: MonthOfYear) => void;
 }
 
 export const CalendarHeader: React.FC<Props> = ({
@@ -27,7 +28,7 @@ export const CalendarHeader: React.FC<Props> = ({
       <Toolbar>
         <DateNextPrevSelector
           mode="month"
-          currentDate={shownMonth}
+          currentDate={{ ...shownMonth, day: 16 }}
           setCurrentDate={setShownMonth}
           textInCenter={!isDesktop}
           className={styles.selector}

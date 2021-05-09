@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { HabitsListItem, useHabitTimeLeft } from "../_shared";
 import { Habit, HabitCompletionStatus } from "../_types";
 import { AgendaItemStatus } from "./AgendaItemStatus";
+import { DayOfYear } from "~utils";
 
 const useStyles = makeStyles(() => ({
   doneState: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => ({
 interface Props {
   habit: Habit;
   status: HabitCompletionStatus;
-  currentDate: Date;
+  currentDate: DayOfYear;
 }
 
 export const AgendaListItem: React.FC<Props> = ({

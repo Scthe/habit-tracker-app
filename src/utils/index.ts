@@ -1,8 +1,9 @@
+export * from "./async";
 export * from "./extractProperty";
 export * from "./mocks";
 export * from "./reactUtils";
 export * from "./stringifyNumber";
-export * from "./time";
+export * from "./date";
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 export const sortStringCmpFn = (a: string, b: string): 1 | -1 | 0 => {

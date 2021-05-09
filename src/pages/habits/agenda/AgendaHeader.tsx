@@ -3,8 +3,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { WeekPreview } from "../_shared";
-import { DateNextPrevSelector } from "~components";
+import { DateNextPrevSelector, WeekPreview } from "~components";
+import { DayOfYear } from "~utils";
 
 const useStyles = makeStyles(() => ({
   weekSelector: {
@@ -17,8 +17,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  currentDate: Date;
-  setCurrentDate: (newDate: Date) => void;
+  currentDate: DayOfYear;
+  setCurrentDate: (newDate: DayOfYear) => void;
 }
 
 export const AgendaHeader: React.FC<Props> = ({
@@ -39,7 +39,7 @@ export const AgendaHeader: React.FC<Props> = ({
       </Toolbar>
       <Toolbar>
         <WeekPreview
-          currentDate={currentDate}
+          activeDate={currentDate}
           setCurrentDate={setCurrentDate}
           className={styles.weekPreview}
         />
