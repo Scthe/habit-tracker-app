@@ -14,6 +14,8 @@ const path = "/habits";
 //      useDesktopLayout();
 //      You can always use HOC that will make responsive data availabie in makeStyles
 
+// TODO subscribe to habits here? And do not fetch in subviews?
+
 // eslint-disable-next-line import/no-unused-modules
 export default (): JSX.Element => {
   return (

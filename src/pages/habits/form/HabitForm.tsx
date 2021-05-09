@@ -5,7 +5,7 @@ import { assert, StructError } from "superstruct";
 import set from "lodash/set";
 import clsx from "clsx";
 
-import { SaveHabitFn } from "../api/useSaveHabit";
+import { SaveHabitFn } from "../api";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormHeader } from "./HabitFormHeader";
 import { HabitFormValidationSchema } from "./validation.schema";

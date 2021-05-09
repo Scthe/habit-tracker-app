@@ -1,5 +1,5 @@
-import { Habit } from "../_types";
-import { habitConverter } from "./converters";
+import { Habit } from "../../_types";
+import { habitConverter } from "../converters";
 import {
   useFirestore,
   useFirestoreOnce,
@@ -10,7 +10,6 @@ type HabitId = Habit["id"];
 type Firestore = ReturnType<typeof useFirestore>;
 
 const getById = async (db: Firestore, id?: HabitId): Promise<Habit | null> => {
-  console.log(`getByID '${id}'`);
   if (id == null) {
     return null;
   }

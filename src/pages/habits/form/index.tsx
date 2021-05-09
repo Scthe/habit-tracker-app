@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { AppPage } from "../../_shared";
-import { useSaveHabit } from "../api/useSaveHabit";
-import { mapHabitToForm, useFormInitValues } from "./useFormInitValues";
+import { useSaveHabit } from "../api";
+import { useFormInitValues } from "./useFormInitValues";
 import HabitFormImpl from "./HabitForm";
 
 const useStyles = makeStyles(() => ({
@@ -28,7 +28,7 @@ const HabitForm: React.FC<unknown> = () => {
       {initValuesAsync.status === "success" && initValuesAsync.data != null ? (
         <HabitFormImpl
           isEdit={isEdit}
-          initialValues={mapHabitToForm(initValuesAsync.data as any)}
+          initialValues={initValuesAsync.data}
           onSubmit={saveHabit}
         />
       ) : (

@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { AppPage } from "../../_shared";
-import { useAgendaData } from "./api/useAgendaData";
+import { useAgendaData } from "./useAgendaData";
 import { AgendaList } from "./AgendaList";
 import { useCurrentDay } from "./useCurrentDay";
 import { AgendaHeader } from "./AgendaHeader";
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HabitsList: React.FC<unknown> = () => {
+const HabitsAgenda: React.FC<unknown> = () => {
   const styles = useStyles();
   const [currentDay, setCurrentDay] = useCurrentDay();
   const agendaData = useAgendaData(currentDay);
@@ -40,4 +40,4 @@ const HabitsList: React.FC<unknown> = () => {
   );
 };
 
-export default HabitsList;
+export default HabitsAgenda;

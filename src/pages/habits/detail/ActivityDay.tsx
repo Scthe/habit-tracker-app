@@ -4,10 +4,13 @@ import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
 import clsx from "clsx";
 
+import { HabitCompletionStatus } from "../_types";
 import { CalendarDayProps } from "~components";
-import { TodayStatus } from "components/Calendar/DaysGrid";
+import { relativeToToday } from "~utils";
 
-type Props = CalendarDayProps;
+type Props = CalendarDayProps & {
+  doneStatus: HabitCompletionStatus;
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,37 +39,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ActivityDay: React.FC<Props> = ({
-  day,
-  today,
-  isDayInCurrentMonth,
-  className,
-  role,
-}) => {
+const getStatusStyles = (
+  styles: ReturnType<typeof useStyles>,
+  props: Props
+): string => {
+  const { day, doneStatus, isDayInCurrentMonth } = props;
+  const relativeToTodayStatus = relativeToToday(day);
+
+  if (!isDayInCurrentMonth) {
+    return styles.notThisMonth;
+  }
+  if (relativeToTodayStatus === "today") {
+    return styles.today;
+  }
+  if (doneStatus === HabitCompletionStatus.DONE) {
+    return styles.wasDone;
+  }
+  if (relativeToTodayStatus === "future") {
+    return styles.neutral;
+  }
+  return styles.wasFailed;
+};
+
+export const ActivityDay: React.FC<Props> = (props) => {
+  const { day, className, role } = props;
   const styles = useStyles();
-  const isDone = day.getDate() % 2 == 0; // TODO this is mocked too
 
-  const getColor = (): string => {
-    if (!isDayInCurrentMonth) {
-      return styles.notThisMonth;
-    }
-    if (today === TodayStatus.Today) {
-      return styles.today;
-    }
-    if (isDone) {
-      return styles.wasDone;
-    }
-    if (today === TodayStatus.Future) {
-      return styles.neutral;
-    }
-    return styles.wasFailed;
-  };
-
-  const classes = clsx(className, styles.root, getColor());
+  const statusClass = getStatusStyles(styles, props);
+  const classes = clsx(className, styles.root, statusClass);
 
   return (
     <div role={role} className={classes}>
-      {day.getDate()}
+      {day.day}
     </div>
   );
 };

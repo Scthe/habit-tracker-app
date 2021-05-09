@@ -3,13 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { AppPage } from "../../_shared";
-import {
-  HabitStatusPerMonthData,
-  useHabitStatuses,
-} from "./api/useHabitStatuses";
+import { useGetHabitStatuses } from "../api";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarMonth } from "./CalendarMonth";
 import { useDesktopLayout } from "~hooks";
+import { deconstructDateToMonth } from "~utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,13 +30,12 @@ const useStyles = makeStyles((theme) => ({
 const Calendar: React.FC<unknown> = () => {
   const styles = useStyles();
   const isDesktop = useDesktopLayout();
-  const [shownMonth, setShownMonth] = useState(new Date());
-  const habitStatusesAsync = useHabitStatuses(shownMonth);
+  const [shownMonth, setShownMonth] = useState(
+    deconstructDateToMonth(new Date())
+  );
 
-  // TODO add loading/error handling
-  // if (!hasAsyncData(habitAsync)) { return <AsyncDataStatusNotDone/> }
-  const habitStatuses: HabitStatusPerMonthData = (habitStatusesAsync as any)
-    .data;
+  // TODO add error handling (loading is handled by Calendar)
+  const habitStatusesAsync = useGetHabitStatuses(shownMonth);
 
   return (
     <AppPage
@@ -48,7 +45,10 @@ const Calendar: React.FC<unknown> = () => {
       <CalendarHeader shownMonth={shownMonth} setShownMonth={setShownMonth} />
 
       <div className={clsx(styles.toolbarOffset, styles.content)}>
-        <CalendarMonth shownMonth={shownMonth} habitStatuses={habitStatuses} />
+        <CalendarMonth
+          shownMonth={shownMonth}
+          habitStatuses={habitStatusesAsync.data}
+        />
       </div>
     </AppPage>
   );

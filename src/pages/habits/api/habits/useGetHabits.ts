@@ -1,5 +1,5 @@
-import { Habit } from "../_types";
-import { habitConverter } from "./converters";
+import { Habit } from "../../_types";
+import { habitConverter } from "../converters";
 import {
   collectQueryResults,
   useFirestore,
@@ -20,7 +20,6 @@ const getAll = async (db: Firestore, userId: string): Promise<Habit[]> => {
     .orderBy("name", "desc")
     .withConverter(habitConverter)
     .get();
-
   return collectQueryResults(querySnapshot);
 };
 

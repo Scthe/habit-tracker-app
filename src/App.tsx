@@ -9,20 +9,23 @@ import { AppRouter } from "./AppRouter";
 import { UserProvider } from "./storage";
 import appTheme from "./theme";
 import { PageLoader } from "./pages/_shared";
+import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
 
 const App: React.FC<unknown> = () => {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <UserProvider>
-          <ThemeProvider theme={appTheme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <AppRouter />
-            </MuiPickersUtilsProvider>
-          </ThemeProvider>
-        </UserProvider>
-      </FirebaseAppProvider>
-    </Suspense>
+    <GlobalErrorBoundary>
+      <Suspense fallback={<PageLoader />}>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+          <UserProvider>
+            <ThemeProvider theme={appTheme}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <AppRouter />
+              </MuiPickersUtilsProvider>
+            </ThemeProvider>
+          </UserProvider>
+        </FirebaseAppProvider>
+      </Suspense>
+    </GlobalErrorBoundary>
   );
 };
 

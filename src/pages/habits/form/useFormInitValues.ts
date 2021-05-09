@@ -2,7 +2,7 @@ import cloneDeep from "lodash/cloneDeep";
 import pick from "lodash/pick";
 
 import { Habit, HabitColor } from "../_types";
-import { useGetHabit } from "../api/useGetHabit";
+import { useGetHabit } from "../api";
 import { AsyncData } from "~types";
 import { floorToDivisibleBy } from "~utils";
 
@@ -34,16 +34,30 @@ const createDefaultValues = (): FormValues => {
   return data;
 };
 
-// TODO if we throw for suspense in useFormInitValues, we can get a much better flow
-export const mapHabitToForm = (habit: Habit): FormValues =>
+const mapHabitToForm = (habit: Habit): FormValues =>
   pick(habit, "name", "color", "description", "reminderTime", "repeat");
 
+/** We return null if we get habit by id for edit, but id is invalid */
 export const useFormInitValues = (
   id: Habit["id"] | undefined
 ): [boolean, AsyncData<FormValues | null>] => {
-  const habitApiData = useGetHabit(id); // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
+  // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
+  const habitApiData = useGetHabit(id);
 
   if (id != null) {
+    if (
+      habitApiData.data.status === "success" &&
+      habitApiData.data.data != null
+    ) {
+      const values = mapHabitToForm(habitApiData.data.data);
+      return [
+        true,
+        {
+          status: "success",
+          data: values,
+        },
+      ];
+    }
     return [true, habitApiData.data];
   }
 

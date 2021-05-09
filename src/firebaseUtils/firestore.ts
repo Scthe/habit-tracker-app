@@ -9,9 +9,7 @@ import { useFirestore } from "~firebaseUtils";
 import { AsyncData } from "~types";
 
 type Firestore = ReturnType<typeof useFirestore>;
-type QuerySnapshot<T> = firebase.firestore.QuerySnapshot<
-  T
->;
+type QuerySnapshot<T> = firebase.firestore.QuerySnapshot<T>;
 
 const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
   switch (data.status) {

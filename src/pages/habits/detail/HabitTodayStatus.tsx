@@ -3,12 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
-import isSameDay from "date-fns/isSameDay";
-import { getNextHabitActivityDate } from "../_shared";
+import { getNextDateWhenHabitIsDoable } from "../_shared";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
-import { useSetHabitDone } from "../agenda/api/useSetHabitDone";
+import { useSetHabitDone } from "../api";
 import { DetailHabitField } from "./DetailHabitField";
-import { getDateDiff, stringifyDateDiff } from "~utils";
+import {
+  createDateFromDay,
+  deconstructDate,
+  getDateDiff,
+  isSameDay,
+  stringifyDateDiff,
+} from "~utils";
 
 const useStyles = makeStyles(() => ({
   activeLabelRoot: {
@@ -22,38 +27,23 @@ const useStyles = makeStyles(() => ({
 
 interface Props {
   habit: Habit;
-  currentStatus: HabitCompletionStatus;
-  today: Date; // in case we want to refresh every minute
+  status: HabitCompletionStatus;
 }
 
-export const HabitTodayStatus: React.FC<Props> = ({
-  habit,
-  currentStatus,
-  today,
-}) => {
+const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
   const styles = useStyles();
   const setHabitDone = useSetHabitDone();
 
-  // const isActionable = canMarkHabitDone(habit, today); // TODO nope, only for today
-  const nextActivityDate = getNextHabitActivityDate(habit, today);
-  const isActionable = isSameDay(today, nextActivityDate);
-
-  if (!isActionable) {
-    const dateDiff = getDateDiff(today, nextActivityDate);
-    return (
-      <DetailHabitField
-        id="next-occurence"
-        label="Next occurence"
-        value={`In ${stringifyDateDiff(dateDiff)}`}
-      />
-    );
-  }
-
+  // TODO handle loading state here. Implement as `useState; ... setLoading(true); await ..; setLoading(false);`
+  // The async requests lib had some helper for this?
   const handleToggle = () => {
-    // TODO handle loading state here. Implement as `useState; ... setLoading(true); await ..; setLoading(false);`
-    if (isActionable) {
-      setHabitDone(today, habit.id, getOppositeStatus(currentStatus));
-    }
+    setHabitDone({
+      habitId: habit.id,
+      habitName: habit.name,
+      habitColor: habit.color,
+      status: getOppositeStatus(status),
+      day: deconstructDate(new Date()),
+    });
   };
 
   // TODO or just 2 big buttons: start timer, mark as done. Timer is a separate `/timer` scren
@@ -68,12 +58,40 @@ export const HabitTodayStatus: React.FC<Props> = ({
       }}
       control={
         <Switch
-          checked={currentStatus == HabitCompletionStatus.DONE}
+          checked={status == HabitCompletionStatus.DONE}
           onChange={handleToggle}
           name="checkedB"
           color="primary"
         />
       }
+    />
+  );
+};
+
+export const HabitTodayStatus: React.FC<Props> = (props) => {
+  const { habit } = props;
+
+  const todayDate = new Date();
+  const todayDay = deconstructDate(todayDate);
+  const nextDoableDay = getNextDateWhenHabitIsDoable(habit.repeat, todayDay);
+  const isActionableToday = isSameDay(todayDay, nextDoableDay);
+
+  if (isActionableToday) {
+    return <ToggleTodayHabitDone {...props} />;
+  }
+
+  // just render how much time is left
+  const habitReminder = createDateFromDay(
+    nextDoableDay,
+    habit.reminderTime.hour,
+    habit.reminderTime.minute
+  );
+  const dateDiff = getDateDiff(todayDate, habitReminder);
+  return (
+    <DetailHabitField
+      id="next-occurence"
+      label="Next occurence"
+      value={`In ${stringifyDateDiff(dateDiff)}`}
     />
   );
 };

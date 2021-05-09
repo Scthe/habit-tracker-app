@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { useState } from "react";
 import Paper from "@material-ui/core/Paper";
+
+import { getStatus } from "../_shared";
+import { Habit, HabitCompletionStatus, HabitStatus } from "../_types";
+import { useGetHabitStatuses } from "../api";
 import { ActivityDay } from "./ActivityDay";
 import { Calendar, DateNextPrevSelector } from "~components";
+import { DayOfYear, deconstructDateToMonth } from "~utils";
+import { AsyncData } from "~types";
+
+interface Props {
+  habit: Habit;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   header: { marginBottom: "10px" },
-  calendarWrapper: {
-    // background: theme.palette.background.paper,
-    // padding: "8px",
-  },
+  calendarWrapper: {},
   monthsSwitcher: {
     background: theme.palette.primary.main,
     color: "white",
-    // padding: "5px 5px 0",
   },
   calendar: {
     paddingTop: "5px",
@@ -25,13 +29,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props {
-  initMonth: Date;
-}
+const getHabitStatus = (
+  id: Habit["id"],
+  day: DayOfYear,
+  statusesAsync: AsyncData<HabitStatus[]>
+): HabitCompletionStatus => {
+  if (statusesAsync.status === "success") {
+    return getStatus(id, day, statusesAsync.data);
+  }
+  return HabitCompletionStatus.DONE;
+};
 
-export const ActivityCalendar: React.FC<Props> = ({ initMonth }) => {
+export const ActivityCalendar: React.FC<Props> = ({ habit }) => {
   const styles = useStyles();
-  const [shownMonth, setShownMonth] = useState(initMonth);
+  const [shownMonth, setShownMonth] = useState(
+    deconstructDateToMonth(new Date())
+  );
+  const statusesAsync = useGetHabitStatuses(shownMonth).data;
 
   return (
     <div className={styles.root}>
@@ -43,7 +57,7 @@ export const ActivityCalendar: React.FC<Props> = ({ initMonth }) => {
         <Paper square={true} className={styles.monthsSwitcher}>
           <DateNextPrevSelector
             mode="month"
-            currentDate={shownMonth}
+            currentDate={{ ...shownMonth, day: 16 }}
             setCurrentDate={setShownMonth}
             textInCenter={true}
           />
@@ -53,9 +67,17 @@ export const ActivityCalendar: React.FC<Props> = ({ initMonth }) => {
           size="small"
           shownMonth={shownMonth}
           allowKeyboardControl={true}
-          loading={false}
+          loading={
+            statusesAsync.status === "init" ||
+            statusesAsync.status === "loading"
+          }
           className={styles.calendar}
-          renderDay={(props) => <ActivityDay {...props} />}
+          renderDay={(props) => (
+            <ActivityDay
+              {...props}
+              doneStatus={getHabitStatus(habit.id, props.day, statusesAsync)}
+            />
+          )}
         />
       </div>
     </div>

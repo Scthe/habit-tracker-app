@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { AppPage } from "../../_shared";
-import { useGetHabits } from "../api/useGetHabits";
+import { useGetHabits } from "../api";
 import { ManageHeader } from "./ManageHeader";
 import { HabitsManageList } from "./HabitsManageList";
 

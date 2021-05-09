@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Habit, HabitCompletionStatus } from "../_types";
+import { Habit } from "../_types";
 import { DetailHabitField } from "./DetailHabitField";
-import { HabitTodayStatus } from "./HabitTodayStatus";
 import { assertUnreachable, stringifyNumber, getWeekdayName } from "~utils";
 
 // TODO count how many times done
@@ -30,17 +29,10 @@ const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
 
 interface Props {
   habit: Habit;
-  currentStatus: HabitCompletionStatus;
-  today: Date;
   className?: string;
 }
 
-export const DetailsFields: React.FC<Props> = ({
-  habit,
-  currentStatus,
-  today,
-  className,
-}) => {
+export const DetailsFields: React.FC<Props> = ({ habit, className }) => {
   const fieldProps = (id: string, label: string, value: string) => ({
     id,
     label,
@@ -52,11 +44,6 @@ export const DetailsFields: React.FC<Props> = ({
 
   return (
     <div className={className}>
-      <HabitTodayStatus
-        habit={habit}
-        currentStatus={currentStatus}
-        today={today}
-      />
       <DetailHabitField {...fieldProps("name", "I want to", habit.name)} />
       <DetailHabitField {...fieldProps(repeatLabel, "Repeat", repeatText)} />
       <DetailHabitField

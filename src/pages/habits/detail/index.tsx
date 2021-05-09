@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import clsx from "clsx";
 
 import { AppPage } from "../../_shared";
+import { useGetHabit } from "../api";
 import { HabitCompletionStatus } from "../_types";
-import { useGetHabit } from "../api/useGetHabit";
 import { DetailsHeader } from "./DetailsHeader";
 import { DetailsFields } from "./DetailsFields";
 import { ActivityCalendar } from "./ActivityCalendar";
+import { HabitTodayStatus } from "./HabitTodayStatus";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,9 +30,7 @@ const HabitDetails: React.FC<unknown> = () => {
   const styles = useStyles();
   const { id } = useParams<{ id: string }>();
   const { data } = useGetHabit(id);
-
-  const currentStatus = HabitCompletionStatus.DONE; // TODO get current status
-  const today = new Date();
+  const status = HabitCompletionStatus.NOT_DONE; // TODO mocked
 
   return (
     <AppPage className={styles.root}>
@@ -39,13 +38,9 @@ const HabitDetails: React.FC<unknown> = () => {
 
       {data.status === "success" && data.data != null ? (
         <div className={clsx(styles.toolbarOffset, styles.content)}>
-          <DetailsFields
-            habit={data.data}
-            currentStatus={currentStatus}
-            today={today}
-            className={styles.fields}
-          />
-          <ActivityCalendar initMonth={today} />
+          <HabitTodayStatus habit={data.data} status={status} />
+          <DetailsFields habit={data.data} className={styles.fields} />
+          <ActivityCalendar habit={data.data} />
         </div>
       ) : (
         <>

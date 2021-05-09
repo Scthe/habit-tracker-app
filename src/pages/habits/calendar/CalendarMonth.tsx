@@ -1,14 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import getDate from "date-fns/getDate";
 
+import { HabitStatus } from "../_types";
 import { CalendarDay } from "./CalendarDay";
-import {
-  HabitDayStatus,
-  HabitStatusPerMonthData,
-} from "./api/useHabitStatuses";
 import { Calendar } from "~components";
 import { useDesktopLayout } from "~hooks";
+import { DayOfYear, isSameDay, MonthOfYear, sortStringCmpFn } from "~utils";
+import { AsyncData } from "~types";
 
 const useStyles = makeStyles((theme) => {
   const borderColor = theme.palette.grey["300"];
@@ -38,17 +36,23 @@ const useStyles = makeStyles((theme) => {
 });
 
 interface Props {
-  shownMonth: Date;
-  habitStatuses: HabitStatusPerMonthData;
+  shownMonth: MonthOfYear;
+  habitStatuses: AsyncData<HabitStatus[]>;
 }
 
-const getHabitStatus = (
-  day: Date,
-  monthlyStatues: HabitStatusPerMonthData
-): HabitDayStatus["habits"] => {
-  const dayIdx = getDate(day);
-  const data = monthlyStatues.find((e) => e.dayIdx == dayIdx);
-  return data != null ? data.habits : [];
+const getHabitStatuses = (
+  day: DayOfYear,
+  statusesAsync: AsyncData<HabitStatus[]>
+): HabitStatus[] => {
+  if (statusesAsync.status === "success") {
+    const statusesForDay = statusesAsync.data.filter((e) =>
+      isSameDay(e.day, day)
+    );
+    return statusesForDay.sort((a, b) =>
+      sortStringCmpFn(a.habitName, b.habitName)
+    );
+  }
+  return [];
 };
 
 export const CalendarMonth: React.FC<Props> = ({
@@ -63,17 +67,19 @@ export const CalendarMonth: React.FC<Props> = ({
       size={isDesktop ? "large" : "small"}
       shownMonth={shownMonth}
       allowKeyboardControl={true}
-      loading={false}
+      loading={
+        habitStatuses.status === "init" || habitStatuses.status === "loading"
+      }
       className={styles.calendar}
       classes={{
         daysGrid: styles.daysGrid,
         week: styles.week,
         day: styles.day,
       }}
-      renderDay={(props) => (
+      renderDay={(dayProps) => (
         <CalendarDay
-          {...props}
-          habitStatuses={getHabitStatus(props.day, habitStatuses)}
+          {...dayProps}
+          habitStatuses={getHabitStatuses(dayProps.day, habitStatuses)}
         />
       )}
     />
