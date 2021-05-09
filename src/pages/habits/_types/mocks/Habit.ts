@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unused-modules */
+
 import times from "lodash/times";
 import {
   Habit,
@@ -30,7 +32,6 @@ const REPEATS: HabitRepetition[] = [
   REPEAT_MONTHLY_SUMMARY,
 ];
 
-// eslint-disable-next-line import/no-unused-modules
 export const HabitMock = createMock<Habit>({
   id: "mock-id",
   name: "mock-name",
@@ -43,7 +44,6 @@ export const HabitMock = createMock<Habit>({
   editedAt: new Date("2021/2/1"),
 });
 
-// eslint-disable-next-line import/no-unused-modules
 export const HabitsListMock = (count = 25, offset = 0): Habit[] =>
   times(count, (ii) => {
     const i = ii + offset;

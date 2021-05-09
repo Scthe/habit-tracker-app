@@ -9,7 +9,6 @@ import {
 import { useLoggedUser } from "~storage";
 
 // TODO or have a backgorund/context-like realtime subscription for current habits?
-// TODO use collectionGroup(habit_activity) query to get all activity across user's habits. Add composite index
 
 type Firestore = ReturnType<typeof useFirestore>;
 

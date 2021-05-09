@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+import Checkbox from "@material-ui/core/Checkbox";
+import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { getNextDateWhenHabitIsDoable } from "../_shared";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
@@ -15,10 +17,13 @@ import {
   stringifyDateDiff,
 } from "~utils";
 
+const LOADER_SIZE = "42px";
+
 const useStyles = makeStyles(() => ({
   activeLabelRoot: {
     display: "flex",
     margin: "0 0 15px",
+    minHeight: LOADER_SIZE,
   },
   activeLabelText: {
     flex: "1",
@@ -33,11 +38,11 @@ interface Props {
 const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
   const styles = useStyles();
   const setHabitDone = useSetHabitDone();
+  const isDone = status == HabitCompletionStatus.DONE;
+  const hasError = Boolean(setHabitDone.error);
 
-  // TODO handle loading state here. Implement as `useState; ... setLoading(true); await ..; setLoading(false);`
-  // The async requests lib had some helper for this?
   const handleToggle = () => {
-    setHabitDone({
+    setHabitDone.execute({
       habitId: habit.id,
       habitName: habit.name,
       habitColor: habit.color,
@@ -46,28 +51,40 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
     });
   };
 
-  // TODO or just 2 big buttons: start timer, mark as done. Timer is a separate `/timer` scren
   return (
-    <FormControlLabel
-      label="Done today"
-      labelPlacement="start"
-      onChange={handleToggle}
-      classes={{
-        root: styles.activeLabelRoot,
-        label: styles.activeLabelText,
-      }}
-      control={
-        <Switch
-          checked={status == HabitCompletionStatus.DONE}
-          onChange={handleToggle}
-          name="checkedB"
-          color="primary"
-        />
-      }
-    />
+    <>
+      <FormControlLabel
+        label="Done today"
+        labelPlacement="start"
+        onChange={handleToggle}
+        classes={{
+          root: styles.activeLabelRoot,
+          label: styles.activeLabelText,
+        }}
+        control={
+          setHabitDone.loading ? (
+            <CircularProgress size={LOADER_SIZE} color="primary" />
+          ) : (
+            <Checkbox
+              checked={isDone}
+              onChange={handleToggle}
+              color="primary"
+              disabled={hasError}
+            />
+          )
+        }
+      />
+
+      {hasError ? (
+        <Typography color="error">
+          Error, could not {isDone ? "undo" : "finish"} the habit
+        </Typography>
+      ) : null}
+    </>
   );
 };
 
+// TODO or just 2 big buttons: start timer, mark as done. Timer is a separate `/timer` scren
 export const HabitTodayStatus: React.FC<Props> = (props) => {
   const { habit } = props;
 

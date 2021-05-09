@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
 import Icon from "@material-ui/core/Icon";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import clsx from "clsx";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -73,6 +74,7 @@ export const AgendaItemStatus: React.FC<AgendaItemStatusProps> = (props) => {
   );
 };
 
+// TODO on desktop add tooltip what the action will do
 const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
   habit,
   status,
@@ -81,10 +83,9 @@ const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
   const setHabitDone = useSetHabitDone();
   const isDone = status === HabitCompletionStatus.DONE;
 
-  // TODO handle loading state here. Implement as `useState; ... () => {setLoading(true); await ..; setLoading(false);}`
-  // The async requests lib had some helper for this?
+  // TODO handle errors
   const handleToggle = () => {
-    setHabitDone({
+    setHabitDone.execute({
       habitId: habit.id,
       habitName: habit.name,
       habitColor: habit.color,
@@ -93,9 +94,9 @@ const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
     });
   };
 
-  // TODO on desktop add tooltip what the action will do
-  return (
-    <Checkbox checked={isDone} onChange={handleToggle} color="primary" />
-    // style ={{ color: DONE_GREEN }}
-  );
+  if (setHabitDone.loading) {
+    return <CircularProgress size="40px" color="primary" />;
+  }
+
+  return <Checkbox checked={isDone} onChange={handleToggle} color="primary" />;
 };
