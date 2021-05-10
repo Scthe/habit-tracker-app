@@ -10,6 +10,7 @@ import { UserProvider } from "./storage";
 import appTheme from "./theme";
 import { PageLoader } from "./pages/_shared";
 import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
+import { AlertProvider } from "./hooks/useShowAlert";
 
 const App: React.FC<unknown> = () => {
   return (
@@ -19,7 +20,9 @@ const App: React.FC<unknown> = () => {
           <UserProvider>
             <ThemeProvider theme={appTheme}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <AppRouter />
+                <AlertProvider>
+                  <AppRouter />
+                </AlertProvider>
               </MuiPickersUtilsProvider>
             </ThemeProvider>
           </UserProvider>

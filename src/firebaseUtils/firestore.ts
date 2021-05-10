@@ -56,11 +56,11 @@ export const useFirestoreOnce = <R = unknown, Args extends any[] = any[]>(
   };
 };
 
+// TODO use this
 export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
-  createReference: (db: Firestore) => DocumentReference<R>,
+  createReference: (db: Firestore) => DocumentReference<R>, // please useCallback this!!!
   mapper: (item: R | undefined) => U,
-  onError?: FirestoreErrorHandler,
-  opts: firebase.firestore.SnapshotListenOptions = {}
+  onError?: FirestoreErrorHandler
 ): AsyncData<U> => {
   const db = useFirestore();
 
@@ -71,7 +71,6 @@ export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
     setAsyncData({ status: "loading" });
 
     const unsubscribe = createReference(db).onSnapshot(
-      opts,
       (docSnapshot) => {
         const data = docSnapshot.data();
         setAsyncData({
@@ -87,7 +86,7 @@ export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
     );
 
     return unsubscribe;
-  }, [db, createReference]);
+  }, [db, createReference, mapper, onError]);
 
   return asyncData;
 };

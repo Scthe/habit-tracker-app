@@ -20,8 +20,6 @@ const setStatus = async (
     ...data,
     userId: uid,
   };
-  console.log("Set habit status", nextStatus);
-
   await habitActivityDoc(db, uid, data.day).set(
     {
       [nextStatus.habitId]: nextStatus,
@@ -39,11 +37,8 @@ export const useSetHabitDone = (): UseAsyncReturn<
   const { uid } = useLoggedUser();
   const db = useFirestore();
 
-  // TODO how to refetch after? Intercept the "execute" and add '.then()'?  Rely on live reload?
   const implFn = useCallback(
-    (data: SetHabitDoneArg) => {
-      return setStatus(db, data, uid);
-    },
+    (data: SetHabitDoneArg) => setStatus(db, data, uid),
     [db, uid]
   );
 

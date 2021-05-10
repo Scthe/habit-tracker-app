@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Form, FormikErrors, FormikProps, withFormik } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import { assert, StructError } from "superstruct";
@@ -17,6 +17,8 @@ import {
   RepeatField,
   ReminderField,
 } from "./fields";
+import { ShowAlertFn } from "~hooks";
+import { onFormSubmitErrorFn, useFormSubmitError } from "~utils";
 
 const useStyles = makeStyles((theme) => ({
   toolbarOffset: theme.mixins.toolbar,
@@ -35,13 +37,25 @@ interface Props {
   initialValues: FormValues;
   onSubmit: SaveHabitFn;
   history: ReturnType<typeof useHistory>;
+  showAlert: ShowAlertFn;
 }
 
-// eslint-disable-next-line import/no-unused-modules
-export const HabitForm: React.FC<Props & FormikProps<FormValues>> = ({
-  isEdit,
-}) => {
+const HabitForm: React.FC<Props & FormikProps<FormValues>> = (props) => {
+  const { isEdit, showAlert } = props;
+
   const styles = useStyles();
+  const showErrorAlertCb: onFormSubmitErrorFn = useCallback(
+    (cause) => {
+      if (cause === "validation") {
+        showAlert({
+          severity: "error",
+          message: "Form contains errors",
+        });
+      }
+    },
+    [showAlert]
+  );
+  useFormSubmitError(props, showErrorAlertCb);
 
   return (
     <Form>
@@ -59,7 +73,6 @@ export const HabitForm: React.FC<Props & FormikProps<FormValues>> = ({
 };
 
 const applyError = (errors: FormikErrors<FormValues>, failure: StructError) => {
-  console.log("failure", failure);
   switch (failure.key) {
     case "name": {
       errors.name = "Name should have between 3 and 20 letters";
@@ -79,7 +92,6 @@ export default withFormik<Props, FormValues>({
     return props.initialValues;
   },
   validate: (values: FormValues) => {
-    // TODO add snackbar when this happens
     const errors: FormikErrors<FormValues> = {};
 
     try {
@@ -93,15 +105,16 @@ export default withFormik<Props, FormValues>({
     return errors;
   },
   handleSubmit: async (values, formikBag) => {
-    // TODO handle errors
+    const { onSubmit, history, showAlert } = formikBag.props;
     try {
-      const { onSubmit, history } = formikBag.props;
       const id = await onSubmit(values);
       history.push(`/habits/${id}/details`);
     } catch (e) {
-      console.error("Failed to submit the form");
-      console.log(e);
-      throw e;
+      showAlert({
+        severity: "error",
+        message: "Error, could not submit the form",
+      });
+      throw e; // throw for sentry
     }
   },
 })(HabitForm);

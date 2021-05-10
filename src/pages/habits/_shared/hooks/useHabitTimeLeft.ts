@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import isBefore from "date-fns/isBefore";
 
 import { Habit } from "../../_types";
@@ -37,19 +37,22 @@ export const useHabitTimeLeft = (
   habit: Habit,
   habitActivityDay: DayOfYear
 ): string => {
-  // TODO not sure this works. It always shows as if for today?
-  const habitDate = createDateFromDay(
-    habitActivityDay,
-    habit.reminderTime.hour,
-    habit.reminderTime.minute
+  const { hour, minute } = habit.reminderTime;
+
+  const getTimeLeft = useCallback(() => {
+    const habitDate = createDateFromDay(habitActivityDay, hour, minute);
+    return recalcTimeLeft(habitDate);
+  }, [habitActivityDay, hour, minute]);
+
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+
+  // refresh IMMEDIATELY when we change day
+  useEffect(() => setTimeLeft(getTimeLeft()), [getTimeLeft]);
+
+  // refresh as time passes
+  useInterval(
+    useCallback(() => setTimeLeft(getTimeLeft()), [getTimeLeft]),
+    min2ms(1)
   );
-
-  const [timeLeft, setTimeLeft] = useState(recalcTimeLeft(habitDate));
-
-  const refreshTimeLeft = useCallback(() => {
-    setTimeLeft(recalcTimeLeft(habitDate));
-  }, [habitDate]);
-
-  useInterval(refreshTimeLeft, min2ms(1));
   return timeLeft;
 };

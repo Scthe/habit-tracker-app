@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { getNextDateWhenHabitIsDoable } from "../_shared";
@@ -16,6 +15,7 @@ import {
   isSameDay,
   stringifyDateDiff,
 } from "~utils";
+import { useShowAlert } from "~hooks";
 
 const LOADER_SIZE = "42px";
 
@@ -38,17 +38,25 @@ interface Props {
 const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
   const styles = useStyles();
   const setHabitDone = useSetHabitDone();
+  const showAlert = useShowAlert();
   const isDone = status == HabitCompletionStatus.DONE;
   const hasError = Boolean(setHabitDone.error);
 
-  const handleToggle = () => {
-    setHabitDone.execute({
-      habitId: habit.id,
-      habitName: habit.name,
-      habitColor: habit.color,
-      status: getOppositeStatus(status),
-      day: deconstructDate(new Date()),
-    });
+  const handleToggle = async () => {
+    try {
+      await setHabitDone.execute({
+        habitId: habit.id,
+        habitName: habit.name,
+        habitColor: habit.color,
+        status: getOppositeStatus(status),
+        day: deconstructDate(new Date()),
+      });
+    } catch (e) {
+      showAlert({
+        severity: "error",
+        message: `Error, could not ${isDone ? "undo" : "finish"} the habit`,
+      });
+    }
   };
 
   return (
@@ -74,12 +82,6 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
           )
         }
       />
-
-      {hasError ? (
-        <Typography color="error">
-          Error, could not {isDone ? "undo" : "finish"} the habit
-        </Typography>
-      ) : null}
     </>
   );
 };

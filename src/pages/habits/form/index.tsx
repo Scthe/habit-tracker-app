@@ -6,6 +6,7 @@ import { AppPage } from "../../_shared";
 import { useSaveHabit } from "../api";
 import { useFormInitValues } from "./useFormInitValues";
 import HabitFormImpl from "./HabitForm";
+import { useShowAlert } from "~hooks";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,6 +19,7 @@ const HabitForm: React.FC<unknown> = () => {
   const styles = useStyles();
   const { id } = useParams<{ id?: string }>();
   const history = useHistory();
+  const showAlert = useShowAlert();
   const [isEdit, initValuesAsync] = useFormInitValues(id);
   const saveHabit = useSaveHabit(id);
 
@@ -32,6 +34,7 @@ const HabitForm: React.FC<unknown> = () => {
           initialValues={initValuesAsync.data}
           onSubmit={saveHabit}
           history={history}
+          showAlert={showAlert}
         />
       ) : (
         <span>TODO handle erros and loading</span>

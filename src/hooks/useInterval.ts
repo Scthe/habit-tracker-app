@@ -7,6 +7,7 @@ export function useInterval(callback: CbFnType, delayMs: number): void {
   const savedCallback = useRef<CbFnType>();
 
   // Remember the latest callback.
+  // Done to not reset timer when `callback` changes
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);

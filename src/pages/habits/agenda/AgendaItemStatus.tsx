@@ -10,6 +10,7 @@ import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
 import { canFinishHabitOnDay } from "../_shared";
 import { useSetHabitDone } from "../api";
 import { DayOfYear, relativeToToday } from "~utils";
+import { useShowAlert } from "~hooks";
 
 const DONE_GREEN = green[500];
 
@@ -81,17 +82,24 @@ const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
   currentDate,
 }) => {
   const setHabitDone = useSetHabitDone();
+  const showAlert = useShowAlert();
   const isDone = status === HabitCompletionStatus.DONE;
 
-  // TODO handle errors
-  const handleToggle = () => {
-    setHabitDone.execute({
-      habitId: habit.id,
-      habitName: habit.name,
-      habitColor: habit.color,
-      status: getOppositeStatus(status),
-      day: currentDate,
-    });
+  const handleToggle = async () => {
+    try {
+      await setHabitDone.execute({
+        habitId: habit.id,
+        habitName: habit.name,
+        habitColor: habit.color,
+        status: getOppositeStatus(status),
+        day: currentDate,
+      });
+    } catch (e) {
+      showAlert({
+        severity: "error",
+        message: `Error, could not ${isDone ? "undo" : "finish"} the habit`,
+      });
+    }
   };
 
   if (setHabitDone.loading) {
