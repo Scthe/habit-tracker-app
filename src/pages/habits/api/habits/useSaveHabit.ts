@@ -3,6 +3,7 @@ import { useCallback } from "react";
 
 import { Habit } from "../../_types";
 import { FormValues } from "../../form/useFormInitValues";
+import { habitDocRef, habitsCollectionRef } from "../references";
 import { useFirestore } from "~firebaseUtils";
 import { CurrentUser, useLoggedUser } from "~storage";
 
@@ -18,7 +19,7 @@ const createHabit = async (
 ): Promise<HabitId> => {
   console.log("CREATE", values);
   const now = new Date();
-  const doc = await db.collection("habits").add({
+  const doc = await habitsCollectionRef(db).add({
     ...values,
     createdAt: firebase.firestore.Timestamp.fromDate(now),
     editedAt: firebase.firestore.Timestamp.fromDate(now),
@@ -34,14 +35,11 @@ const editHabit = async (
 ): Promise<HabitId> => {
   console.log(`EDIT '${id}'`, values);
   const now = new Date();
-  await db
-    .collection("habits")
-    .doc(id)
-    .update({
-      ...values,
-      editedAt: firebase.firestore.Timestamp.fromDate(now),
-      // preserve `createdAt` and userId
-    });
+  await habitDocRef(db).update({
+    ...values,
+    editedAt: firebase.firestore.Timestamp.fromDate(now),
+    // preserve `createdAt` and userId
+  });
   return id;
 };
 

@@ -1,5 +1,5 @@
 import { Habit, HabitCompletionStatus, HabitStatus } from "../_types";
-import { useGetHabits, useGetHabitStatuses } from "../api";
+import { useGetHabits, useGetHabitStatusesSubscription } from "../api";
 import { getStatus, showHabitOnDay } from "../_shared";
 import { combineAsyncData, DayOfYear } from "~utils";
 import { AsyncData } from "~types";
@@ -13,7 +13,7 @@ export const useAgendaData = (
   date: DayOfYear
 ): AsyncData<HabitAgendaItem[]> => {
   const habitsAsync = useGetHabits();
-  const statusesAsync = useGetHabitStatuses(date);
+  const statusesAsync = useGetHabitStatusesSubscription(date);
 
   const createHabitAgendaItems = (
     allHabits: Habit[],
@@ -30,6 +30,6 @@ export const useAgendaData = (
   return combineAsyncData(
     createHabitAgendaItems,
     habitsAsync.data,
-    statusesAsync.data
+    statusesAsync
   );
 };

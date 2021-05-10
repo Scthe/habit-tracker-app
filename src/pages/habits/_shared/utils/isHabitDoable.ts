@@ -57,7 +57,7 @@ export const canFinishHabitOnDay = (
   }
 
   const today = deconstructDate(new Date());
-  const dayDiff = differenceInDays(today, day);
+  const dayDiff = differenceInDays(day, today);
   const isTodayOrYesterday = dayDiff === 0 || dayDiff === -1;
   const isInNext7days = dayDiff <= 7;
   const isInNext31days = dayDiff <= 31;

@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import { useEffect, useState } from "react";
 import {
   AsyncState,
   useAsync,
@@ -10,6 +11,11 @@ import { AsyncData } from "~types";
 
 type Firestore = ReturnType<typeof useFirestore>;
 type QuerySnapshot<T> = firebase.firestore.QuerySnapshot<T>;
+type DocumentReference<T> = firebase.firestore.DocumentReference<T>;
+
+export type FirestoreErrorHandler = (
+  err: firebase.firestore.FirestoreError
+) => void;
 
 const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
   switch (data.status) {
@@ -48,6 +54,42 @@ export const useFirestoreOnce = <R = unknown, Args extends any[] = any[]>(
     currentPromise: asyncGet.currentPromise,
     refetch: () => asyncGet.execute(db, ...params),
   };
+};
+
+export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
+  createReference: (db: Firestore) => DocumentReference<R>,
+  mapper: (item: R | undefined) => U,
+  onError?: FirestoreErrorHandler,
+  opts: firebase.firestore.SnapshotListenOptions = {}
+): AsyncData<U> => {
+  const db = useFirestore();
+
+  const [asyncData, setAsyncData] = useState<AsyncData<U>>({ status: "init" });
+
+  useEffect(() => {
+    // this works differently than one time request. "loading" happens only once at startup and will NEVER go came back
+    setAsyncData({ status: "loading" });
+
+    const unsubscribe = createReference(db).onSnapshot(
+      opts,
+      (docSnapshot) => {
+        const data = docSnapshot.data();
+        setAsyncData({
+          status: "success",
+          data: mapper(data),
+        });
+      },
+      (error) => {
+        // TODO show alert "Error synchronizing data"
+        onError && onError(error);
+        setAsyncData({ status: "error", error });
+      }
+    );
+
+    return unsubscribe;
+  }, [db, createReference]);
+
+  return asyncData;
 };
 
 export const collectQueryResults = <T>(

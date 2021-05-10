@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { assert, StructError } from "superstruct";
 import set from "lodash/set";
 import clsx from "clsx";
+import { useHistory } from "react-router-dom";
 
 import { SaveHabitFn } from "../api";
 import { FormValues } from "./useFormInitValues";
@@ -33,6 +34,7 @@ interface Props {
   isEdit: boolean;
   initialValues: FormValues;
   onSubmit: SaveHabitFn;
+  history: ReturnType<typeof useHistory>;
 }
 
 // eslint-disable-next-line import/no-unused-modules
@@ -91,10 +93,11 @@ export default withFormik<Props, FormValues>({
     return errors;
   },
   handleSubmit: async (values, formikBag) => {
-    // TODO handle errors and redirect
+    // TODO handle errors
     try {
-      const id = await formikBag.props.onSubmit(values);
-      return id;
+      const { onSubmit, history } = formikBag.props;
+      const id = await onSubmit(values);
+      history.push(`/habits/${id}/details`);
     } catch (e) {
       console.error("Failed to submit the form");
       console.log(e);

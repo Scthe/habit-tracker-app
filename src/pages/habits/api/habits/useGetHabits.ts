@@ -1,5 +1,5 @@
 import { Habit } from "../../_types";
-import { habitConverter } from "../converters";
+import { habitsQueryRef } from "../references";
 import {
   collectQueryResults,
   useFirestore,
@@ -8,16 +8,11 @@ import {
 } from "~firebaseUtils";
 import { useLoggedUser } from "~storage";
 
-// TODO or have a backgorund/context-like realtime subscription for current habits?
-
 type Firestore = ReturnType<typeof useFirestore>;
 
 const getAll = async (db: Firestore, userId: string): Promise<Habit[]> => {
-  const querySnapshot = await db
-    .collection("habits")
-    .where("userId", "==", userId)
+  const querySnapshot = await habitsQueryRef(db, userId)
     .orderBy("name", "desc")
-    .withConverter(habitConverter)
     .get();
   return collectQueryResults(querySnapshot);
 };

@@ -25,6 +25,9 @@ export const deconstructDate = (d: Date): DayOfYear => ({
   year: d.getFullYear(),
 });
 
+export const stringifyDay = (d: DayOfYear): string =>
+  `${d.year}-${d.month}-${d.day}`;
+
 export const createDateFromDay = (
   d: DayOfYear,
   hour?: number,

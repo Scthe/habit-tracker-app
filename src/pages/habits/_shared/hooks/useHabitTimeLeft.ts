@@ -37,6 +37,7 @@ export const useHabitTimeLeft = (
   habit: Habit,
   habitActivityDay: DayOfYear
 ): string => {
+  // TODO not sure this works. It always shows as if for today?
   const habitDate = createDateFromDay(
     habitActivityDay,
     habit.reminderTime.hour,

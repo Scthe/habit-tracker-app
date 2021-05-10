@@ -36,7 +36,8 @@ export interface Habit {
   // timer: HabitTimer; // TODO [feature] timer
   // subtasks: HabitSubtask[]; // TODO [feature] subtasks
   // status: Status; // TODO [feature] habits can be disabled
-  createdAt: Date;
-  editedAt: Date;
+  createdAt: Date; // needs hour
+  editedAt: Date; // needs hour
   userId: string;
+  // TODO [feature] implement delete as `deletedAt: Date`, manually filter this from views. It's tombstone, not actual delete
 }

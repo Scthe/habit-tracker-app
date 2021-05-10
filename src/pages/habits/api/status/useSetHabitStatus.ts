@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useAsyncCallback, UseAsyncReturn } from "react-async-hook";
 import { HabitStatus } from "../../_types";
+import { habitActivityDoc } from "../references";
 import { CurrentUser, useLoggedUser } from "~storage";
 import { useFirestore } from "~firebaseUtils";
 
@@ -21,17 +22,12 @@ const setStatus = async (
   };
   console.log("Set habit status", nextStatus);
 
-  await db
-    .collection("user")
-    .doc(uid)
-    .collection("habit_activity")
-    .doc(`${data.day.year}-${data.day.month}`)
-    .set(
-      {
-        [nextStatus.habitId]: nextStatus,
-      },
-      { merge: true }
-    );
+  await habitActivityDoc(db, uid, data.day).set(
+    {
+      [nextStatus.habitId]: nextStatus,
+    },
+    { merge: true }
+  );
 
   return nextStatus;
 };

@@ -4,12 +4,11 @@ import { useParams } from "react-router-dom";
 import clsx from "clsx";
 
 import { AppPage } from "../../_shared";
-import { useGetHabit } from "../api";
-import { HabitCompletionStatus } from "../_types";
 import { DetailsHeader } from "./DetailsHeader";
 import { DetailsFields } from "./DetailsFields";
 import { ActivityCalendar } from "./ActivityCalendar";
 import { HabitTodayStatus } from "./HabitTodayStatus";
+import { useDetailsData } from "./useDetailsData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,18 +28,20 @@ const useStyles = makeStyles((theme) => ({
 const HabitDetails: React.FC<unknown> = () => {
   const styles = useStyles();
   const { id } = useParams<{ id: string }>();
-  const { data } = useGetHabit(id);
-  const status = HabitCompletionStatus.NOT_DONE; // TODO mocked
+  const detailsAsync = useDetailsData(id);
 
   return (
     <AppPage className={styles.root}>
       <DetailsHeader id={id} />
 
-      {data.status === "success" && data.data != null ? (
+      {detailsAsync.status === "success" && detailsAsync.data != null ? (
         <div className={clsx(styles.toolbarOffset, styles.content)}>
-          <HabitTodayStatus habit={data.data} status={status} />
-          <DetailsFields habit={data.data} className={styles.fields} />
-          <ActivityCalendar habit={data.data} />
+          <HabitTodayStatus
+            habit={detailsAsync.data}
+            status={detailsAsync.data.status}
+          />
+          <DetailsFields habit={detailsAsync.data} className={styles.fields} />
+          <ActivityCalendar habit={detailsAsync.data} />
         </div>
       ) : (
         <>
