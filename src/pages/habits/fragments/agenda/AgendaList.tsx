@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NoHabitsMessage } from "../../_shared";
+import { NoHabitsMessage } from "../../components";
 import { HabitAgendaItem } from "./useAgendaData";
 import { AgendaListItem, HabitClickHandler } from "./AgendaListItem";
 import { AsyncList, ListEmptyProps } from "~components";

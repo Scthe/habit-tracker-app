@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HabitsListItem } from "../../_shared";
+import { HabitsListItem } from "../../components";
 import { Habit } from "../../_types";
 import { assertUnreachable } from "~utils";
 

@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 
-import { getStatus } from "../../_shared";
+import { getStatus } from "../../utils";
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
 import { useGetHabitStatuses } from "../../api";
 import { ActivityDay } from "./ActivityDay";

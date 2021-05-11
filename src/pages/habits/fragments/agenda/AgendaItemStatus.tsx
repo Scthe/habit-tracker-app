@@ -7,7 +7,7 @@ import clsx from "clsx";
 
 import Checkbox from "@material-ui/core/Checkbox";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
-import { canFinishHabitOnDay } from "../../_shared";
+import { canFinishHabitOnDay } from "../../utils";
 import { useSetHabitDone } from "../../api";
 import { DayOfYear, relativeToToday } from "~utils";
 import { useShowAlert } from "~hooks";

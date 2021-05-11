@@ -42,9 +42,7 @@ export const AppLayout: React.FC<unknown> = ({ children }) => {
         />
       ) : null}
 
-      <div className={classes.content}>
-        {children}
-      </div>
+      <div className={classes.content}>{children}</div>
 
       {!isDesktopLayout ? (
         <AppMenuHorizontal currentItem={currentItem} flex="0" />

@@ -1,8 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { HabitsListItem, useHabitTimeLeft } from "../../_shared";
+import { HabitsListItem } from "../../components";
 import { Habit, HabitCompletionStatus } from "../../_types";
+import { useHabitTimeLeft } from "./useHabitTimeLeft";
 import { AgendaItemStatus } from "./AgendaItemStatus";
 import { DayOfYear } from "~utils";
 

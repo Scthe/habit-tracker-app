@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NoHabitsMessage } from "../../_shared";
+import { NoHabitsMessage } from "../../components";
 import { Habit } from "../../_types";
 import {
   HabitClickHandler,

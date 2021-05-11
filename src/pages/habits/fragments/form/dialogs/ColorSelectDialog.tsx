@@ -5,7 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import grey from "@material-ui/core/colors/grey";
 import Icon from "@material-ui/core/Icon";
 
-import { getHabitHtmlColor } from "../../../_shared";
+import { getHabitHtmlColor } from "../../../utils";
 import { HabitColor, HabitColorList } from "../../../_types";
 import { ValuePickDialog } from "~components";
 

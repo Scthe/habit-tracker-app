@@ -4,7 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { getNextDateWhenHabitIsDoable } from "../../_shared";
+import { getNextDateWhenHabitIsDoable } from "../../utils";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
 import { useSetHabitDone } from "../../api";
 import { DetailHabitField } from "./DetailHabitField";

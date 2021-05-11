@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import DesktopViews from "./layouts/desktop";
 import MobileViews from "./layouts/mobile";
-import { useDesktopLayout } from "~hooks";
 import { ROUTES } from "./constants";
-import { Redirect, Route, Switch } from "react-router-dom";
 import Calendar from "./fragments/calendar";
 import Form from "./fragments/form";
+import { useDesktopLayout } from "~hooks";
 
 // TODO subscribe to habits here? And do not fetch in subviews?
 

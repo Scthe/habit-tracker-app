@@ -1,6 +1,6 @@
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
 import { useGetHabit, useGetHabitStatusesSubscription } from "../../api";
-import { getStatus } from "../../_shared";
+import { getStatus } from "../../utils";
 import { deconstructDate, combineAsyncData } from "~utils";
 import { AsyncData } from "~types";
 
