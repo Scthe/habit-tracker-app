@@ -2,10 +2,12 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
-import { HabitsListItem, useHabitTimeLeft } from "../_shared";
-import { Habit, HabitCompletionStatus } from "../_types";
+import { HabitsListItem, useHabitTimeLeft } from "../../_shared";
+import { Habit, HabitCompletionStatus } from "../../_types";
 import { AgendaItemStatus } from "./AgendaItemStatus";
 import { DayOfYear } from "~utils";
+
+export type HabitClickHandler = (habit: Habit) => void;
 
 const useStyles = makeStyles(() => ({
   doneState: {
@@ -17,20 +19,18 @@ interface Props {
   habit: Habit;
   status: HabitCompletionStatus;
   currentDate: DayOfYear;
+  onClick: HabitClickHandler;
 }
 
 export const AgendaListItem: React.FC<Props> = ({
   habit,
   status,
   currentDate,
+  onClick,
 }) => {
   const history = useHistory();
   const styles = useStyles();
   const timeLeftStr = useHabitTimeLeft(habit, currentDate);
-
-  const handleClick = () => {
-    history.push(`/habits/${habit.id}/details`);
-  };
 
   const isDone = status === HabitCompletionStatus.DONE;
   const classByStatus = isDone ? styles.doneState : "";
@@ -43,7 +43,7 @@ export const AgendaListItem: React.FC<Props> = ({
         title: classByStatus,
       }}
       renderSubtext={() => <span className={classByStatus}>{timeLeftStr}</span>}
-      onClick={handleClick}
+      onClick={() => onClick(habit)}
       actionElement={
         <AgendaItemStatus
           habit={habit}

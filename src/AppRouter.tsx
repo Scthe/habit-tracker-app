@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, HashRouter as Router } from "react-router-dom";
-import { PageViewAnalytics } from "./components";
+import { PageViewAnalytics, PageLoader } from "./components";
 
-import { AppLayout, PageLoader } from "./pages/_shared";
+import { AppLayout } from "./pages/_shared";
 import { useUserWithSuspense } from "~storage";
 
 // TODO other subpages in habits also can be lazy loaded

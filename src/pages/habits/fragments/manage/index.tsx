@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { AppPage } from "../../_shared";
-import { useGetHabits } from "../api";
+import { AppPage } from "../../../_shared";
+import { useGetHabits } from "../../api";
 import { ManageHeader } from "./ManageHeader";
 import { HabitsManageList } from "./HabitsManageList";
+import { HabitClickHandler } from "./HabitsManageListItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,18 +19,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ManageHabits: React.FC<unknown> = () => {
+interface Props {
+  onItemClick: HabitClickHandler;
+}
+
+const ManageHabits: React.FC<Props> = ({ onItemClick }) => {
   const styles = useStyles();
   const [search, setSearch] = useState("");
   const habitsAsync = useGetHabits();
 
-  // TODO handle refetch now
+  // TODO handle refetch on error
   return (
     <AppPage className={styles.root} appMenuActiveItem="manage">
       <ManageHeader search={search} setSearch={setSearch} />
 
       <div className={clsx(styles.toolbarOffset, styles.content)}>
-        <HabitsManageList search={search} habits={habitsAsync.data} />
+        <HabitsManageList
+          search={search}
+          habits={habitsAsync.data}
+          onItemClick={onItemClick}
+        />
       </div>
     </AppPage>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Habit } from "../_types";
+import { Habit } from "../../_types";
 import { DetailHabitField } from "./DetailHabitField";
 import { assertUnreachable, stringifyNumber, getWeekdayName } from "~utils";
 

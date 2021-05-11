@@ -1,6 +1,6 @@
-import { Habit, HabitCompletionStatus, HabitStatus } from "../_types";
-import { useGetHabits, useGetHabitStatusesSubscription } from "../api";
-import { getStatus, showHabitOnDay } from "../_shared";
+import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
+import { useGetHabits, useGetHabitStatusesSubscription } from "../../api";
+import { getStatus, showHabitOnDay } from "../../_shared";
 import { combineAsyncData, DayOfYear } from "~utils";
 import { AsyncData } from "~types";
 

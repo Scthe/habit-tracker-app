@@ -4,7 +4,7 @@ import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
 import clsx from "clsx";
 
-import { HabitCompletionStatus } from "../_types";
+import { HabitCompletionStatus } from "../../_types";
 import { CalendarDayProps } from "~components";
 import { relativeToToday } from "~utils";
 

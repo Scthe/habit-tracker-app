@@ -1,20 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useParams } from "react-router-dom";
 import clsx from "clsx";
 
-import { AppPage } from "../../_shared";
 import { DetailsHeader } from "./DetailsHeader";
 import { DetailsFields } from "./DetailsFields";
 import { ActivityCalendar } from "./ActivityCalendar";
 import { HabitTodayStatus } from "./HabitTodayStatus";
 import { useDetailsData } from "./useDetailsData";
+import { Habit } from "pages/habits/_types";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
   toolbarOffset: theme.mixins.toolbar,
   content: {
     padding: "25px 25px 0",
@@ -24,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
   fields: { marginBottom: "20px" },
 }));
 
-// TODO breadcrumbs on desktop
-const HabitDetails: React.FC<unknown> = () => {
+interface Props {
+  id: string;
+  habit?: Habit;
+}
+
+const HabitDetails: React.FC<Props> = ({ id, habit }) => {
   const styles = useStyles();
-  const { id } = useParams<{ id: string }>();
-  const detailsAsync = useDetailsData(id);
+  const detailsAsync = useDetailsData(id, habit);
 
   return (
-    <AppPage className={styles.root}>
+    <>
       <DetailsHeader id={id} />
 
       {detailsAsync.status === "success" && detailsAsync.data != null ? (
@@ -50,7 +48,7 @@ const HabitDetails: React.FC<unknown> = () => {
           <p>Or Suspense / ErrorBoundary this</p>
         </>
       )}
-    </AppPage>
+    </>
   );
 };
 

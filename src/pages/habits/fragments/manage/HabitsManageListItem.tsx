@@ -1,12 +1,14 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
-import { HabitsListItem } from "../_shared";
-import { Habit } from "../_types";
+import { HabitsListItem } from "../../_shared";
+import { Habit } from "../../_types";
 import { assertUnreachable } from "~utils";
+
+export type HabitClickHandler = (habit: Habit) => void;
 
 interface Props {
   habit: Habit;
+  onClick: HabitClickHandler;
 }
 
 const getSubtext = (habit: Habit): string => {
@@ -27,13 +29,7 @@ const getSubtext = (habit: Habit): string => {
   }
 };
 
-export const HabitsManageListItem: React.FC<Props> = ({ habit }) => {
-  const history = useHistory();
-
-  const handleClick = () => {
-    history.push(`/habits/${habit.id}/details`);
-  };
-
+export const HabitsManageListItem: React.FC<Props> = ({ habit, onClick }) => {
   // TODO overflow?
   const subtext = getSubtext(habit);
 
@@ -41,7 +37,7 @@ export const HabitsManageListItem: React.FC<Props> = ({ habit }) => {
     <HabitsListItem
       item={habit}
       renderSubtext={() => subtext}
-      onClick={handleClick}
+      onClick={() => onClick(habit)}
     />
   );
 };

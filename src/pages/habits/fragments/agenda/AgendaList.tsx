@@ -1,8 +1,8 @@
 import React from "react";
 
-import { NoHabitsMessage } from "../_shared";
+import { NoHabitsMessage } from "../../_shared";
 import { HabitAgendaItem } from "./useAgendaData";
-import { AgendaListItem } from "./AgendaListItem";
+import { AgendaListItem, HabitClickHandler } from "./AgendaListItem";
 import { AsyncList, ListEmptyProps } from "~components";
 import { AsyncData } from "~types";
 import { DayOfYear } from "~utils";
@@ -25,12 +25,14 @@ interface Props {
   data: AsyncData<HabitAgendaItem[]>;
   currentDate: DayOfYear;
   className?: string;
+  onItemClick: HabitClickHandler;
 }
 
 export const AgendaList: React.FC<Props> = ({
   data,
   currentDate,
   className,
+  onItemClick,
 }) => {
   /*
   type HabitId = Habit["id"];
@@ -53,6 +55,7 @@ export const AgendaList: React.FC<Props> = ({
           currentDate={currentDate}
           habit={e.habit}
           status={e.status}
+          onClick={onItemClick}
         />
       )}
     />

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { NoHabitsMessage } from "../_shared";
-import { Habit } from "../_types";
-import { HabitsManageListItem } from "./HabitsManageListItem";
+import { NoHabitsMessage } from "../../_shared";
+import { Habit } from "../../_types";
+import { HabitClickHandler, HabitsManageListItem } from "./HabitsManageListItem";
 import { AsyncData } from "~types";
 import { AsyncList, ListEmptyProps } from "~components";
 
@@ -16,6 +16,7 @@ interface Props {
   search: string;
   habits: AsyncData<Habit[]>;
   className?: string;
+  onItemClick: HabitClickHandler;
 }
 
 const filterHabitsByName = (expectedName: string) => {
@@ -27,6 +28,7 @@ export const HabitsManageList: React.FC<Props> = ({
   search,
   habits,
   className,
+  onItemClick,
 }) => {
   return (
     <AsyncList
@@ -34,7 +36,7 @@ export const HabitsManageList: React.FC<Props> = ({
       filterPredicate={filterHabitsByName(search)}
       className={className}
       keyExtractor="id"
-      renderItem={(habit) => <HabitsManageListItem habit={habit} />}
+      renderItem={(habit) => <HabitsManageListItem habit={habit} onClick={onItemClick} />}
       emptyListMsg={EmptyMsg}
     />
   );

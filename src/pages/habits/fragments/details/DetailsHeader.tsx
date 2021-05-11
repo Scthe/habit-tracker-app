@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Habit } from "../_types";
+import { Habit } from "../../_types";
 import { ToolbarTitle } from "~components";
 
 const useStyles = makeStyles(() => ({

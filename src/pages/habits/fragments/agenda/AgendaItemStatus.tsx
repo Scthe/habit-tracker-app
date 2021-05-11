@@ -6,9 +6,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import clsx from "clsx";
 
 import Checkbox from "@material-ui/core/Checkbox";
-import { getOppositeStatus, Habit, HabitCompletionStatus } from "../_types";
-import { canFinishHabitOnDay } from "../_shared";
-import { useSetHabitDone } from "../api";
+import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
+import { canFinishHabitOnDay } from "../../_shared";
+import { useSetHabitDone } from "../../api";
 import { DayOfYear, relativeToToday } from "~utils";
 import { useShowAlert } from "~hooks";
 
