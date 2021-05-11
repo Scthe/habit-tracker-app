@@ -16,12 +16,7 @@ export const ListEmpty: React.FC<ListEmptyProps> = ({
     textToShow = wasFilteredOut ? "No matching results" : "No results";
   }
 
-  return (
-    <FullPageMessage
-      icon={icon!}
-      message={textToShow}
-    />
-  );
+  return <FullPageMessage icon={icon!} message={textToShow} />;
 };
 
 ListEmpty.defaultProps = {

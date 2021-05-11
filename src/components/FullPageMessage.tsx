@@ -20,7 +20,11 @@ interface Props {
 }
 export type FullPageMessageProps = Props;
 
-export const FullPageMessage: React.FC<Props> = ({ icon, message, children }) => {
+export const FullPageMessage: React.FC<Props> = ({
+  icon,
+  message,
+  children,
+}) => {
   const styles = useStyles();
 
   return (
@@ -33,7 +37,9 @@ export const FullPageMessage: React.FC<Props> = ({ icon, message, children }) =>
       justifyContent="center"
     >
       <Icon className={styles.icon}>{icon}</Icon>
-      <Typography variant="h6" className={styles.message}>{message}</Typography>
+      <Typography variant="h6" className={styles.message}>
+        {message}
+      </Typography>
       {children}
     </Box>
   );

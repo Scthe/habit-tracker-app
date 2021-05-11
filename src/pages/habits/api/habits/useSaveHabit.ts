@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import { useCallback } from "react";
 
 import { Habit } from "../../_types";
-import { FormValues } from "../../form/useFormInitValues";
+import { FormValues } from "../../fragments/form/useFormInitValues";
 import { habitDocRef, habitsCollectionRef } from "../references";
 import { useFirestore } from "~firebaseUtils";
 import { CurrentUser, useLoggedUser } from "~storage";

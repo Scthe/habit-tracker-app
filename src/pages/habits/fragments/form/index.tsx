@@ -1,33 +1,23 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
-import { AppPage } from "../../_shared";
-import { useSaveHabit } from "../api";
+import { useSaveHabit } from "../../api";
 import { useFormInitValues } from "./useFormInitValues";
 import HabitFormImpl from "./HabitForm";
 import { useShowAlert } from "~hooks";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
-}));
+interface Props {
+  id?: string;
+}
 
-const HabitForm: React.FC<unknown> = () => {
-  const styles = useStyles();
-  const { id } = useParams<{ id?: string }>();
+const HabitForm: React.FC<Props> = ({ id }) => {
   const history = useHistory();
   const showAlert = useShowAlert();
   const [isEdit, initValuesAsync] = useFormInitValues(id);
   const saveHabit = useSaveHabit(id);
 
   return (
-    <AppPage
-      className={styles.root}
-      appMenuActiveItem={isEdit ? undefined : "create"}
-    >
+    <>
       {initValuesAsync.status === "success" && initValuesAsync.data != null ? (
         <HabitFormImpl
           isEdit={isEdit}
@@ -39,7 +29,7 @@ const HabitForm: React.FC<unknown> = () => {
       ) : (
         <span>TODO handle erros and loading</span>
       )}
-    </AppPage>
+    </>
   );
 };
 

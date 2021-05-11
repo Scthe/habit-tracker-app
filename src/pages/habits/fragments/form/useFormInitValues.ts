@@ -1,10 +1,11 @@
 import cloneDeep from "lodash/cloneDeep";
 import pick from "lodash/pick";
 
-import { Habit, HabitColor } from "../_types";
-import { useGetHabit } from "../api";
+import { Habit, HabitColor } from "../../_types";
+import { useGetHabit } from "../../api";
 import { AsyncData } from "~types";
 import { floorToDivisibleBy } from "~utils";
+import { useLocation } from "react-router-dom";
 
 export type FormValues = Omit<
   Habit,
@@ -37,35 +38,45 @@ const createDefaultValues = (): FormValues => {
 const mapHabitToForm = (habit: Habit): FormValues =>
   pick(habit, "name", "color", "description", "reminderTime", "repeat");
 
+const successValues = (values: Partial<FormValues>): AsyncData<FormValues> => ({
+  status: "success",
+  data: {
+    ...createDefaultValues(),
+    ...(values || {}),
+  },
+});
+
 /** We return null if we get habit by id for edit, but id is invalid */
 export const useFormInitValues = (
   id: Habit["id"] | undefined
 ): [boolean, AsyncData<FormValues | null>] => {
-  // TODO just get from location.state? No need for separate request. Then deepMerge with defaults
-  const habitApiData = useGetHabit(id);
+  const { state } = useLocation<Habit | null>();
+  const hasValuesFromLocation = state?.repeat != null;
+  const isCreate = id == null;
+  const alreadyHaveData = isCreate || hasValuesFromLocation;
 
-  if (id != null) {
-    if (
-      habitApiData.data.status === "success" &&
-      habitApiData.data.data != null
-    ) {
-      const values = mapHabitToForm(habitApiData.data.data);
+  // need to call hook per rules of hooks
+  const { data: apiData } = useGetHabit(alreadyHaveData ? undefined : id);
+
+  if (alreadyHaveData) {
+    return [!isCreate, successValues(state || {})];
+  }
+
+  // get data from finished request
+  if (apiData.status === "success") {
+    if (apiData.data != null) {
+      const values = mapHabitToForm(apiData.data);
+      return [true, successValues(values)];
+    } else {
       return [
         true,
         {
-          status: "success",
-          data: values,
+          status: "error",
+          error: new Error(`No data returned for request with id='${id}'`),
         },
       ];
     }
-    return [true, habitApiData.data];
   }
 
-  return [
-    false,
-    {
-      status: "success",
-      data: createDefaultValues(),
-    },
-  ];
+  return [true, apiData];
 };

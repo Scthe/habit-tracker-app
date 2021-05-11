@@ -5,7 +5,7 @@ import Box from "@material-ui/core/Box";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 
-import { HabitColor } from "../../_types";
+import { HabitColor } from "../../../_types";
 import { FormValues } from "../useFormInitValues";
 import { ColorPreview, ColorSelectDialog } from "../dialogs/ColorSelectDialog";
 import { ExtraValidationText } from "~components";

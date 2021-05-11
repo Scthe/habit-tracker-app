@@ -4,8 +4,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import { FormValues } from "../../useFormInitValues";
 
+import { FormValues } from "../../useFormInitValues";
 import { WeekdaySelection } from "./WeekdaySelection";
 import { DayOfMonthSelection } from "./DayOfMonthSelection";
 import { assertUnreachable, Weekday } from "~utils";

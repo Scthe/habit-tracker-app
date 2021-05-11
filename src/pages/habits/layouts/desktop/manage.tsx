@@ -30,14 +30,10 @@ export default (): JSX.Element => {
           itemFallback={{ message: "No habit selected" }}
         >
           {selectedItem !== null ? (
-            <HabitDetails
-              id={selectedItem.id}
-              habit={selectedItem}
-            />
+            <HabitDetails id={selectedItem.id} habit={selectedItem} />
           ) : null}
         </DetailsView>
       </MasterDetailsLayout>
-    </AppPage >
+    </AppPage>
   );
 };
-

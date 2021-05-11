@@ -6,22 +6,27 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 
+import { routeEdit } from "../../constants";
 import { Habit } from "../../_types";
 import { ToolbarTitle } from "~components";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   menuButton: {},
   editLink: {
     color: "inherit",
   },
+  editLinkDisabled: {
+    color: theme.palette.text.disabled,
+  },
 }));
 
 interface Props {
-  id: Habit["id"];
+  habit: Habit | null;
 }
 
-export const DetailsHeader: React.FC<Props> = ({ id }) => {
+export const DetailsHeader: React.FC<Props> = ({ habit }) => {
   const styles = useStyles();
   const history = useHistory();
 
@@ -41,7 +46,13 @@ export const DetailsHeader: React.FC<Props> = ({ id }) => {
 
         <ToolbarTitle>Habit Details</ToolbarTitle>
 
-        <Link to={`/habits/${id}/edit`} className={styles.editLink}>
+        <Link
+          to={habit != null ? routeEdit(habit) : ""}
+          className={clsx(
+            styles.editLink,
+            habit == null && styles.editLinkDisabled
+          )}
+        >
           <Button color="inherit">Edit</Button>
         </Link>
       </Toolbar>

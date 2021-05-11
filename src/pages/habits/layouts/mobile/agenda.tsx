@@ -18,7 +18,6 @@ export default (): JSX.Element => {
   return (
     <AppPage appMenuActiveItem="agenda">
       <Agenda onItemClick={handleItemClick} />
-    </AppPage >
+    </AppPage>
   );
 };
-

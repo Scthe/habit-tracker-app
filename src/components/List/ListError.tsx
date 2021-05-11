@@ -8,14 +8,12 @@ interface Props {
 
 export const ListError: React.FC<Props> = ({ retry }) => {
   return (
-    <FullPageMessage
-      icon="cloud_off"
-      message="Can't load the results"
-    >{retry ? (
-      <Button onClick={retry} color="primary">
-        Try again
-      </Button>
-    ) : null}
+    <FullPageMessage icon="cloud_off" message="Can't load the results">
+      {retry ? (
+        <Button onClick={retry} color="primary">
+          Try again
+        </Button>
+      ) : null}
     </FullPageMessage>
   );
 };

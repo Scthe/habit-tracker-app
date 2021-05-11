@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { HabitStatus } from "../_types";
+import { HabitStatus } from "../../_types";
 import { CalendarDay } from "./CalendarDay";
 import { Calendar } from "~components";
 import { useDesktopLayout } from "~hooks";

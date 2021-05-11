@@ -25,21 +25,20 @@ const useStyles = makeStyles(() => ({
   },
   detailPaper: {
     height: "100%",
-  }
+  },
 }));
 
 interface Props {
   className?: string;
 }
 
-export const MasterDetailsLayout: React.FC<Props> = ({ className, children }) => {
+export const MasterDetailsLayout: React.FC<Props> = ({
+  className,
+  children,
+}) => {
   const styles = useStyles();
 
-  return (
-    <div className={clsx(styles.root, className)}>
-      {children}
-    </div >
-  );
+  return <div className={clsx(styles.root, className)}>{children}</div>;
 };
 
 export const MasterView: React.FC<Props> = ({ className, children }) => {
@@ -47,9 +46,7 @@ export const MasterView: React.FC<Props> = ({ className, children }) => {
 
   return (
     <div className={clsx(styles.col1, className)}>
-      <Suspense fallback={<PageLoader />}>
-        {children}
-      </Suspense>
+      <Suspense fallback={<PageLoader />}>{children}</Suspense>
     </div>
   );
 };
@@ -62,23 +59,28 @@ interface DetailsViewProps {
   detailKey?: string;
 }
 
-export const DetailsView: React.FC<DetailsViewProps> = ({ className, itemFallback, hasItem, detailKey, children }) => {
+export const DetailsView: React.FC<DetailsViewProps> = ({
+  className,
+  itemFallback,
+  hasItem,
+  detailKey,
+  children,
+}) => {
   const styles = useStyles();
-  const fallbackProps = merge({
-    icon: "block",
-    message: "No item selected",
-  }, itemFallback);
+  const fallbackProps = merge(
+    {
+      icon: "block",
+      message: "No item selected",
+    },
+    itemFallback
+  );
 
   return (
     <div className={clsx(styles.col2, className)}>
       <Suspense fallback={<PageLoader />}>
         {hasItem ? (
           <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-            <Paper
-              key={detailKey}
-              elevation={9}
-              className={styles.detailPaper}
-            >
+            <Paper key={detailKey} elevation={9} className={styles.detailPaper}>
               {children}
             </Paper>
           </Slide>

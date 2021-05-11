@@ -12,6 +12,6 @@ export const ROUTES = {
 
 export const routeDetails = (id: string) => `/habits/${id}/details`;
 export const routeEdit = (habit: Habit) => ({
-  pathname: `/habits/${habit.id}/details`,
+  pathname: `/habits/${habit.id}/edit`,
   state: habit,
 });

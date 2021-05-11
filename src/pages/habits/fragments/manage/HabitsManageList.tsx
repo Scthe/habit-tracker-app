@@ -2,7 +2,10 @@ import React from "react";
 
 import { NoHabitsMessage } from "../../_shared";
 import { Habit } from "../../_types";
-import { HabitClickHandler, HabitsManageListItem } from "./HabitsManageListItem";
+import {
+  HabitClickHandler,
+  HabitsManageListItem,
+} from "./HabitsManageListItem";
 import { AsyncData } from "~types";
 import { AsyncList, ListEmptyProps } from "~components";
 
@@ -36,7 +39,9 @@ export const HabitsManageList: React.FC<Props> = ({
       filterPredicate={filterHabitsByName(search)}
       className={className}
       keyExtractor="id"
-      renderItem={(habit) => <HabitsManageListItem habit={habit} onClick={onItemClick} />}
+      renderItem={(habit) => (
+        <HabitsManageListItem habit={habit} onClick={onItemClick} />
+      )}
       emptyListMsg={EmptyMsg}
     />
   );

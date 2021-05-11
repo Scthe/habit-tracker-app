@@ -6,6 +6,9 @@ import { useAppMenuActiveLink } from "~storage";
 
 const CSS = require("./AppLayout.css").default;
 
+// TODO fix pages height etc.
+// height: "100%", // or webkit-fill-available on phone?
+
 export const useAppLayoutStyle = (): string => {
   const isDesktopLayout = useDesktopLayout();
   return isDesktopLayout

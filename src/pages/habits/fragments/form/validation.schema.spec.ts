@@ -8,7 +8,7 @@ import {
   RepetitionMonthlySummary,
   RepetitionWeekly,
   RepetitionWeeklySummary,
-} from "../_types";
+} from "../../_types";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormValidationSchema } from "./validation.schema";
 import { Weekday, ALL_WEEK_DAYS } from "~utils";

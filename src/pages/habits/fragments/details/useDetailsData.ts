@@ -4,14 +4,15 @@ import { getStatus } from "../../_shared";
 import { deconstructDate, combineAsyncData } from "~utils";
 import { AsyncData } from "~types";
 
-type HabitDetailsData =
+export type HabitDetailsData =
   | null
   | (Habit & {
-    status: HabitCompletionStatus;
-  });
+      status: HabitCompletionStatus;
+    });
 
 export const useDetailsData = (
-  id: string, habit: Habit | undefined
+  id: string,
+  habit: Habit | undefined
 ): AsyncData<HabitDetailsData> => {
   // TODO today should refresh on 24.00AM
   const today = deconstructDate(new Date());
@@ -26,9 +27,9 @@ export const useDetailsData = (
   ): HabitDetailsData => {
     return habit != null
       ? {
-        ...habit,
-        status: getStatus(habit.id, today, allStatuses),
-      }
+          ...habit,
+          status: getStatus(habit.id, today, allStatuses),
+        }
       : null;
   };
 

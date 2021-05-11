@@ -30,7 +30,9 @@ const HabitDetails: React.FC<Props> = ({ id, habit }) => {
 
   return (
     <>
-      <DetailsHeader id={id} />
+      <DetailsHeader
+        habit={detailsAsync.status === "success" ? detailsAsync.data : null}
+      />
 
       {detailsAsync.status === "success" && detailsAsync.data != null ? (
         <div className={clsx(styles.toolbarOffset, styles.content)}>

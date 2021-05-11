@@ -5,19 +5,17 @@ import { ROUTES } from "../../constants";
 import Agenda from "./agenda";
 import Details from "./details";
 import Manage from "./manage";
-
-const createComp = (name: string) => {
-  return () => (<div>phone-{name}</div>)
-};
+import Form from "../shared/form";
+import Calendar from "../shared/calendar";
 
 export default (): JSX.Element => {
   return (
     <Switch>
       <Route path={ROUTES.agenda} component={Agenda} />
-      <Route exact path={ROUTES.calendar} component={createComp("Calendar")} />
+      <Route exact path={ROUTES.calendar} component={Calendar} />
       <Route exact path={ROUTES.manage} component={Manage} />
-      <Route exact path={ROUTES.create} component={createComp("HabitForm")} />
-      <Route exact path={ROUTES.edit} component={createComp("HabitForm")} />
+      <Route exact path={ROUTES.create} component={Form} />
+      <Route exact path={ROUTES.edit} component={Form} />
       <Route exact path={ROUTES.details} component={Details} />
 
       {/* fallback */}

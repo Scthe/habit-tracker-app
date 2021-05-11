@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import { HabitStatus } from "../_types";
+import { HabitStatus } from "../../_types";
 import { HabitsList } from "./HabitsList";
 import {
   CalendarDayProps,

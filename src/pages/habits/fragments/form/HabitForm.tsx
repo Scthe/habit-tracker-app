@@ -6,7 +6,8 @@ import set from "lodash/set";
 import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 
-import { SaveHabitFn } from "../api";
+import { routeDetails } from "../../constants";
+import { SaveHabitFn } from "../../api";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormHeader } from "./HabitFormHeader";
 import { HabitFormValidationSchema } from "./validation.schema";
@@ -88,6 +89,7 @@ const applyError = (errors: FormikErrors<FormValues>, failure: StructError) => {
 };
 
 export default withFormik<Props, FormValues>({
+  enableReinitialize: true,
   mapPropsToValues: (props) => {
     return props.initialValues;
   },
@@ -108,7 +110,7 @@ export default withFormik<Props, FormValues>({
     const { onSubmit, history, showAlert } = formikBag.props;
     try {
       const id = await onSubmit(values);
-      history.push(`/habits/${id}/details`);
+      history.push(routeDetails(id));
     } catch (e) {
       showAlert({
         severity: "error",

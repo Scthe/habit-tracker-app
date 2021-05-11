@@ -2,21 +2,12 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import { AppPage } from "../../_shared";
-import { useGetHabitStatuses } from "../api";
+import { useGetHabitStatuses } from "../../api";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarMonth } from "./CalendarMonth";
-import { useDesktopLayout } from "~hooks";
 import { deconstructDateToMonth } from "~utils";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  rootDesktop: {
-    height: "100%", // TODO webkit-fill-available to fix this on phone?
-  },
   toolbarOffset: theme.mixins.toolbar,
   content: {
     padding: "0",
@@ -29,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Calendar: React.FC<unknown> = () => {
   const styles = useStyles();
-  const isDesktop = useDesktopLayout();
   const [shownMonth, setShownMonth] = useState(
     deconstructDateToMonth(new Date())
   );
@@ -38,10 +28,7 @@ const Calendar: React.FC<unknown> = () => {
   const habitStatusesAsync = useGetHabitStatuses(shownMonth);
 
   return (
-    <AppPage
-      appMenuActiveItem={"calendar"}
-      className={clsx(styles.root, { [styles.rootDesktop]: isDesktop })}
-    >
+    <>
       <CalendarHeader shownMonth={shownMonth} setShownMonth={setShownMonth} />
 
       <div className={clsx(styles.toolbarOffset, styles.content)}>
@@ -50,7 +37,7 @@ const Calendar: React.FC<unknown> = () => {
           habitStatuses={habitStatusesAsync.data}
         />
       </div>
-    </AppPage>
+    </>
   );
 };
 

@@ -1,14 +1,16 @@
 import React from "react";
 import { useField } from "formik";
 import TextField from "@material-ui/core/TextField";
+
 import { FormValues } from "../useFormInitValues";
 import { getFieldError } from "~utils";
 
 interface Props {
   name: keyof FormValues;
+  className?: string;
 }
 
-export const DescriptionField: React.FC<Props> = (props) => {
+export const NameField: React.FC<Props> = (props) => {
   const [field, meta] = useField(props);
 
   return (
@@ -16,11 +18,11 @@ export const DescriptionField: React.FC<Props> = (props) => {
       fullWidth
       id={props.name}
       name={props.name}
-      label="Notes"
+      label="I want to"
       value={field.value}
       onChange={field.onChange}
       variant="filled"
-      multiline
+      className={props.className}
       {...getFieldError(meta)}
     />
   );
