@@ -16,26 +16,39 @@ export const useAppLayoutStyle = (): string => {
     : CSS.pageVerticalContentInner;
 };
 
+const CLASSES = {
+  desktop: {
+    root: CSS.pageHorizontal,
+    content: CSS.pageHorizontalContent,
+  },
+  mobile: {
+    root: CSS.pageVertical,
+    content: CSS.pageVerticalContent,
+  },
+};
+
 export const AppLayout: React.FC<unknown> = ({ children }) => {
   const isDesktopLayout = useDesktopLayout();
   const currentItem = useAppMenuActiveLink();
+  const classes = isDesktopLayout ? CLASSES.desktop : CLASSES.mobile;
 
-  if (isDesktopLayout) {
-    return (
-      <div className={CSS.pageHorizontal}>
+  // ugly, but does not trigger unmount/mount of children of `isDesktopLayout` change
+  return (
+    <div className={classes.root}>
+      {isDesktopLayout ? (
         <AppMenuVertical
           currentItem={currentItem}
           className={CSS.pageHorizontalMenu}
         />
-        <div className={CSS.pageHorizontalContent}>{children}</div>
+      ) : null}
+
+      <div className={classes.content}>
+        {children}
       </div>
-    );
-  } else {
-    return (
-      <div className={CSS.pageVertical}>
-        <div className={CSS.pageVerticalContent}>{children}</div>
+
+      {!isDesktopLayout ? (
         <AppMenuHorizontal currentItem={currentItem} flex="0" />
-      </div>
-    );
-  }
+      ) : null}
+    </div>
+  );
 };

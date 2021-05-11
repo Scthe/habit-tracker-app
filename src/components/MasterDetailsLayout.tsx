@@ -2,11 +2,11 @@ import React, { Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Slide from "@material-ui/core/Slide";
+import merge from "lodash/merge";
 import clsx from "clsx";
 
 import { PageLoader } from "./PageLoader";
 import { FullPageMessage, FullPageMessageProps } from "~components";
-import merge from "lodash/merge";
 
 // TODO hamburger menu has to always be visible. even during suspense
 // TODO error boundary in child components? Or only in details?

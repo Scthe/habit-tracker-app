@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useSaveHabit } from "../../api";
@@ -33,4 +33,6 @@ const HabitForm: React.FC<Props> = ({ id }) => {
   );
 };
 
+// used with React.Lazy, but eslint has problems
+// eslint-disable-next-line import/no-unused-modules
 export default HabitForm;

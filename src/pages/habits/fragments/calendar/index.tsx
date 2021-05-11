@@ -41,4 +41,6 @@ const Calendar: React.FC<unknown> = () => {
   );
 };
 
+// used with React.Lazy, but eslint has problems
+// eslint-disable-next-line import/no-unused-modules
 export default Calendar;

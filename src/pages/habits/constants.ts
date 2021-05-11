@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { Habit } from "./_types";
 
 export const ROUTES = {
@@ -10,8 +11,11 @@ export const ROUTES = {
   details: "/habits/:id/details",
 };
 
-export const routeDetails = (id: string) => `/habits/${id}/details`;
-export const routeEdit = (habit: Habit) => ({
+export const routeDetails = (id: string): string => `/habits/${id}/details`;
+
+type HabitLocation = Partial<ReturnType<typeof useLocation>>;
+
+export const routeEdit = (habit: Habit): HabitLocation => ({
   pathname: `/habits/${habit.id}/edit`,
   state: habit,
 });

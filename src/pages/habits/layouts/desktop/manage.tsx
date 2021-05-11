@@ -1,7 +1,7 @@
 import React, { lazy, useCallback, useState } from "react";
 
-import { AppPage } from "pages/_shared";
 import { Habit } from "../../_types";
+import { AppPage } from "pages/_shared";
 import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
 
 const Manage = lazy(() => import("../../fragments/manage"));

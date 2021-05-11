@@ -43,4 +43,6 @@ const HabitsAgenda: React.FC<Props> = ({ onItemClick }) => {
   );
 };
 
+// used with React.Lazy, but eslint has problems
+// eslint-disable-next-line import/no-unused-modules
 export default HabitsAgenda;

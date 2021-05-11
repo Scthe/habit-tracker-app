@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
 
 import { HabitsListItem, useHabitTimeLeft } from "../../_shared";
 import { Habit, HabitCompletionStatus } from "../../_types";
@@ -28,7 +27,6 @@ export const AgendaListItem: React.FC<Props> = ({
   currentDate,
   onClick,
 }) => {
-  const history = useHistory();
   const styles = useStyles();
   const timeLeftStr = useHabitTimeLeft(habit, currentDate);
 

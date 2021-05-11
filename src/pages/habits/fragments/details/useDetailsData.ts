@@ -4,7 +4,7 @@ import { getStatus } from "../../_shared";
 import { deconstructDate, combineAsyncData } from "~utils";
 import { AsyncData } from "~types";
 
-export type HabitDetailsData =
+type HabitDetailsData =
   | null
   | (Habit & {
       status: HabitCompletionStatus;

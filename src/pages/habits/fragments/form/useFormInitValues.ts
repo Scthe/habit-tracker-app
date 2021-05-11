@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import cloneDeep from "lodash/cloneDeep";
 import pick from "lodash/pick";
 
@@ -5,7 +6,6 @@ import { Habit, HabitColor } from "../../_types";
 import { useGetHabit } from "../../api";
 import { AsyncData } from "~types";
 import { floorToDivisibleBy } from "~utils";
-import { useLocation } from "react-router-dom";
 
 export type FormValues = Omit<
   Habit,
