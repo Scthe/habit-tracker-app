@@ -15,13 +15,13 @@ type Query<T> = firebase.firestore.Query<T>;
 
 export const habitDocRef = (
   db: Firestore,
-  id?: Habit["id"]
+  id: Habit["id"] | undefined
 ): DocReference<Habit> =>
   db.collection("habits").doc(id).withConverter(habitConverter);
 
 export const habitDocRefWithConverter = (
   db: Firestore,
-  id?: Habit["id"]
+  id: Habit["id"] | undefined
 ): DocReference<Habit> =>
   db.collection("habits").doc(id).withConverter(habitConverter);
 

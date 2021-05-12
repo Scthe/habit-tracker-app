@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
-import { FormikProps } from "formik";
 
 export type onFormSubmitErrorFn = (cause: "network" | "validation") => void;
 
 export const useFormSubmitError = (
-  props: FormikProps<any>, // eslint-disable-line @typescript-eslint/no-explicit-any
-  handler: onFormSubmitErrorFn
+  handler: onFormSubmitErrorFn,
+  isSubmitting: boolean,
+  isValid: boolean
 ): void => {
-  const { isSubmitting, isValid } = props;
   const prevIsSubmitting = useRef(isSubmitting);
 
   useEffect(() => {

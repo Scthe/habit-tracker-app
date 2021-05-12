@@ -5,6 +5,7 @@ import { useRef } from "react";
 // Suspense resets the hooks. You need to store data externally for it to work.
 //   * https://stackoverflow.com/questions/54678618/react-suspended-component-doesnt-run-the-useeffect-hook
 //   * https://github.com/facebook/react/issues/14563#issuecomment-453184356
+//   * https://charles-stover.medium.com/react-suspense-with-the-fetch-api-a1b7369b0469
 // No, this is not a joke.
 ///////////////////
 

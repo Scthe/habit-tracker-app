@@ -1,9 +1,17 @@
 import React from "react";
 import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { CurrentActiveElement } from "../../components/AppMenu/constants";
-import { useAppLayoutStyle } from "./AppLayout";
 import { useSetAppMenuActiveLink } from "~storage";
+import { AppTheme } from "theme";
+
+const useStyles = makeStyles((theme: AppTheme) => ({
+  root: {
+    ...theme.mixins.viewFragment,
+    height: "100vh",
+  },
+}));
 
 interface Props {
   appMenuActiveItem?: CurrentActiveElement;
@@ -15,10 +23,8 @@ export const AppPage: React.FC<Props> = ({
   className,
   children,
 }) => {
+  const styles = useStyles();
   useSetAppMenuActiveLink(appMenuActiveItem);
-  const appLayoutClassName = useAppLayoutStyle();
 
-  return (
-    <main className={clsx(appLayoutClassName, className)}>{children}</main>
-  );
+  return <main className={clsx(styles.root, className)}>{children}</main>;
 };

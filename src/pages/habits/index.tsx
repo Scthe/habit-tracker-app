@@ -1,34 +1,46 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import Agenda from "./agenda";
-import Calendar from "./calendar";
-import ManageHabits from "./manage";
-import Details from "./detail";
-import HabitForm from "./form";
-
-const path = "/habits";
-
-// TODO router is different between mobile/desktop. e.g. details view is same as agenda on desktop
-//      or maybe remove details view from desktop altogether?
-//      useDesktopLayout();
-//      You can always use HOC that will make responsive data availabie in makeStyles
+import DesktopViews from "./layouts/desktop";
+import MobileViews from "./layouts/mobile";
+import { ROUTES } from "./constants";
+import Calendar from "./layouts/shared/calendar";
+import Form from "./layouts/shared/form";
+import { useDesktopLayout } from "~hooks";
+import { RedirectPreserveState } from "~utils";
 
 // TODO subscribe to habits here? And do not fetch in subviews?
 
+// NOTE: this code may seem weird, but our goal is to never trigger
+// umnmount/mount on `isDesktop` change. This needs to be precise..
+
+const MOBILE_ROUTES = [
+  <Route path={ROUTES.agenda} component={MobileViews.Agenda} />,
+  <Route exact path={ROUTES.manage} component={MobileViews.Manage} />,
+  <Route exact path={ROUTES.details} component={MobileViews.Details} />,
+] as JSX.Element[];
+
+const DESKTOP_ROUTES = [
+  <Route path={ROUTES.agenda} component={DesktopViews.Agenda} />,
+  <Route exact path={ROUTES.manage} component={DesktopViews.Manage} />,
+  <RedirectPreserveState exact from={ROUTES.details} to={ROUTES.manage} />,
+] as JSX.Element[];
+
 // eslint-disable-next-line import/no-unused-modules
 export default (): JSX.Element => {
+  const isDesktop = useDesktopLayout();
+
+  const routes: JSX.Element[] = isDesktop ? DESKTOP_ROUTES : MOBILE_ROUTES;
   return (
     <Switch>
-      <Route path={`${path}/agenda`} component={Agenda} />
-      <Route exact path={`${path}/calendar`} component={Calendar} />
-      <Route exact path={`${path}/manage`} component={ManageHabits} />
-      <Route exact path={`${path}/create`} component={HabitForm} />
-      <Route exact path={`${path}/:id/edit`} component={HabitForm} />
-      <Route exact path={`${path}/:id/details`} component={Details} />
+      <Route exact path={ROUTES.calendar} component={Calendar} />
+      <Route exact path={ROUTES.create} component={Form} />
+      <Route exact path={ROUTES.edit} component={Form} />
+
+      {routes.map((e, i) => ({ ...e, key: i }))}
 
       {/* fallback */}
-      <Redirect path="*" to={`${path}/agenda`} />
+      <Redirect path="*" to={ROUTES.agenda} />
     </Switch>
   );
 };

@@ -1,38 +1,32 @@
 import React from "react";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { useDesktopLayout } from "~hooks";
-import { AppMenuVertical, AppMenuHorizontal } from "~components";
+import { AppMenuDrawer } from "~components";
 import { useAppMenuActiveLink } from "~storage";
 
-const CSS = require("./AppLayout.css").default;
-
-export const useAppLayoutStyle = (): string => {
-  const isDesktopLayout = useDesktopLayout();
-  return isDesktopLayout
-    ? CSS.pageHorizontalContentInner
-    : CSS.pageVerticalContentInner;
-};
+const useStyles = makeStyles(() => ({
+  root: {},
+  drawer: {
+    flexShrink: 0,
+    flexGrow: 0,
+  },
+  content: {
+    flex: 1,
+    height: "100vh",
+  },
+}));
 
 export const AppLayout: React.FC<unknown> = ({ children }) => {
-  const isDesktopLayout = useDesktopLayout();
   const currentItem = useAppMenuActiveLink();
+  const styles = useStyles();
 
-  if (isDesktopLayout) {
-    return (
-      <div className={CSS.pageHorizontal}>
-        <AppMenuVertical
-          currentItem={currentItem}
-          className={CSS.pageHorizontalMenu}
-        />
-        <div className={CSS.pageHorizontalContent}>{children}</div>
-      </div>
-    );
-  } else {
-    return (
-      <div className={CSS.pageVertical}>
-        <div className={CSS.pageVerticalContent}>{children}</div>
-        <AppMenuHorizontal currentItem={currentItem} flex="0" />
-      </div>
-    );
-  }
+  // IMPORTANT: do not trigger unmount/mount of children on media responsive change!
+  return (
+    <Box display="flex">
+      <AppMenuDrawer currentItem={currentItem} className={styles.drawer} />
+
+      <div className={styles.content}>{children}</div>
+    </Box>
+  );
 };

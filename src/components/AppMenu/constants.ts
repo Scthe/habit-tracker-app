@@ -1,35 +1,40 @@
+import { ROUTES } from "pages/habits/constants";
+
 export type CurrentActiveElement =
   | "agenda"
   | "calendar"
   | "manage"
   | "me"
-  | "create";
+  | "create"
+  | "logout"
+  | "hide-drawer";
 
 export type AppMenuItem = {
   id: CurrentActiveElement;
-  to: string;
+  to?: string;
+  onClick?: () => void;
   icon: string;
   name: string;
 };
 
 export const ITEM_AGENDA: AppMenuItem = {
   id: "agenda",
-  to: "/habits",
-  icon: "calendar_view_day",
+  to: ROUTES.agenda,
+  icon: "star",
   name: "Agenda",
 };
 
 export const ITEM_CALENDAR: AppMenuItem = {
   id: "calendar",
-  to: "/habits/calendar",
+  to: ROUTES.calendar,
   icon: "calendar_today",
   name: "Calendar",
 };
 
 export const ITEM_MANAGE_HABITS: AppMenuItem = {
   id: "manage",
-  to: "/habits/manage",
-  icon: "settings", // view_list
+  to: ROUTES.manage,
+  icon: "view_list",
   name: "Manage",
 };
 
@@ -42,7 +47,7 @@ export const ITEM_ME: AppMenuItem = {
 
 export const ITEM_CREATE_HABIT: AppMenuItem = {
   id: "create",
-  to: "/habits/create",
+  to: ROUTES.create,
   icon: "add",
   name: "Add habit",
 };
