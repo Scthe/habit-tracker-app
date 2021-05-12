@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 import {
   ITEM_AGENDA,
@@ -13,13 +14,16 @@ import {
   ITEM_CREATE_HABIT,
   CurrentActiveElement,
 } from "./constants";
-import { AppMenuHideButton, useIsAppMenuOpen } from "./AppMenuToggleButton";
+import {
+  AppMenuHideButton,
+  useHideDrawer,
+  useIsAppMenuOpen,
+} from "./AppMenuToggleButton";
 import { AppMenuItem } from "./AppMenuItem";
 import { AppMenuVariant, useAppMenuVariant } from "./useAppMenuVariant";
 import { useAuth } from "~firebaseUtils";
 
-// TODO add logout here too
-// TODO add dark/light here too
+// TODO add dark/light theme switcher here too
 
 const items = [
   ITEM_AGENDA,
@@ -87,8 +91,15 @@ export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
   const styles = useStyles();
   const auth = useAuth();
   const variant = useAppMenuVariant();
-  const logout = useCallback(() => auth.signOut(), [auth]);
   const temporaryIsOpen = useIsAppMenuOpen();
+  const hideDrawer = useHideDrawer();
+
+  const logout = useCallback(() => auth.signOut(), [auth]);
+  const handleClickAway = useCallback(() => {
+    if (variant === "temporary" && temporaryIsOpen) {
+      hideDrawer();
+    }
+  }, [variant, temporaryIsOpen, hideDrawer]);
 
   const opts = getOptsByVariant(variant, styles, temporaryIsOpen);
 
@@ -101,34 +112,42 @@ export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
         paper: opts.rootClassName,
       }}
     >
-      {variant === "temporary" ? <AppMenuHideButton /> : null}
+      <ClickAwayListener onClickAway={handleClickAway}>
+        {/* This wrapper is required for ClickAwayListener to work (needs to hold a ref) */}
+        <Box display="flex" flexDirection="column" height="100%">
+          {variant === "temporary" ? <AppMenuHideButton /> : null}
 
-      <Box
-        display="flex"
-        justifyContent="center"
-        flexDirection="column"
-        height="100%"
-      >
-        <List>
-          {items.map((e) => (
-            <AppMenuItem
-              key={e.id}
-              currentItem={currentItem}
-              item={e}
-              onlyIcon={opts.onlyIcon}
-            />
-          ))}
-          <AppMenuItem
-            item={{
-              id: "logout",
-              onClick: logout,
-              icon: "exit_to_app",
-              name: "Logout",
-            }}
-            onlyIcon={opts.onlyIcon}
-          />
-        </List>
-      </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            flexDirection="column"
+            flexGrow="1"
+          >
+            <List>
+              {items.map((e) => (
+                <AppMenuItem
+                  key={e.id}
+                  currentItem={currentItem}
+                  item={e}
+                  onlyIcon={opts.onlyIcon}
+                  variant={variant}
+                />
+              ))}
+              {/* TODO this can be misclicked, move somewhere else? */}
+              <AppMenuItem
+                item={{
+                  id: "logout",
+                  onClick: logout,
+                  icon: "exit_to_app",
+                  name: "Logout",
+                }}
+                onlyIcon={opts.onlyIcon}
+                variant={variant}
+              />
+            </List>
+          </Box>
+        </Box>
+      </ClickAwayListener>
     </Drawer>
   );
 };

@@ -12,7 +12,7 @@ export type FormValues = Omit<
   "id" | "userId" | "createdAt" | "editedAt"
 >;
 
-const DEFAULT_VALUES: FormValues = {
+export const DEFAULT_VALUES: FormValues = {
   name: "",
   color: HabitColor.Blue,
   description: "",
@@ -35,21 +35,28 @@ const createDefaultValues = (): FormValues => {
   return data;
 };
 
-const mapHabitToForm = (habit: Habit): FormValues =>
-  pick(habit, "name", "color", "description", "reminderTime", "repeat");
-
-const successValues = (values: Partial<FormValues>): AsyncData<FormValues> => ({
-  status: "success",
-  data: {
+const successValues = (values: Partial<FormValues>): AsyncData<FormValues> => {
+  const allValues: FormValues = {
     ...createDefaultValues(),
     ...(values || {}),
-  },
-});
+  };
+  return {
+    status: "success",
+    data: pick(
+      allValues,
+      "name",
+      "color",
+      "description",
+      "reminderTime",
+      "repeat"
+    ),
+  };
+};
 
 /** We return null if we get habit by id for edit, but id is invalid */
 export const useFormInitValues = (
   id: Habit["id"] | undefined
-): [boolean, AsyncData<FormValues | null>] => {
+): [boolean, AsyncData<FormValues>] => {
   const { state } = useLocation<Habit | null>();
   const hasValuesFromLocation = state?.repeat != null;
   const isCreate = id == null;
@@ -64,18 +71,7 @@ export const useFormInitValues = (
 
   // get data from finished request
   if (apiData.status === "success") {
-    if (apiData.data != null) {
-      const values = mapHabitToForm(apiData.data);
-      return [true, successValues(values)];
-    } else {
-      return [
-        true,
-        {
-          status: "error",
-          error: new Error(`No data returned for request with id='${id}'`),
-        },
-      ];
-    }
+    return [true, successValues(apiData.data!)];
   }
 
   return [true, apiData];

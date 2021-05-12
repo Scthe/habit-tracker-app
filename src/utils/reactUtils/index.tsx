@@ -1,7 +1,8 @@
 export * from "./useSuspendedPreload";
 
-import { FieldMetaProps } from "formik";
 import React from "react";
+import { FieldMetaProps } from "formik";
+import { Redirect, RedirectProps, Route } from "react-router-dom";
 
 export const getComponentName = (Comp: React.ComponentType): string => {
   return (
@@ -34,3 +35,25 @@ export const getFieldError = (
     helperText: showError ? meta.error : undefined,
   };
 };
+
+type RedirectPreserveStateProps = Omit<RedirectProps, "from" | "to"> & {
+  from: string;
+  to: string;
+};
+
+export const RedirectPreserveState: React.FC<RedirectPreserveStateProps> = ({
+  from,
+  to,
+  ...redirectProps
+}) => (
+  <Route
+    exact
+    path={from}
+    render={(props) => (
+      <Redirect
+        {...redirectProps}
+        to={{ pathname: to, state: { from: props.location } }}
+      />
+    )}
+  />
+);

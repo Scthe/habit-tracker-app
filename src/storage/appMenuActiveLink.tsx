@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import create from "zustand";
+
 import { CurrentActiveElement } from "../components/AppMenu/constants";
+import { useHideDrawer } from "~components";
 
 type ActiveAppMenuStorage = {
   activeItemId?: CurrentActiveElement;
@@ -20,9 +22,12 @@ export const useSetAppMenuActiveLink = (
   itemId?: ActiveAppMenuStorage["activeItemId"]
 ): void => {
   const setActiveAppMenuItem = useActiveAppMenuStorage((s) => s.setActiveItem);
+  const hideDrawer = useHideDrawer();
+
   useEffect(() => {
     if (itemId != null) {
       setActiveAppMenuItem(itemId);
+      hideDrawer();
     }
-  }, [setActiveAppMenuItem, itemId]);
+  }, [setActiveAppMenuItem, hideDrawer, itemId]);
 };

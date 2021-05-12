@@ -1,5 +1,8 @@
 export * from "./AppMenu/AppMenuDrawer";
-export { AppMenuToggleButton } from "./AppMenu/AppMenuToggleButton";
+export {
+  AppMenuToggleButton,
+  useHideDrawer,
+} from "./AppMenu/AppMenuToggleButton";
 export * from "./Calendar/Calendar";
 export {
   CalendarDayProps,
@@ -13,6 +16,7 @@ export * from "./ButtonLoading";
 export * from "./DateNextPrevSelector";
 export * from "./Debug";
 export * from "./ExtraValidationText";
+export * from "./FullPageErrorMessage";
 export * from "./FullPageMessage";
 export * from "./PageViewAnalytics";
 export * from "./MasterDetailsLayout";

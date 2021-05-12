@@ -1,50 +1,32 @@
 import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Form, FormikErrors, FormikProps, withFormik } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
 import { assert, StructError } from "superstruct";
 import set from "lodash/set";
-import clsx from "clsx";
-import { useHistory } from "react-router-dom";
 
 import { routeDetails } from "../../constants";
 import { SaveHabitFn } from "../../api";
 import { FormValues } from "./useFormInitValues";
-import { HabitFormHeader } from "./HabitFormHeader";
 import { HabitFormValidationSchema } from "./validation.schema";
-import {
-  NameField,
-  ColorField,
-  DescriptionField,
-  RepeatField,
-  ReminderField,
-} from "./fields";
+
 import { ShowAlertFn } from "~hooks";
 import { onFormSubmitErrorFn, useFormSubmitError } from "~utils";
 
-const useStyles = makeStyles((theme) => ({
-  toolbarOffset: theme.mixins.toolbar,
-  content: {
-    padding: "25px 25px 0",
-    // overflow: "auto",
-    marginBottom: "20px",
-  },
-  fieldSpacing: {
-    marginBottom: theme.spacing(3),
-  },
-}));
-
 interface Props {
-  isEdit: boolean;
   initialValues: FormValues;
   onSubmit: SaveHabitFn;
   history: ReturnType<typeof useHistory>;
   showAlert: ShowAlertFn;
+  className?: string;
 }
 
-const HabitForm: React.FC<Props & FormikProps<FormValues>> = (props) => {
-  const { isEdit, showAlert } = props;
-
-  const styles = useStyles();
+const HabitForm: React.FC<Props & FormikProps<FormValues>> = ({
+  isSubmitting,
+  isValid,
+  showAlert,
+  children,
+  className,
+}) => {
   const showErrorAlertCb: onFormSubmitErrorFn = useCallback(
     (cause) => {
       if (cause === "validation") {
@@ -56,21 +38,9 @@ const HabitForm: React.FC<Props & FormikProps<FormValues>> = (props) => {
     },
     [showAlert]
   );
-  useFormSubmitError(props, showErrorAlertCb);
+  useFormSubmitError(showErrorAlertCb, isSubmitting, isValid);
 
-  return (
-    <Form>
-      <HabitFormHeader isEdit={isEdit} />
-
-      <div className={clsx(styles.toolbarOffset, styles.content)}>
-        <NameField name="name" className={styles.fieldSpacing} />
-        <ColorField name="color" className={styles.fieldSpacing} />
-        <RepeatField name="repeat" className={styles.fieldSpacing} />
-        <ReminderField name="reminderTime" className={styles.fieldSpacing} />
-        <DescriptionField name="description" />
-      </div>
-    </Form>
-  );
+  return <Form className={className}>{children}</Form>;
 };
 
 const applyError = (errors: FormikErrors<FormValues>, failure: StructError) => {
@@ -110,13 +80,15 @@ export default withFormik<Props, FormValues>({
     const { onSubmit, history, showAlert } = formikBag.props;
     try {
       const id = await onSubmit(values);
-      history.push(routeDetails(id));
+      history.push({
+        pathname: routeDetails(id),
+        state: { id },
+      });
     } catch (e) {
       showAlert({
         severity: "error",
         message: "Error, could not submit the form",
       });
-      throw e; // throw for sentry
     }
   },
 })(HabitForm);

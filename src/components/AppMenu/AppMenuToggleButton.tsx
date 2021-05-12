@@ -54,6 +54,10 @@ const useAppMenuHideStyles = makeStyles(() => ({
   },
 }));
 
+export const useHideDrawer = (): AppMenuStorage["hide"] => {
+  return useAppMenuStorage((s) => s.hide);
+};
+
 export const AppMenuHideButton: React.FC = () => {
   const styles = useAppMenuHideStyles();
   const hideDrawer = useAppMenuStorage((s) => s.hide);

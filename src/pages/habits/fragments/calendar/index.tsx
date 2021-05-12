@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 
 import { useGetHabitStatuses } from "../../api";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarMonth } from "./CalendarMonth";
 import { deconstructDateToMonth } from "~utils";
+import { AppPageContent } from "pages/_shared";
 
 const useStyles = makeStyles((theme) => ({
   toolbarOffset: theme.mixins.toolbar,
@@ -20,23 +20,27 @@ const useStyles = makeStyles((theme) => ({
 
 const Calendar: React.FC<unknown> = () => {
   const styles = useStyles();
+  // TODO this starts on invalid date (previous month)
   const [shownMonth, setShownMonth] = useState(
     deconstructDateToMonth(new Date())
   );
 
-  // TODO add error handling (loading is handled by Calendar)
   const habitStatusesAsync = useGetHabitStatuses(shownMonth);
 
   return (
     <>
       <CalendarHeader shownMonth={shownMonth} setShownMonth={setShownMonth} />
 
-      <div className={clsx(styles.toolbarOffset, styles.content)}>
+      <AppPageContent
+        hasPadding={false}
+        canOverflow={false}
+        className={styles.content}
+      >
         <CalendarMonth
           shownMonth={shownMonth}
           habitStatuses={habitStatusesAsync.data}
         />
-      </div>
+      </AppPageContent>
     </>
   );
 };

@@ -4,11 +4,9 @@ import { getStatus } from "../../utils";
 import { deconstructDate, combineAsyncData } from "~utils";
 import { AsyncData } from "~types";
 
-type HabitDetailsData =
-  | null
-  | (Habit & {
-      status: HabitCompletionStatus;
-    });
+type HabitDetailsData = Habit & {
+  status: HabitCompletionStatus;
+};
 
 export const useDetailsData = (
   id: string,
@@ -19,23 +17,23 @@ export const useDetailsData = (
   const statusesAsync = useGetHabitStatusesSubscription(today);
 
   const alreadyHasHabit = habit != null;
-  const habitAsync = useGetHabit(alreadyHasHabit ? undefined : id);
+  const habitAsyncRequest = useGetHabit(alreadyHasHabit ? undefined : id);
+  const habitAsync = alreadyHasHabit
+    ? {
+        status: "success" as const,
+        data: habit!,
+      }
+    : habitAsyncRequest.data;
 
   const createHabitAgendaItems = (
     habit: Habit | null,
     allStatuses: HabitStatus[]
   ): HabitDetailsData => {
-    return habit != null
-      ? {
-          ...habit,
-          status: getStatus(habit.id, today, allStatuses),
-        }
-      : null;
+    return {
+      ...habit!,
+      status: getStatus(habit!.id, today, allStatuses),
+    };
   };
 
-  return combineAsyncData(
-    createHabitAgendaItems,
-    alreadyHasHabit ? { status: "success", data: habit! } : habitAsync.data,
-    statusesAsync
-  );
+  return combineAsyncData(createHabitAgendaItems, habitAsync, statusesAsync);
 };

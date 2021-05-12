@@ -11,6 +11,7 @@ import {
   CurrentActiveElement,
   AppMenuItem as AppMenuItemType,
 } from "./constants";
+import { AppMenuVariant } from "./useAppMenuVariant";
 
 const useItemStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,9 @@ const useItemStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     background: lighten(theme.palette.primary.main, 0.8),
     fontWeight: "bold",
+  },
+  itemIcon: {
+    minWidth: "initial",
   },
   itemActiveIcon: {
     color: "inherit",
@@ -36,12 +40,14 @@ interface Props {
   onlyIcon: boolean;
   currentItem?: CurrentActiveElement;
   item: AppMenuItemType;
+  variant: AppMenuVariant;
 }
 
 export const AppMenuItem: React.FC<Props> = ({
   currentItem,
   item,
   onlyIcon,
+  variant,
 }) => {
   const { id, to, onClick, icon, name } = item;
   const styles = useItemStyles();
@@ -49,15 +55,19 @@ export const AppMenuItem: React.FC<Props> = ({
 
   const ifActive = (cls: string) => (isActive ? cls : "");
   const activeClass = clsx(isActive ? styles.itemActive : styles.itemNotActive);
+  const itemIconClass = clsx(
+    variant === "permanent-small" && styles.itemIcon,
+    ifActive(styles.itemActiveIcon)
+  );
 
   const element = (
     <ListItem
       button
-      className={clsx(activeClass)}
+      className={activeClass}
       aria-label={name.toLowerCase()}
       onClick={to == null ? onClick : undefined}
     >
-      <ListItemIcon color="inherit" className={ifActive(styles.itemActiveIcon)}>
+      <ListItemIcon color="inherit" className={itemIconClass}>
         <Icon color="inherit">{icon}</Icon>
       </ListItemIcon>
 

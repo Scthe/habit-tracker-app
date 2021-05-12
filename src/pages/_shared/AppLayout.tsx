@@ -5,15 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppMenuDrawer } from "~components";
 import { useAppMenuActiveLink } from "~storage";
 
-// TODO fix pages height etc.
-// height: "100%", // or webkit-fill-available on phone?
-
-export const useAppLayoutStyle = (): string => {
-  // TODO remove
-  // return CSS.pageHorizontalContentInner; // max-height: 100vh;
-  return "";
-};
-
 const useStyles = makeStyles(() => ({
   root: {},
   drawer: {

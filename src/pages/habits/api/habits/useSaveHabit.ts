@@ -35,7 +35,7 @@ const editHabit = async (
 ): Promise<HabitId> => {
   console.log(`EDIT '${id}'`, values);
   const now = new Date();
-  await habitDocRef(db).update({
+  await habitDocRef(db, id).update({
     ...values,
     editedAt: firebase.firestore.Timestamp.fromDate(now),
     // preserve `createdAt` and userId

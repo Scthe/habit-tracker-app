@@ -22,7 +22,22 @@ const getById = async (db: Firestore, id?: HabitId): Promise<Habit | null> => {
 };
 
 export const useGetHabit = (
-  id: HabitId | undefined
+  id: HabitId | undefined,
+  errorOnNotFound = true
 ): UseFirestoreOnceType<Habit | null> => {
-  return useFirestoreOnce(getById, [id]);
+  const result = useFirestoreOnce(getById, [id]);
+
+  const isFinishedButNoData =
+    result.data.status === "success" && result.data.data == null;
+  if (errorOnNotFound && isFinishedButNoData) {
+    return {
+      ...result,
+      data: {
+        status: "error",
+        error: new Error(`No Habit with id='${id}' found`),
+      },
+    };
+  }
+
+  return result;
 };

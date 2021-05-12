@@ -7,6 +7,7 @@ import { ROUTES } from "./constants";
 import Calendar from "./layouts/shared/calendar";
 import Form from "./layouts/shared/form";
 import { useDesktopLayout } from "~hooks";
+import { RedirectPreserveState } from "~utils";
 
 // TODO subscribe to habits here? And do not fetch in subviews?
 
@@ -22,7 +23,7 @@ const MOBILE_ROUTES = [
 const DESKTOP_ROUTES = [
   <Route path={ROUTES.agenda} component={DesktopViews.Agenda} />,
   <Route exact path={ROUTES.manage} component={DesktopViews.Manage} />,
-  <Redirect exact from={ROUTES.details} to={ROUTES.manage} />,
+  <RedirectPreserveState exact from={ROUTES.details} to={ROUTES.manage} />,
 ] as JSX.Element[];
 
 // eslint-disable-next-line import/no-unused-modules

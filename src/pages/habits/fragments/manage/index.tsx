@@ -1,27 +1,16 @@
 import React, { useState } from "react";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
 
 import { useGetHabits } from "../../api";
 import { ManageHeader } from "./ManageHeader";
 import { HabitsManageList } from "./HabitsManageList";
 import { HabitClickHandler } from "./HabitsManageListItem";
-
-const useStyles = makeStyles((theme) => ({
-  toolbarOffset: theme.mixins.toolbar,
-  content: {
-    padding: "25px 25px 0",
-    overflow: "auto",
-    marginBottom: "20px",
-  },
-}));
+import { AppPageContent } from "pages/_shared";
 
 interface Props {
   onItemClick: HabitClickHandler;
 }
 
 const ManageHabits: React.FC<Props> = ({ onItemClick }) => {
-  const styles = useStyles();
   const [search, setSearch] = useState("");
   const habitsAsync = useGetHabits();
 
@@ -30,13 +19,13 @@ const ManageHabits: React.FC<Props> = ({ onItemClick }) => {
     <>
       <ManageHeader search={search} setSearch={setSearch} />
 
-      <div className={clsx(styles.toolbarOffset, styles.content)}>
+      <AppPageContent>
         <HabitsManageList
           search={search}
           habits={habitsAsync.data}
           onItemClick={onItemClick}
         />
-      </div>
+      </AppPageContent>
     </>
   );
 };

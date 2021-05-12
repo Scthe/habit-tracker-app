@@ -7,24 +7,28 @@ import clsx from "clsx";
 
 import { PageLoader } from "./PageLoader";
 import { FullPageMessage, FullPageMessageProps } from "~components";
+import { AppTheme } from "theme";
 
 // TODO hamburger menu has to always be visible. even during suspense
 // TODO error boundary in child components? Or only in details?
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
     display: "flex",
   },
   col1: {
     flex: 1,
     height: "100vh",
+    ...theme.mixins.viewFragment,
   },
   col2: {
     flex: 1,
     height: "100vh",
+    ...theme.mixins.viewFragment,
   },
   detailPaper: {
-    height: "100%",
+    height: "100vh",
+    ...theme.mixins.viewFragment,
   },
 }));
 

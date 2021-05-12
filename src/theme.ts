@@ -1,5 +1,4 @@
 import { createMuiTheme, Theme } from "@material-ui/core/styles";
-// import grey from '@material-ui/core/colors/grey';
 
 // TODO define all colors here
 const customTheme = {
@@ -9,6 +8,10 @@ const customTheme = {
       textOverflow: "ellipsis" as const,
       overflow: "hidden" as const,
       whiteSpace: "nowrap" as const,
+    },
+    viewFragment: {
+      display: "flex" as const,
+      flexDirection: "column" as const, // or webkit-fill-available on phone?
     },
   },
 };
