@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Icon from "@material-ui/core/Icon";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
+import { AppMenuToggleButton } from "~components";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -55,6 +56,8 @@ export const ManageHeader: React.FC<Props> = ({ search, setSearch }) => {
   return (
     <AppBar position="static">
       <Toolbar>
+        <AppMenuToggleButton />
+
         <div className={styles.search}>
           <div className={styles.searchIcon}>
             <Icon>search</Icon>

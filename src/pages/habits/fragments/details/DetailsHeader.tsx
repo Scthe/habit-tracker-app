@@ -35,6 +35,7 @@ export const DetailsHeader: React.FC<Props> = ({ habit }) => {
   return (
     <AppBar position="static">
       <Toolbar>
+        {/* TODO this button is useless on desktop */}
         <IconButton
           edge="start"
           color="inherit"

@@ -1,5 +1,5 @@
-export * from "./AppMenu/AppMenuHorizontal";
-export * from "./AppMenu/AppMenuVertical";
+export * from "./AppMenu/AppMenuDrawer";
+export { AppMenuToggleButton } from "./AppMenu/AppMenuToggleButton";
 export * from "./Calendar/Calendar";
 export {
   CalendarDayProps,

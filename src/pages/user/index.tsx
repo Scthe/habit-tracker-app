@@ -4,7 +4,8 @@ import { Debug } from "~components";
 import { useAuth, useStorage } from "~firebaseUtils";
 import { useUserStatus } from "~storage";
 
-// light/dark theme is stored in local storage, default to media query
+// TODO light/dark theme is stored in local storage, default to media query
+// TODO finish me
 
 // eslint-disable-next-line import/no-unused-modules
 export default (): JSX.Element => {

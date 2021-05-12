@@ -4,8 +4,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import DesktopViews from "./layouts/desktop";
 import MobileViews from "./layouts/mobile";
 import { ROUTES } from "./constants";
-import Calendar from "./fragments/calendar";
-import Form from "./fragments/form";
+import Calendar from "./layouts/shared/calendar";
+import Form from "./layouts/shared/form";
 import { useDesktopLayout } from "~hooks";
 
 // TODO subscribe to habits here? And do not fetch in subviews?

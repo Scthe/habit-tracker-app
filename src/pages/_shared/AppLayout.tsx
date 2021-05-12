@@ -1,52 +1,41 @@
 import React from "react";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { useDesktopLayout } from "~hooks";
-import { AppMenuVertical, AppMenuHorizontal } from "~components";
+import { AppMenuDrawer } from "~components";
 import { useAppMenuActiveLink } from "~storage";
-
-const CSS = require("./AppLayout.css").default;
 
 // TODO fix pages height etc.
 // height: "100%", // or webkit-fill-available on phone?
 
 export const useAppLayoutStyle = (): string => {
-  const isDesktopLayout = useDesktopLayout();
-  return isDesktopLayout
-    ? CSS.pageHorizontalContentInner
-    : CSS.pageVerticalContentInner;
+  // TODO remove
+  // return CSS.pageHorizontalContentInner; // max-height: 100vh;
+  return "";
 };
 
-const CLASSES = {
-  desktop: {
-    root: CSS.pageHorizontal,
-    content: CSS.pageHorizontalContent,
+const useStyles = makeStyles(() => ({
+  root: {},
+  drawer: {
+    flexShrink: 0,
+    flexGrow: 0,
   },
-  mobile: {
-    root: CSS.pageVertical,
-    content: CSS.pageVerticalContent,
+  content: {
+    flex: 1,
+    height: "100vh",
   },
-};
+}));
 
 export const AppLayout: React.FC<unknown> = ({ children }) => {
-  const isDesktopLayout = useDesktopLayout();
   const currentItem = useAppMenuActiveLink();
-  const classes = isDesktopLayout ? CLASSES.desktop : CLASSES.mobile;
+  const styles = useStyles();
 
-  // ugly, but does not trigger unmount/mount of children of `isDesktopLayout` change
+  // IMPORTANT: do not trigger unmount/mount of children on media responsive change!
   return (
-    <div className={classes.root}>
-      {isDesktopLayout ? (
-        <AppMenuVertical
-          currentItem={currentItem}
-          className={CSS.pageHorizontalMenu}
-        />
-      ) : null}
+    <Box display="flex">
+      <AppMenuDrawer currentItem={currentItem} className={styles.drawer} />
 
-      <div className={classes.content}>{children}</div>
-
-      {!isDesktopLayout ? (
-        <AppMenuHorizontal currentItem={currentItem} flex="0" />
-      ) : null}
-    </div>
+      <div className={styles.content}>{children}</div>
+    </Box>
   );
 };

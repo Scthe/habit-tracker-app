@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { DateNextPrevSelector } from "~components";
+import { AppMenuToggleButton, DateNextPrevSelector } from "~components";
 import { useDesktopLayout } from "~hooks";
 import { MonthOfYear } from "~utils";
 
@@ -26,6 +26,7 @@ export const CalendarHeader: React.FC<Props> = ({
   return (
     <AppBar position="static">
       <Toolbar>
+        <AppMenuToggleButton />
         <DateNextPrevSelector
           mode="month"
           currentDate={{ ...shownMonth, day: 16 }}

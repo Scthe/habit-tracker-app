@@ -8,7 +8,7 @@ import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormikContext } from "formik";
 
-import { ButtonLoading, ToolbarTitle } from "~components";
+import { AppMenuToggleButton, ButtonLoading, ToolbarTitle } from "~components";
 
 const useStyles = makeStyles(() => ({
   menuButton: {},
@@ -49,7 +49,9 @@ export const HabitFormHeader: React.FC<Props> = ({ isEdit }) => {
           >
             <Icon>chevron_left</Icon>
           </IconButton>
-        ) : null}
+        ) : (
+          <AppMenuToggleButton />
+        )}
 
         <ToolbarTitle alignLeft>
           {isEdit ? "Edit habit" : "Create habit"}
