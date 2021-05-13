@@ -3,21 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { useUserDateSettings } from "~hooks";
-import {
-  DayOfYear,
-  DaysRelation,
-  isSameDay,
-  MonthOfYear,
-  relativeToToday,
-} from "~utils";
+import { DayOfYear, DaysRelation, MonthOfYear, relativeToToday } from "~utils";
 
 export interface CalendarDayProps {
   day: DayOfYear;
   relativeToToday: DaysRelation;
   size: "small" | "large";
   isDayInCurrentMonth: boolean;
-  isSelected: boolean;
-  onSelected: () => void;
   className?: string;
   role: "cell";
 }
@@ -34,8 +26,6 @@ export const byCalendarSize = function <PropT extends StyleCalendarDayProps>(
 export interface Props {
   size: "small" | "large";
   shownMonth: MonthOfYear;
-  selectedDay?: DayOfYear;
-  onDaySelected?: (d: DayOfYear) => void;
   renderDay: (props: CalendarDayProps) => React.ReactNode;
   classes?: {
     daysGrid?: string;
@@ -58,8 +48,6 @@ export const useStyles = makeStyles(() => ({
 export const DaysGrid: React.FC<Props> = ({
   size,
   shownMonth,
-  selectedDay,
-  onDaySelected,
   renderDay,
   classes,
 }) => {
@@ -75,8 +63,6 @@ export const DaysGrid: React.FC<Props> = ({
       relativeToToday: relativeToToday(day),
       size,
       isDayInCurrentMonth: day.month === currentMonthNumber,
-      isSelected: selectedDay != null && isSameDay(selectedDay, day),
-      onSelected: () => onDaySelected && onDaySelected(day),
       className: clsx(styles.day, classes?.day),
       role: "cell",
     };

@@ -5,10 +5,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import get from "lodash/get";
 import clsx from "clsx";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   circularProgress: {
     marginLeft: 0,
-    marginRight: "10px",
+    marginRight: theme.spacing(1),
   },
 }));
 

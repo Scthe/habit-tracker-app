@@ -1,11 +1,12 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Switch, Route, HashRouter as Router } from "react-router-dom";
 import { PageViewAnalytics, PageLoader } from "./components";
 
 import { AppLayout } from "./pages/_shared";
 import Habits from "./pages/habits";
-import User from "./pages/user";
 import { useUserWithSuspense } from "~storage";
+
+const User = lazy(() => import("./pages/user"));
 
 const AppPages: React.FC<unknown> = ({ children }) => {
   // TODO verify Suspense strategy. May change with final layouts/split-views

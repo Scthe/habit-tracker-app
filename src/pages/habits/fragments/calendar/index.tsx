@@ -14,13 +14,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "0",
     flex: "1",
     overflow: "auto",
-    background: "#f9f9f9",
   },
 }));
 
 const Calendar: React.FC<unknown> = () => {
   const styles = useStyles();
-  // TODO this starts on invalid date (previous month)
   const [shownMonth, setShownMonth] = useState(
     deconstructDateToMonth(new Date())
   );
@@ -38,6 +36,7 @@ const Calendar: React.FC<unknown> = () => {
       >
         <CalendarMonth
           shownMonth={shownMonth}
+          setShownMonth={setShownMonth}
           habitStatuses={habitStatusesAsync.data}
         />
       </AppPageContent>

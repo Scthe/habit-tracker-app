@@ -10,11 +10,12 @@ import { FormValues } from "../useFormInitValues";
 import { ColorPreview, ColorSelectDialog } from "../dialogs/ColorSelectDialog";
 import { ExtraValidationText } from "~components";
 
-const useStyles = makeStyles(() => ({
-  preview: {},
+const useStyles = makeStyles((theme) => ({
+  preview: {
+    marginRight: theme.spacing(2),
+  },
   dialogButton: {
     flex: "1",
-    marginLeft: "10px",
     justifyContent: "left",
   },
 }));
@@ -39,7 +40,7 @@ export const ColorField: React.FC<Props> = (props) => {
     <div className={props.className}>
       <InputLabel shrink>Color</InputLabel>
 
-      <Box display="flex" marginTop="10px">
+      <Box display="flex" marginTop={1}>
         <ColorPreview color={selectedColor} className={styles.preview} />
         <Button
           onClick={() => setDialogOpen(true)}

@@ -22,15 +22,16 @@ import {
 import { AppMenuItem } from "./AppMenuItem";
 import { AppMenuVariant, useAppMenuVariant } from "./useAppMenuVariant";
 import { useAuth } from "~firebaseUtils";
+import { useTheme } from "theme";
 
 // TODO add dark/light theme switcher here too
 
 const items = [
+  ITEM_CREATE_HABIT,
   ITEM_AGENDA,
   ITEM_CALENDAR,
   ITEM_MANAGE_HABITS,
   ITEM_ME,
-  ITEM_CREATE_HABIT,
 ];
 
 const useStyles = makeStyles(() => ({
@@ -90,6 +91,7 @@ const getOptsByVariant = (
 export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
   const styles = useStyles();
   const auth = useAuth();
+  const [themeColor, toggleThemeColor] = useTheme();
   const variant = useAppMenuVariant();
   const temporaryIsOpen = useIsAppMenuOpen();
   const hideDrawer = useHideDrawer();
@@ -133,19 +135,29 @@ export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
                   variant={variant}
                 />
               ))}
-              {/* TODO this can be misclicked, move somewhere else? */}
               <AppMenuItem
                 item={{
-                  id: "logout",
-                  onClick: logout,
-                  icon: "exit_to_app",
-                  name: "Logout",
+                  id: "toggle-color-theme",
+                  onClick: toggleThemeColor,
+                  icon: themeColor === "dark" ? "brightness_7" : "brightness_4",
+                  name: themeColor === "dark" ? "Lights on" : "Lights off",
                 }}
                 onlyIcon={opts.onlyIcon}
                 variant={variant}
               />
             </List>
           </Box>
+
+          <AppMenuItem
+            item={{
+              id: "logout",
+              onClick: logout,
+              icon: "exit_to_app",
+              name: "Logout",
+            }}
+            onlyIcon={opts.onlyIcon}
+            variant={variant}
+          />
         </Box>
       </ClickAwayListener>
     </Drawer>

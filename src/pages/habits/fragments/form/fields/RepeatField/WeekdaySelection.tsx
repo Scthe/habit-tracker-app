@@ -61,7 +61,7 @@ export const WeekdaySelection: React.FC<Props> = ({
     <div className={className}>
       <InputLabel shrink>{label}</InputLabel>
 
-      <Box display="flex" justifyContent="center" marginTop="10px">
+      <Box display="flex" justifyContent="center" marginTop={1}>
         {weekdayNames.map((dayName, idx) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const dayId: Weekday = idx as any;

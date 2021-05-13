@@ -10,6 +10,15 @@
   </head>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
+    <script>
+      let isLight = !window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const storageThemeColor = JSON.parse(localStorage.getItem("appTheme"));
+      if (storageThemeColor === "dark") {
+        isLight = false;
+      }
+      document.body.style.background = isLight ? "#f3f7fa" : "#121212";
+    </script>
+
     <div id="root" class="root"></div>
   </body>
 </html>

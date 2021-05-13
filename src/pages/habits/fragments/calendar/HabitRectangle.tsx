@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import { darken, lighten, makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 
-import { getHabitHtmlColor, getHabitHtmlTextColor } from "../../utils";
 import { HabitStatus } from "../../_types";
+import { routeDetails } from "../../constants";
+import { getHabitHtmlColor, getHabitHtmlTextColor } from "../../utils";
 import { CalendarDayProps, byCalendarSize } from "~components";
-import { AppTheme } from "theme";
+import { AppTheme, byThemeColor } from "theme";
 
 type RectStyleProps = {
   col: HabitStatus["habitColor"];
@@ -20,15 +21,19 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
   habitName: (props: RectStyleProps) => ({
     ...theme.mixins.overflow,
+    width: "100%",
+    padding: "4px 4px",
+    borderRadius: "2px",
+    marginRight: "4px",
     textDecoration: "none",
     color: getHabitHtmlTextColor(theme, props.col),
-    padding: "3px 3px",
-    borderRadius: "3px",
-    width: "100%",
-    marginRight: "3px",
     background: getHabitHtmlColor(props.col),
     "&:hover": {
-      background: () => lighten(getHabitHtmlColor(props.col), 0.1),
+      background: byThemeColor(
+        theme,
+        darken(getHabitHtmlColor(props.col), 0.2),
+        lighten(getHabitHtmlColor(props.col), 0.2)
+      ),
     },
   }),
 }));
@@ -43,10 +48,7 @@ export const HabitRectangle: React.FC<Props> = ({ habitStatus, size }) => {
   const styles = useStyles({ size, col: habitStatus.habitColor });
   return (
     <ListItem className={styles.root}>
-      <Link
-        to={`/habits/${habitStatus.habitId}/details`}
-        className={styles.habitName}
-      >
+      <Link to={routeDetails(habitStatus.habitId)} className={styles.habitName}>
         {habitStatus.habitName}
       </Link>
     </ListItem>

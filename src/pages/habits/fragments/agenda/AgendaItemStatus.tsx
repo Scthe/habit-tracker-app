@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import green from "@material-ui/core/colors/green";
 import Icon from "@material-ui/core/Icon";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import clsx from "clsx";
@@ -11,21 +10,20 @@ import { canFinishHabitOnDay } from "../../utils";
 import { useSetHabitDone } from "../../api";
 import { DayOfYear, relativeToToday } from "~utils";
 import { useShowAlert } from "~hooks";
+import { AppTheme } from "theme";
 
-const DONE_GREEN = green[500];
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   itemIconButton: {
     borderRadius: "0",
   },
   statusDone: {
-    color: DONE_GREEN,
+    color: theme.palette.app.habits.done,
   },
   statusRed: {
-    color: theme.palette.error.main,
+    color: theme.palette.app.habits.notDone,
   },
   statusNotActionable: {
-    padding: "12px",
+    padding: "12px", // has to match CircularProgress etc.
   },
 }));
 
@@ -75,7 +73,6 @@ export const AgendaItemStatus: React.FC<AgendaItemStatusProps> = (props) => {
   );
 };
 
-// TODO on desktop add tooltip what the action will do
 const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
   habit,
   status,

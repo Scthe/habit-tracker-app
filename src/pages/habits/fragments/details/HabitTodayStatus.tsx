@@ -19,10 +19,10 @@ import { useShowAlert } from "~hooks";
 
 const LOADER_SIZE = "42px";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   activeLabelRoot: {
     display: "flex",
-    margin: "0 0 15px",
+    margin: theme.spacing(0, 0, 3),
     minHeight: LOADER_SIZE,
   },
   activeLabelText: {

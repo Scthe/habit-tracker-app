@@ -38,7 +38,7 @@ export const DayOfMonthSelection: React.FC<Props> = ({
     <div className={className}>
       <InputLabel shrink>{label}</InputLabel>
 
-      <Box marginTop="10px">
+      <Box marginTop={1}>
         <Button
           onClick={() => setDialogOpen(true)}
           className={styles.dialogButton}

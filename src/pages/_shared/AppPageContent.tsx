@@ -42,10 +42,10 @@ const myErrorHandler = (error: Error, info: { componentStack: string }) => {
 
 const useStyles = makeStyles((theme) => ({
   toolbarOffset: theme.mixins.toolbar,
-  root: {}, // TODO flex: 1
+  root: {},
   rootPadding: {
-    padding: "25px 25px 0", // TODO decrease on mobile
-    marginBottom: "20px",
+    padding: theme.spacing(3, 3, 0), // TODO decrease on mobile
+    marginBottom: theme.spacing(2),
   },
   rootOverflow: { overflow: "auto" },
 }));

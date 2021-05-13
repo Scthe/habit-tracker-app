@@ -1,18 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import green from "@material-ui/core/colors/green";
-import red from "@material-ui/core/colors/red";
 import clsx from "clsx";
 
 import { HabitCompletionStatus } from "../../_types";
 import { CalendarDayProps } from "~components";
 import { relativeToToday } from "~utils";
+import { AppTheme } from "theme";
 
 type Props = CalendarDayProps & {
   doneStatus: HabitCompletionStatus;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
     textAlign: "center",
     padding: "6px 0",
@@ -21,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
   wasDone: {
     fontWeight: "bold",
-    color: green[500],
+    color: theme.palette.app.habits.done,
   },
   wasFailed: {
-    color: red[500],
+    color: theme.palette.app.habits.notDone,
   },
   today: {
     fontWeight: "bold",
-    color: theme.palette.primary.main,
+    color: theme.palette.app.today,
   },
   neutral: {
     background: "transparent",

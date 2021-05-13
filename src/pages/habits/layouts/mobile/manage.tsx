@@ -1,7 +1,3 @@
-// const handleClick = () => {
-// history.push(`/habits/${habit.id}/details`);
-// };
-
 import React, { lazy, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 

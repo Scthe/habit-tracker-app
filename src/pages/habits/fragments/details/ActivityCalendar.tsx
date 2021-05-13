@@ -10,22 +10,23 @@ import { ActivityDay } from "./ActivityDay";
 import { Calendar, DateNextPrevSelector } from "~components";
 import { DayOfYear, deconstructDateToMonth } from "~utils";
 import { AsyncData } from "~types";
+import { AppTheme } from "theme";
 
 interface Props {
   habit: Habit;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   root: {},
-  header: { marginBottom: "10px" },
+  header: { marginBottom: theme.spacing(1) },
   calendarWrapper: {},
   monthsSwitcher: {
     background: theme.palette.primary.main,
     color: "white",
   },
   calendar: {
-    paddingTop: "5px",
-    background: "#f9f9f9",
+    paddingTop: theme.spacing(1),
+    background: theme.palette.app.body.backgroundSecondary,
   },
 }));
 
@@ -66,6 +67,7 @@ export const ActivityCalendar: React.FC<Props> = ({ habit }) => {
         <Calendar
           size="small"
           shownMonth={shownMonth}
+          setShownMonth={setShownMonth}
           allowKeyboardControl={true}
           loading={
             statusesAsync.status === "init" ||

@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 
 import { HabitStatus } from "../../_types";
+import { routeAgenda } from "../../constants";
 import { HabitRectangle } from "./HabitRectangle";
 import { DayOfYear } from "~utils";
 
@@ -35,10 +36,6 @@ export const HabitsList: React.FC<Props> = ({ day, size, habitStatuses }) => {
 
   const shownHabits = habitStatuses.slice(0, SHOWN_HABITS);
   const notShownStatuses = habitStatuses.length - SHOWN_HABITS;
-  const moreTextAgendaLocation = {
-    pathname: "/habits/agenda",
-    state: { day },
-  };
 
   return (
     <>
@@ -53,7 +50,7 @@ export const HabitsList: React.FC<Props> = ({ day, size, habitStatuses }) => {
       </List>
 
       {notShownStatuses > 0 ? (
-        <Link to={moreTextAgendaLocation} className={styles.moreHabitsText}>
+        <Link to={routeAgenda(day)} className={styles.moreHabitsText}>
           {`+ ${notShownStatuses} more`}
         </Link>
       ) : null}

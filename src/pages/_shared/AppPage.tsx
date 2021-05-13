@@ -7,10 +7,7 @@ import { useSetAppMenuActiveLink } from "~storage";
 import { AppTheme } from "theme";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
-  root: {
-    ...theme.mixins.viewFragment,
-    height: "100vh",
-  },
+  root: theme.mixins.viewFragment,
 }));
 
 interface Props {

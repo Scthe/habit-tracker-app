@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   form: {
     ...theme.mixins.viewFragment,
     flex: 1,
-    height: "100vh",
   },
 }));
 

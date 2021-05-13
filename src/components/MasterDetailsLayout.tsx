@@ -10,7 +10,6 @@ import { FullPageMessage, FullPageMessageProps } from "~components";
 import { AppTheme } from "theme";
 
 // TODO hamburger menu has to always be visible. even during suspense
-// TODO error boundary in child components? Or only in details?
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -18,16 +17,13 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
   col1: {
     flex: 1,
-    height: "100vh",
     ...theme.mixins.viewFragment,
   },
   col2: {
     flex: 1,
-    height: "100vh",
     ...theme.mixins.viewFragment,
   },
   detailPaper: {
-    height: "100vh",
     ...theme.mixins.viewFragment,
   },
 }));

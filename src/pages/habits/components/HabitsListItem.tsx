@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
     display: "flex",
     flexDirection: "row",
-    padding: "5px 15px",
+    padding: theme.spacing(0), // required for onClick to work
     background: theme.palette.background.paper,
     "&:hover": {
       background: darken(theme.palette.background.paper, 0.05),
@@ -25,11 +25,13 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     alignSelf: "stretch",
     borderRadius: "5px",
     flex: "0",
-    marginRight: "15px",
+    marginRight: theme.spacing(2),
   },
   content: {
     flex: "1",
-    marginTop: "5px",
+    display: "flex",
+    flexDirection: "row",
+    padding: theme.spacing(1, 2),
     cursor: "pointer",
   },
   action: {
@@ -61,19 +63,19 @@ export const HabitsListItem: React.FC<Props> = ({
   const styles = useStyles();
 
   return (
-    <ListItem className={clsx(className, classes?.root, styles.root)}>
-      <div
-        className={styles.colorStrip}
-        style={{ background: getHabitHtmlColor(item.color) }}
-      />
-
+    <ListItem className={clsx(styles.root, className, classes?.root)}>
       <div className={clsx(classes?.content, styles.content)} onClick={onClick}>
-        <Typography variant="h6" className={classes?.title}>
-          {item.name}
-        </Typography>
-        <Box color="text.secondary" marginBottom="5px">
-          {renderSubtext(item)}
-        </Box>
+        <div
+          className={styles.colorStrip}
+          style={{ background: getHabitHtmlColor(item.color) }}
+        />
+
+        <div>
+          <Typography variant="h6" className={classes?.title}>
+            {item.name}
+          </Typography>
+          <Box color="text.secondary">{renderSubtext(item)}</Box>
+        </div>
       </div>
 
       {actionElement ? (

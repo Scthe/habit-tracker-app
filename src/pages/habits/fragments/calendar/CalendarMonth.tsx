@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
   const borderColor = theme.palette.grey["300"];
   return {
     calendar: {
-      paddingTop: "5px",
+      paddingTop: "5px", // TODO WTF with this styles?
       display: "flex",
       flexDirection: "column",
       height: "100%",
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => {
 
 interface Props {
   shownMonth: MonthOfYear;
+  setShownMonth: (nextMonth: MonthOfYear) => void;
   habitStatuses: AsyncData<HabitStatus[]>;
 }
 
@@ -57,6 +58,7 @@ const getHabitStatuses = (
 
 export const CalendarMonth: React.FC<Props> = ({
   shownMonth,
+  setShownMonth,
   habitStatuses,
 }) => {
   const styles = useStyles();
@@ -66,6 +68,7 @@ export const CalendarMonth: React.FC<Props> = ({
     <Calendar
       size={isDesktop ? "large" : "small"}
       shownMonth={shownMonth}
+      setShownMonth={setShownMonth}
       allowKeyboardControl={true}
       loading={
         habitStatuses.status === "init" || habitStatuses.status === "loading"

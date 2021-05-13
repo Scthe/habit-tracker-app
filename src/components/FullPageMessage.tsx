@@ -3,14 +3,15 @@ import Box from "@material-ui/core/Box";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { AppTheme } from "theme";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   icon: {
-    color: theme.palette.text.disabled,
+    color: theme.palette.app.fullPageMessage.color,
     fontSize: "200px",
   },
   message: {
-    color: theme.palette.text.disabled,
+    color: theme.palette.app.fullPageMessage.color,
   },
 }));
 

@@ -15,9 +15,7 @@ body > div {
 }
 
 body {
-  background-color: #f3f7fa;
   font-family: "Roboto", sans-serif;
-  color: #212121;
   display: flex;
 }
 

@@ -3,8 +3,6 @@ import { useGetHabits, useGetHabitStatusesSubscription } from "../../api";
 import { getStatus, showHabitOnDay } from "../../utils";
 import { combineAsyncData, DayOfYear } from "~utils";
 import { AsyncData } from "~types";
-import { times } from "lodash";
-import { HabitMock, HabitsListMock } from "pages/habits/_types/mocks/Habit";
 
 export interface HabitAgendaItem {
   habit: Habit;
@@ -14,7 +12,6 @@ export interface HabitAgendaItem {
 export const useAgendaData = (
   date: DayOfYear
 ): AsyncData<HabitAgendaItem[]> => {
-  /*
   const habitsAsync = useGetHabits();
   const statusesAsync = useGetHabitStatusesSubscription(date);
 
@@ -35,12 +32,4 @@ export const useAgendaData = (
     habitsAsync.data,
     statusesAsync
   );
-  */
-  return {
-    status: "success",
-    data: HabitsListMock().map((h, i) => ({
-      habit: h,
-      status: HabitCompletionStatus.DONE,
-    })),
-  };
 };

@@ -9,7 +9,7 @@ import format from "date-fns/format";
 import getDaysInMonth from "date-fns/getDaysInMonth";
 
 import { getFromArray } from "../index";
-import { createDateFromDay } from "./DayOfYear";
+import { createDateFromDay, deconstructDate } from "./DayOfYear";
 
 export enum Weekday {
   Monday = 1,
@@ -66,16 +66,16 @@ export const min2hours = (x: number): number => Math.floor(x / 60);
 export const hours2days = (x: number): number => Math.floor(x / 24);
 
 export interface MonthOfYear {
-  month: number; // 0-11
+  month: number; // 1-12
   year: number;
 }
 export const createDateFromMonth = (m: MonthOfYear): Date =>
   createDateFromDay({ ...m, day: 16 });
 
-export const deconstructDateToMonth = (d: Date): MonthOfYear => ({
-  month: d.getMonth(),
-  year: d.getFullYear(),
-});
+export const deconstructDateToMonth = (d: Date): MonthOfYear => {
+  const day = deconstructDate(d); // share code to fix it once
+  return { year: day.year, month: day.month };
+};
 
 /** Ensure the returned day is valid in this month. e.g. no 31st of February */
 export const clampToMonthLength = (day: number, month: MonthOfYear): number => {

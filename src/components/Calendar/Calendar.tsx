@@ -3,15 +3,21 @@ import clsx from "clsx";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-// import { useGlobalKeyDown, keycode } from '../../_shared/hooks/useKeyDown';
 import { CalendarSkeleton } from "./CalendarSkeleton";
 import { DaysGrid, Props as DaysGridProps } from "./DaysGrid";
-import { useUserDateSettings } from "~hooks";
+import { useUserDateSettings, useGlobalKeyDown } from "~hooks";
+import { MonthOfYear, addMonths as addMonthsToDay } from "~utils";
+
+const addMonths = (month: MonthOfYear, months: number): MonthOfYear => {
+  const d = addMonthsToDay({ ...month, day: 16 }, months);
+  return { year: d.year, month: d.month };
+};
 
 export type Props = DaysGridProps & {
   allowKeyboardControl?: boolean;
   loading?: boolean;
   className?: string;
+  setShownMonth: (nextMonth: MonthOfYear) => void;
 };
 
 export const useStyles = makeStyles((theme) => ({
@@ -22,7 +28,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   weekDayLabel: {
     flex: "1",
-    margin: "0 2px",
+    margin: theme.spacing(0.5, 0),
     textAlign: "center",
     display: "flex",
     justifyContent: "center",
@@ -35,26 +41,22 @@ export const useStyles = makeStyles((theme) => ({
 export const Calendar: React.FC<Props> = (props) => {
   const dateUtil = useUserDateSettings();
 
-  const { size, loading, className } = props;
+  const {
+    size,
+    loading,
+    className,
+    allowKeyboardControl,
+    shownMonth,
+    setShownMonth,
+  } = props;
   const styles = useStyles();
   const isSmall = size === "small";
   const weekdayNames = dateUtil.getWeekdayNames(isSmall ? "N" : "NNN");
 
-  /*
-  const initialDate = Array.isArray(date) ? date[0] : date;
-  const nowFocusedDay = focusedDay || initialDate || now;
-
   useGlobalKeyDown(Boolean(allowKeyboardControl), {
-    [keycode.ArrowUp]: () => changeFocusedDay(addDays(nowFocusedDay, -7)),
-    [keycode.ArrowDown]: () => changeFocusedDay(addDays(nowFocusedDay, 7)),
-    [keycode.ArrowLeft]: () => changeFocusedDay(addDays(nowFocusedDay, 1)),
-    [keycode.ArrowRight]: () => changeFocusedDay(addDays(nowFocusedDay, 1)),
-    [keycode.Home]: () => changeFocusedDay(startOfWeek(nowFocusedDay)),
-    [keycode.End]: () => changeFocusedDay(endOfWeek(nowFocusedDay)),
-    [keycode.PageUp]: () => changeFocusedDay(getNextMonth(nowFocusedDay)),
-    [keycode.PageDown]: () => changeFocusedDay(getPreviousMonth(nowFocusedDay)),
+    ArrowLeft: () => setShownMonth(addMonths(shownMonth, -1)),
+    ArrowRight: () => setShownMonth(addMonths(shownMonth, 1)),
   });
-  */
 
   return (
     <div className={clsx(className, styles.root)}>

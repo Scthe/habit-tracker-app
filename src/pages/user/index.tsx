@@ -1,10 +1,10 @@
 import Button from "@material-ui/core/Button";
 import React from "react";
+import { oppositeThemeColor, useTheme } from "theme/useTheme";
 import { Debug } from "~components";
 import { useAuth, useStorage } from "~firebaseUtils";
 import { useUserStatus } from "~storage";
 
-// TODO light/dark theme is stored in local storage, default to media query
 // TODO finish me
 
 // eslint-disable-next-line import/no-unused-modules
@@ -14,9 +14,14 @@ export default (): JSX.Element => {
   const auth = useAuth();
   const user = useUserStatus();
 
+  const [themeColor, toggleThemeColor] = useTheme();
+  const nextThemeColor = oppositeThemeColor(themeColor);
+
   return (
     <div>
       <h1>USER PAGE</h1>
+
+      <hr />
       <Button
         color="primary"
         variant="contained"
@@ -25,6 +30,12 @@ export default (): JSX.Element => {
         Logout
       </Button>
 
+      <hr />
+      <Button color="primary" variant="contained" onClick={toggleThemeColor}>
+        Make it {nextThemeColor}
+      </Button>
+
+      <hr />
       <Debug v={user} />
     </div>
   );

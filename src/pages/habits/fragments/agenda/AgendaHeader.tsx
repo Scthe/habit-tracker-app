@@ -10,15 +10,17 @@ import {
 } from "~components";
 import { DayOfYear } from "~utils";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   weekSelector: {
-    marginBottom: "15px",
+    marginBottom: theme.spacing(2),
     flex: 1,
   },
   weekPreview: {
     flex: 1,
   },
 }));
+
+// TODO hamburger menu is on same height as this
 
 interface Props {
   currentDate: DayOfYear;

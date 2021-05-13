@@ -7,7 +7,8 @@ export type CurrentActiveElement =
   | "me"
   | "create"
   | "logout"
-  | "hide-drawer";
+  | "hide-drawer"
+  | "toggle-color-theme";
 
 export type AppMenuItem = {
   id: CurrentActiveElement;

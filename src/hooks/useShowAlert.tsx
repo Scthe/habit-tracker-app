@@ -7,7 +7,7 @@ import create from "zustand";
 import Slide from "@material-ui/core/Slide";
 import merge from "lodash/merge";
 import { makeStyles } from "@material-ui/core/styles";
-import { blue, green, orange, red } from "@material-ui/core/colors";
+import { AppTheme } from "theme";
 
 const DEFAULT_PROPS: Partial<SnackbarProps> = {
   anchorOrigin: {
@@ -34,24 +34,12 @@ type CustomizableSnackbarProps = Partial<
   severity?: "error" | "warning" | "info" | "success";
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   default: {},
-  error: {
-    background: red["500"],
-    color: theme.palette.common.white,
-  },
-  warning: {
-    background: orange["500"],
-    color: theme.palette.common.white,
-  },
-  info: {
-    background: blue["500"],
-    color: theme.palette.common.white,
-  },
-  success: {
-    background: green["500"],
-    color: theme.palette.common.white,
-  },
+  error: theme.palette.alerts.error,
+  warning: theme.palette.alerts.warning,
+  info: theme.palette.alerts.info,
+  success: theme.palette.alerts.success,
 }));
 
 type AlertId = number;

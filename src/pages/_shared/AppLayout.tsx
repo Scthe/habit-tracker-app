@@ -6,7 +6,6 @@ import { AppMenuDrawer } from "~components";
 import { useAppMenuActiveLink } from "~storage";
 
 const useStyles = makeStyles(() => ({
-  root: {},
   drawer: {
     flexShrink: 0,
     flexGrow: 0,

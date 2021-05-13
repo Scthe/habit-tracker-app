@@ -12,8 +12,9 @@ import {
   AppMenuItem as AppMenuItemType,
 } from "./constants";
 import { AppMenuVariant } from "./useAppMenuVariant";
+import { AppTheme } from "theme";
 
-const useItemStyles = makeStyles((theme) => ({
+const useItemStyles = makeStyles((theme: AppTheme) => ({
   root: {
     textDecoration: "none",
     color: theme.palette.text.primary,
@@ -23,6 +24,9 @@ const useItemStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     background: lighten(theme.palette.primary.main, 0.8),
     fontWeight: "bold",
+    "&:hover": {
+      background: lighten(theme.palette.primary.main, 0.6),
+    },
   },
   itemIcon: {
     minWidth: "initial",

@@ -9,8 +9,8 @@ import { useDetailsData } from "./useDetailsData";
 import { Habit } from "pages/habits/_types";
 import { adaptAsyncDataForContent, AppPageContent } from "pages/_shared";
 
-const useStyles = makeStyles(() => ({
-  fields: { marginBottom: "20px" },
+const useStyles = makeStyles((theme) => ({
+  fields: { marginBottom: theme.spacing(3) },
 }));
 
 interface Props {
