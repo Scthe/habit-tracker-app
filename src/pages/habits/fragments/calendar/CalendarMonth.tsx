@@ -12,9 +12,11 @@ const useStyles = makeStyles((theme) => {
   const borderColor = theme.palette.grey["300"];
   return {
     calendar: {
-      paddingTop: "5px", // TODO WTF with this styles?
       display: "flex",
       flexDirection: "column",
+      height: "100%",
+    },
+    skeleton: {
       height: "100%",
     },
     daysGrid: {
@@ -78,6 +80,7 @@ export const CalendarMonth: React.FC<Props> = ({
         daysGrid: styles.daysGrid,
         week: styles.week,
         day: styles.day,
+        skeleton: styles.skeleton,
       }}
       renderDay={(dayProps) => (
         <CalendarDay

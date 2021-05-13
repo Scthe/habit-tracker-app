@@ -6,17 +6,26 @@ import { useCurrentDay } from "./useCurrentDay";
 import { AgendaHeader } from "./AgendaHeader";
 import { HabitClickHandler } from "./AgendaListItem";
 import { AppPageContent } from "pages/_shared";
+import { useGlobalKeyDown } from "~hooks";
+import { addDays } from "~utils";
 
-// TOOD swipe left/right for prev/next item
-// TODO make sure <AgendaHeader> is always visible, even when there is an exception in useAgendaData. Create content.tsx?
+// TOOD [feature] swipe left/right for prev/next item
 
 interface Props {
   onItemClick: HabitClickHandler;
+  selectedItem: string | undefined;
 }
 
-const HabitsAgenda: React.FC<Props> = ({ onItemClick }) => {
+const HabitsAgenda: React.FC<Props> = ({ onItemClick, selectedItem }) => {
   const [currentDay, setCurrentDay] = useCurrentDay();
   const agendaData = useAgendaData(currentDay);
+
+  useGlobalKeyDown(true, {
+    ArrowLeft: () => setCurrentDay(addDays(currentDay, -1)),
+    ArrowRight: () => setCurrentDay(addDays(currentDay, 1)),
+    ArrowUp: () => setCurrentDay(addDays(currentDay, -7)),
+    ArrowDown: () => setCurrentDay(addDays(currentDay, 7)),
+  });
 
   return (
     <>
@@ -27,6 +36,7 @@ const HabitsAgenda: React.FC<Props> = ({ onItemClick }) => {
           currentDate={currentDay}
           data={agendaData}
           onItemClick={onItemClick}
+          selectedItem={selectedItem}
         />
       </AppPageContent>
     </>

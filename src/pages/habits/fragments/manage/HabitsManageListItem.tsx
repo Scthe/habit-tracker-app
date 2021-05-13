@@ -9,6 +9,7 @@ export type HabitClickHandler = (habit: Habit) => void;
 interface Props {
   habit: Habit;
   onClick: HabitClickHandler;
+  isSelected: boolean;
 }
 
 const getSubtext = (habit: Habit): string => {
@@ -29,8 +30,11 @@ const getSubtext = (habit: Habit): string => {
   }
 };
 
-export const HabitsManageListItem: React.FC<Props> = ({ habit, onClick }) => {
-  // TODO overflow?
+export const HabitsManageListItem: React.FC<Props> = ({
+  habit,
+  onClick,
+  isSelected,
+}) => {
   const subtext = getSubtext(habit);
 
   return (
@@ -38,6 +42,7 @@ export const HabitsManageListItem: React.FC<Props> = ({ habit, onClick }) => {
       item={habit}
       renderSubtext={() => subtext}
       onClick={() => onClick(habit)}
+      isSelected={isSelected}
     />
   );
 };

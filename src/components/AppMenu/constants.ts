@@ -8,13 +8,15 @@ export type CurrentActiveElement =
   | "create"
   | "logout"
   | "hide-drawer"
-  | "toggle-color-theme";
+  | "toggle-color-theme"
+  | "github";
 
 export type AppMenuItem = {
   id: CurrentActiveElement;
   to?: string;
   onClick?: () => void;
   icon: string;
+  svgIcon?: React.ReactElement;
   name: string;
 };
 

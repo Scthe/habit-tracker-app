@@ -12,16 +12,18 @@ type ReactListKey = string | number; // c'mon!
 interface Props<T> {
   data: AsyncData<T[]>;
   filterPredicate?: (item: T) => boolean;
+  beforeRender?: (items: T[]) => T[];
   className?: string;
   keyExtractor: ValueExtractor<T, ReactListKey>;
   renderItem: (item: T) => ReactNode;
   emptyListMsg?: ReactNode;
-  retry?: () => void; // TODO try to use this to allow data reload
+  retry?: () => void; // TODO [ux] try to retry if AsyncList request failed
 }
 
 const AsyncList = function AsyncList<T>({
   data,
   filterPredicate,
+  beforeRender,
   renderItem,
   keyExtractor,
   className,
@@ -35,7 +37,11 @@ const AsyncList = function AsyncList<T>({
     return <ListError retry={retry} />;
   }
 
-  const dataAfterFilter = data.data.filter((e) => filterPredicate!(e)); // defaultProps ehh..
+  let dataAfterFilter = data.data.filter((e) => filterPredicate!(e)); // defaultProps ehh..
+  if (beforeRender != null) {
+    dataAfterFilter = beforeRender(dataAfterFilter);
+  }
+
   if (dataAfterFilter.length === 0) {
     const Comp = emptyListMsg != null ? emptyListMsg : ListEmpty;
     const props: ListEmptyProps = {

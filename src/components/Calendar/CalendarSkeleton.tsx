@@ -3,21 +3,30 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-import { useStyles as useCalendarStyles } from "./DaysGrid";
-
 interface Props {
+  size: "small" | "large";
   className: string;
 }
 
-const useStyles = makeStyles({
-  root: {},
-  daySkeleton: {
-    margin: `0 5px`,
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
   },
+  week: {
+    display: "flex",
+    flexGrow: 1,
+    paddingTop: theme.spacing(1),
+  },
+  daySkeleton: ({ size }: { size: "small" | "large" }) => ({
+    margin: size === "large" ? theme.spacing(0, 1) : "2px",
+    flexGrow: 1,
+    height: "100%",
+  }),
   hidden: {
     visibility: "hidden",
   },
-});
+}));
 
 const monthMap = [
   [0, 1, 1, 1, 1, 1, 1],
@@ -27,22 +36,18 @@ const monthMap = [
   [1, 1, 1, 1, 0, 0, 0],
 ];
 
-// TODO test me!
 // https://github.com/mui-org/material-ui-pickers/blob/next/lib/src/CalendarSkeleton.tsx
-export const CalendarSkeleton: React.FC<Props> = ({ className }) => {
-  const styles = useStyles();
-  const calendarClasses = useCalendarStyles();
+export const CalendarSkeleton: React.FC<Props> = ({ size, className }) => {
+  const styles = useStyles({ size });
 
   return (
-    <div className={clsx(styles.root, className)}>
+    <div role="grid" className={clsx(styles.root, className)}>
       {monthMap.map((week, index) => (
-        <div key={index} className={calendarClasses.week}>
+        <div role="row" key={index} className={clsx(styles.week)}>
           {week.map((day, index2) => (
             <Skeleton
-              key={index2}
-              variant="circle"
-              width="20px"
-              height="20px"
+              key={`${index}-${index2}`}
+              variant="rect"
               className={clsx(styles.daySkeleton, {
                 [styles.hidden]: day === 0,
               })}

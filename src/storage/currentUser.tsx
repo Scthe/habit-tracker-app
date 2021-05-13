@@ -34,12 +34,12 @@ const adaptFirebaseUser = (user: firebaseNS.User): CurrentUser => ({
 });
 
 export const UserProvider: React.FC = ({ children }) => {
+  // TODO try auth().currentUser
   const [userData, setUserData] = useState<AuthCtxType>({ status: "init" });
   const auth = useAuth();
 
   useEffect(() => {
     return auth.onAuthStateChanged((user) => {
-      console.log("auth.onAuthStateChanged", user?.uid);
       if (user == null) {
         setUserData({ status: "notlogged" });
       } else {
@@ -49,8 +49,7 @@ export const UserProvider: React.FC = ({ children }) => {
         });
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [auth, setUserData]);
 
   return (
     <CurrentUserContext.Provider value={userData}>

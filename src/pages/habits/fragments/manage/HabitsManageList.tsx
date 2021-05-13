@@ -20,6 +20,7 @@ interface Props {
   habits: AsyncData<Habit[]>;
   className?: string;
   onItemClick: HabitClickHandler;
+  selectedItem?: string;
 }
 
 const filterHabitsByName = (expectedName: string) => {
@@ -32,6 +33,7 @@ export const HabitsManageList: React.FC<Props> = ({
   habits,
   className,
   onItemClick,
+  selectedItem,
 }) => {
   return (
     <AsyncList
@@ -40,7 +42,11 @@ export const HabitsManageList: React.FC<Props> = ({
       className={className}
       keyExtractor="id"
       renderItem={(habit) => (
-        <HabitsManageListItem habit={habit} onClick={onItemClick} />
+        <HabitsManageListItem
+          habit={habit}
+          onClick={onItemClick}
+          isSelected={selectedItem === habit.id}
+        />
       )}
       emptyListMsg={EmptyMsg}
     />

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     borderRadius: "2px",
     marginRight: "4px",
     textDecoration: "none",
-    color: getHabitHtmlTextColor(theme, props.col),
+    color: getHabitHtmlTextColor(props.col),
     background: getHabitHtmlColor(props.col),
     "&:hover": {
       background: byThemeColor(

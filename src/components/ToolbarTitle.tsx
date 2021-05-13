@@ -2,9 +2,12 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { AppTheme } from "theme/config";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   title: {
+    ...theme.mixins.overflow,
+    width: 0,
     flexGrow: 1,
   },
   textInCenter: {

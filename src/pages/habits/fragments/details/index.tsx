@@ -16,9 +16,14 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   id: string;
   habit?: Habit;
+  isInMasterDetailLayout: boolean;
 }
 
-const HabitDetails: React.FC<Props> = ({ id, habit }) => {
+const HabitDetails: React.FC<Props> = ({
+  id,
+  habit,
+  isInMasterDetailLayout,
+}) => {
   const styles = useStyles();
   const asyncData = useDetailsData(id, habit);
 
@@ -26,6 +31,7 @@ const HabitDetails: React.FC<Props> = ({ id, habit }) => {
     <>
       <DetailsHeader
         habit={asyncData.status === "success" ? asyncData.data : null}
+        showBackButton={!isInMasterDetailLayout}
       />
 
       <AppPageContent
@@ -38,7 +44,10 @@ const HabitDetails: React.FC<Props> = ({ id, habit }) => {
               status={asyncData.data.status}
             />
             <DetailsFields habit={asyncData.data} className={styles.fields} />
-            <ActivityCalendar habit={asyncData.data} />
+            <ActivityCalendar
+              habit={asyncData.data}
+              allowKeyboardControl={!isInMasterDetailLayout}
+            />
           </>
         ) : null}
       </AppPageContent>

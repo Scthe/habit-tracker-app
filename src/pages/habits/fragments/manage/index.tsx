@@ -8,13 +8,13 @@ import { AppPageContent } from "pages/_shared";
 
 interface Props {
   onItemClick: HabitClickHandler;
+  selectedItem: string | undefined;
 }
 
-const ManageHabits: React.FC<Props> = ({ onItemClick }) => {
+const ManageHabits: React.FC<Props> = ({ onItemClick, selectedItem }) => {
   const [search, setSearch] = useState("");
   const habitsAsync = useGetHabits();
 
-  // TODO handle refetch on error
   return (
     <>
       <ManageHeader search={search} setSearch={setSearch} />
@@ -24,6 +24,7 @@ const ManageHabits: React.FC<Props> = ({ onItemClick }) => {
           search={search}
           habits={habitsAsync.data}
           onItemClick={onItemClick}
+          selectedItem={selectedItem}
         />
       </AppPageContent>
     </>

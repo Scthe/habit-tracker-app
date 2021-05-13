@@ -1,10 +1,20 @@
 import React from "react";
+import format from "date-fns/format";
 
 import { Habit } from "../../_types";
 import { DetailHabitField } from "./DetailHabitField";
-import { assertUnreachable, stringifyNumber, getWeekdayName } from "~utils";
+import {
+  assertUnreachable,
+  stringifyNumber,
+  getWeekdayName,
+  deconstructDate,
+  isSameDay,
+  getDateDiff,
+  createDateFromDay,
+  stringifyDateDiff,
+} from "~utils";
 
-// TODO count how many times done
+// TODO [feature] count how many times done this habit
 
 const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
   switch (repeat.type) {
@@ -27,6 +37,21 @@ const createRepeatText = (repeat: Habit["repeat"]): [string, string] => {
   }
 };
 
+const getDateText = (createdAt: Date): string => {
+  const dayCreatedAt = deconstructDate(createdAt);
+  const dayNow = deconstructDate(new Date());
+  if (isSameDay(dayCreatedAt, dayNow)) {
+    return "Today";
+  }
+
+  const diff = getDateDiff(
+    createDateFromDay(dayCreatedAt, 1, 0),
+    createDateFromDay(dayNow, 1, 0)
+  );
+  const date = format(createdAt, "d LLLL yyyy");
+  return `${date} (${stringifyDateDiff(diff)})`;
+};
+
 interface Props {
   habit: Habit;
   className?: string;
@@ -46,10 +71,21 @@ export const DetailsFields: React.FC<Props> = ({ habit, className }) => {
     <div className={className}>
       <DetailHabitField {...fieldProps("name", "I want to", habit.name)} />
       <DetailHabitField {...fieldProps(repeatLabel, "Repeat", repeatText)} />
+
+      {habit.description.length > 0 ? (
+        <DetailHabitField
+          {...fieldProps("description", "Notes", habit.description)}
+          multiline={true}
+        />
+      ) : null}
+
       <DetailHabitField
-        {...fieldProps("description", "Notes", habit.description)}
+        {...fieldProps(
+          "created_at",
+          "I've done this since",
+          getDateText(habit.createdAt)
+        )}
       />
-      {/* TODO [feature] <DetailHabitField {...fieldProps("created_at", "I've done this since", habit.createdAt)} /> */}
     </div>
   );
 };

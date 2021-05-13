@@ -46,7 +46,7 @@ export const customTheme = (themeColor: ThemeColor, theme: Theme) => {
         body: byThemeColor(
           {
             background: "#f3f7fa",
-            backgroundSecondary: darken("#f3f7fa", 0.3),
+            backgroundSecondary: darken("#f3f7fa", 0.2),
             color: "#212121",
           },
           {

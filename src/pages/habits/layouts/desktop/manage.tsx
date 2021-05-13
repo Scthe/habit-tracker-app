@@ -9,8 +9,6 @@ import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
 const Manage = lazy(() => import("../../fragments/manage"));
 const HabitDetails = lazy(() => import("../../fragments/details"));
 
-// TODO highlight shown/selected item?
-
 interface SelectedItemState {
   id: string | undefined;
   habit: Habit | undefined;
@@ -36,7 +34,7 @@ export default (): JSX.Element => {
     <AppPage appMenuActiveItem="manage">
       <MasterDetailsLayout>
         <MasterView>
-          <Manage onItemClick={handleItemClick} />
+          <Manage onItemClick={handleItemClick} selectedItem={selectedId} />
         </MasterView>
 
         <DetailsView
@@ -45,7 +43,11 @@ export default (): JSX.Element => {
           itemFallback={{ message: "No habit selected" }}
         >
           {selectedId != null ? (
-            <HabitDetails id={selectedId} habit={selectedHabit} />
+            <HabitDetails
+              id={selectedId}
+              habit={selectedHabit}
+              isInMasterDetailLayout={true}
+            />
           ) : null}
         </DetailsView>
       </MasterDetailsLayout>

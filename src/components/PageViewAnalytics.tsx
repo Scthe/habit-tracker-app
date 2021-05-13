@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-// import { useAnalytics, useUser } from 'reactfire';
+
+// TODO [analytics]: not in dev mode, anonymize location wrt. ids (replace with :id)
 
 export const PageViewAnalytics: React.FC = () => {
   // const analytics = useAnalytics();
@@ -7,8 +8,7 @@ export const PageViewAnalytics: React.FC = () => {
   // console.log("user", u);
 
   useEffect(() => {
-    // console.log(NODE_ENV, `'${location.pathname}'`); // TODO not in dev
-    // TODO anonymize location wrt. ids (replace with :id)
+    // console.log(NODE_ENV, `'${location.pathname}'`);
     // analytics.logEvent('page-view', { path_name: location.pathname });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);

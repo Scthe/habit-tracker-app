@@ -14,6 +14,7 @@ import { AppTheme } from "theme";
 
 interface Props {
   habit: Habit;
+  allowKeyboardControl: boolean;
 }
 
 const useStyles = makeStyles((theme: AppTheme) => ({
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     paddingTop: theme.spacing(1),
     background: theme.palette.app.body.backgroundSecondary,
   },
+  skeleton: {
+    height: "220px",
+  },
 }));
 
 const getHabitStatus = (
@@ -41,7 +45,10 @@ const getHabitStatus = (
   return HabitCompletionStatus.DONE;
 };
 
-export const ActivityCalendar: React.FC<Props> = ({ habit }) => {
+export const ActivityCalendar: React.FC<Props> = ({
+  habit,
+  allowKeyboardControl,
+}) => {
   const styles = useStyles();
   const [shownMonth, setShownMonth] = useState(
     deconstructDateToMonth(new Date())
@@ -68,12 +75,13 @@ export const ActivityCalendar: React.FC<Props> = ({ habit }) => {
           size="small"
           shownMonth={shownMonth}
           setShownMonth={setShownMonth}
-          allowKeyboardControl={true}
+          allowKeyboardControl={allowKeyboardControl}
           loading={
             statusesAsync.status === "init" ||
             statusesAsync.status === "loading"
           }
           className={styles.calendar}
+          classes={{ skeleton: styles.skeleton }}
           renderDay={(props) => (
             <ActivityDay
               {...props}

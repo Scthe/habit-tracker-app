@@ -27,10 +27,12 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
 }));
 
-interface AgendaItemStatusProps {
+interface Props {
   habit: Habit;
   status: HabitCompletionStatus;
   currentDate: DayOfYear;
+  onStatusChanged?: (newStatus: HabitCompletionStatus) => void;
+  checkboxRef: React.MutableRefObject<null | HTMLElement>;
 }
 
 const getIconString = (
@@ -49,7 +51,7 @@ const getIconString = (
   return isDone ? "done" : "close";
 };
 
-export const AgendaItemStatus: React.FC<AgendaItemStatusProps> = (props) => {
+export const AgendaItemStatus: React.FC<Props> = (props) => {
   const { habit, status, currentDate } = props;
   const styles = useStyles();
 
@@ -73,10 +75,12 @@ export const AgendaItemStatus: React.FC<AgendaItemStatusProps> = (props) => {
   );
 };
 
-const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
+const ToggleStatusCheckbox: React.FC<Props> = ({
   habit,
   status,
   currentDate,
+  onStatusChanged,
+  checkboxRef,
 }) => {
   const setHabitDone = useSetHabitDone();
   const showAlert = useShowAlert();
@@ -84,13 +88,15 @@ const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
 
   const handleToggle = async () => {
     try {
+      const nextStatus = getOppositeStatus(status);
       await setHabitDone.execute({
         habitId: habit.id,
         habitName: habit.name,
         habitColor: habit.color,
-        status: getOppositeStatus(status),
+        status: nextStatus,
         day: currentDate,
       });
+      onStatusChanged && onStatusChanged(nextStatus);
     } catch (e) {
       showAlert({
         severity: "error",
@@ -103,5 +109,12 @@ const ToggleStatusCheckbox: React.FC<AgendaItemStatusProps> = ({
     return <CircularProgress size="40px" color="primary" />;
   }
 
-  return <Checkbox checked={isDone} onChange={handleToggle} color="primary" />;
+  return (
+    <Checkbox
+      ref={checkboxRef}
+      checked={isDone}
+      onChange={handleToggle}
+      color="primary"
+    />
+  );
 };

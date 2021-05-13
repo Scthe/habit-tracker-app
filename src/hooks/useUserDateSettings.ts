@@ -28,7 +28,7 @@ const getWeekStartEndDays = (weekStartsOn: Weekday) => {
 
 const constructWeek = (startDate: Date) => [
   deconstructDate(startDate),
-  ...times(6, (i) => deconstructDate(addDays(startDate, i))),
+  ...times(6, (i) => deconstructDate(addDays(startDate, i + 1))),
 ];
 
 const getDaysInCalendar = (weekStartsOn: Weekday) => {
@@ -48,7 +48,7 @@ const getDaysInCalendar = (weekStartsOn: Weekday) => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useUserDateSettings = () => {
-  const firstDayOfWeek: Weekday = Weekday.Friday; // TODO get from settings
+  const firstDayOfWeek: Weekday = Weekday.Monday; // TODO get from settings
 
   const dayIndices = times(7, (i) => firstDayOfWeek + i);
 

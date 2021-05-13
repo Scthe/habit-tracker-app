@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { AppMenuDrawer } from "~components";
+import { AppMenuDrawer, PageLoader } from "~components";
 import { useAppMenuActiveLink } from "~storage";
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +25,9 @@ export const AppLayout: React.FC<unknown> = ({ children }) => {
     <Box display="flex">
       <AppMenuDrawer currentItem={currentItem} className={styles.drawer} />
 
-      <div className={styles.content}>{children}</div>
+      <Suspense fallback={<PageLoader />}>
+        <div className={styles.content}>{children}</div>
+      </Suspense>
     </Box>
   );
 };

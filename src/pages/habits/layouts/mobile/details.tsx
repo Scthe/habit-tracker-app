@@ -10,7 +10,7 @@ export default (): JSX.Element => {
 
   return (
     <AppPage>
-      <HabitDetails id={id} />
+      <HabitDetails id={id} isInMasterDetailLayout={false} />
     </AppPage>
   );
 };

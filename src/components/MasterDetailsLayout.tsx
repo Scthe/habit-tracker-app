@@ -9,8 +9,6 @@ import { PageLoader } from "./PageLoader";
 import { FullPageMessage, FullPageMessageProps } from "~components";
 import { AppTheme } from "theme";
 
-// TODO hamburger menu has to always be visible. even during suspense
-
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
     display: "flex",

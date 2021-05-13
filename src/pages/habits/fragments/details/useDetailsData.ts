@@ -12,7 +12,7 @@ export const useDetailsData = (
   id: string,
   habit: Habit | undefined
 ): AsyncData<HabitDetailsData> => {
-  // TODO today should refresh on 24.00AM
+  // TODO [error] today should refresh on 24.00AM
   const today = deconstructDate(new Date());
   const statusesAsync = useGetHabitStatusesSubscription(today);
 

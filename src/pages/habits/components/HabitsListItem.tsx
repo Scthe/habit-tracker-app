@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { lighten, makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import Box from "@material-ui/core/Box";
 import { darken } from "@material-ui/core/styles";
@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { AppTheme } from "../../../theme";
 import { Habit } from "../_types";
 import { getHabitHtmlColor } from "../utils";
+import { ControlledTouchRipple, ControlledTouchRippleProps } from "~components";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -18,6 +19,12 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     background: theme.palette.background.paper,
     "&:hover": {
       background: darken(theme.palette.background.paper, 0.05),
+    },
+  },
+  rootActive: {
+    background: lighten(theme.palette.primary.main, 0.4),
+    "&:hover": {
+      background: lighten(theme.palette.primary.main, 0.3),
     },
   },
   colorStrip: {
@@ -50,6 +57,8 @@ interface Props {
   renderSubtext: (data: Habit) => React.ReactNode;
   actionElement?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
+  isSelected: boolean;
+  TouchRippleProps?: ControlledTouchRippleProps;
 }
 
 export const HabitsListItem: React.FC<Props> = ({
@@ -59,11 +68,19 @@ export const HabitsListItem: React.FC<Props> = ({
   renderSubtext,
   actionElement,
   onClick,
+  isSelected,
+  TouchRippleProps,
 }) => {
   const styles = useStyles();
+  const rootClasses = clsx(
+    styles.root,
+    className,
+    classes?.root,
+    isSelected && styles.rootActive
+  );
 
   return (
-    <ListItem className={clsx(styles.root, className, classes?.root)}>
+    <ListItem className={rootClasses}>
       <div className={clsx(classes?.content, styles.content)} onClick={onClick}>
         <div
           className={styles.colorStrip}
@@ -80,6 +97,10 @@ export const HabitsListItem: React.FC<Props> = ({
 
       {actionElement ? (
         <div className={styles.action}>{actionElement}</div>
+      ) : null}
+
+      {TouchRippleProps != null ? (
+        <ControlledTouchRipple {...TouchRippleProps} />
       ) : null}
     </ListItem>
   );

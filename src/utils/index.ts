@@ -4,6 +4,7 @@ export * from "./date";
 export * from "./async";
 export * from "./extractProperty";
 export * from "./form";
+export * from "./globalErrorHandler";
 export * from "./mocks";
 export * from "./stringifyNumber";
 
@@ -59,3 +60,13 @@ export const getFromEnum = <T>(myEnum: T, idx: number): T[keyof T] => {
 
 export const floorToDivisibleBy = (n: number, divisibleBy: number): number =>
   Math.floor(n / divisibleBy) * divisibleBy;
+
+export const hasSameElements = <T>(
+  as: T[],
+  bs: T[],
+  cmpFn = (a: T, b: T) => a == b
+): boolean => {
+  return (
+    as.length === bs.length && as.every((a) => bs.find((b) => cmpFn(a, b)))
+  );
+};

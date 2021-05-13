@@ -38,6 +38,10 @@ const useItemStyles = makeStyles((theme: AppTheme) => ({
     color: "inherit",
     fontWeight: "bold",
   },
+  externalLink: {
+    textDecoration: "none",
+    color: theme.palette.text.primary,
+  },
 }));
 
 interface Props {
@@ -58,7 +62,7 @@ export const AppMenuItem: React.FC<Props> = ({
   const isActive = currentItem === id;
 
   const ifActive = (cls: string) => (isActive ? cls : "");
-  const activeClass = clsx(isActive ? styles.itemActive : styles.itemNotActive);
+  const activeClass = isActive ? styles.itemActive : styles.itemNotActive;
   const itemIconClass = clsx(
     variant === "permanent-small" && styles.itemIcon,
     ifActive(styles.itemActiveIcon)
@@ -72,7 +76,11 @@ export const AppMenuItem: React.FC<Props> = ({
       onClick={to == null ? onClick : undefined}
     >
       <ListItemIcon color="inherit" className={itemIconClass}>
-        <Icon color="inherit">{icon}</Icon>
+        {item.svgIcon != null ? (
+          item.svgIcon
+        ) : (
+          <Icon color="inherit">{icon}</Icon>
+        )}
       </ListItemIcon>
 
       {onlyIcon ? null : (
@@ -85,6 +93,18 @@ export const AppMenuItem: React.FC<Props> = ({
   );
 
   if (to != null) {
+    if (to.startsWith("http")) {
+      return (
+        <a
+          href={to}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.externalLink}
+        >
+          {element}
+        </a>
+      );
+    }
     return (
       <Link to={to} className={styles.root}>
         {element}

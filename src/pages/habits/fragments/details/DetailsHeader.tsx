@@ -24,28 +24,33 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   habit: Habit | null;
+  showBackButton: boolean;
 }
 
-export const DetailsHeader: React.FC<Props> = ({ habit }) => {
+export const DetailsHeader: React.FC<Props> = ({ habit, showBackButton }) => {
   const styles = useStyles();
   const history = useHistory();
 
   const goBack = () => history.goBack();
+  const habitName = habit?.name;
 
   return (
     <AppBar position="static">
       <Toolbar>
-        {/* TODO this button is useless on desktop */}
-        <IconButton
-          edge="start"
-          color="inherit"
-          className={styles.menuButton}
-          onClick={goBack}
-        >
-          <Icon>chevron_left</Icon>
-        </IconButton>
+        {showBackButton ? (
+          <IconButton
+            edge="start"
+            color="inherit"
+            className={styles.menuButton}
+            onClick={goBack}
+          >
+            <Icon>chevron_left</Icon>
+          </IconButton>
+        ) : null}
 
-        <ToolbarTitle>Habit Details</ToolbarTitle>
+        <ToolbarTitle>
+          {habitName != null ? `Habit: ${habitName}` : "Habit Details"}
+        </ToolbarTitle>
 
         <Link
           to={habit != null ? routeEdit(habit) : ""}

@@ -5,11 +5,13 @@ import clsx from "clsx";
 
 import {
   FullPageErrorMessage,
-  FullPageErrorMessageFallback,
+  TrullyFatalErrorMessageFallback,
   FullPageMessageProps,
   PageLoader,
 } from "~components";
 import { AsyncData } from "~types";
+import { useDesktopLayout } from "~hooks";
+import { globalErrorHandler } from "~utils";
 
 export const adaptAsyncDataForContent = (
   { status }: AsyncData<unknown>,
@@ -18,35 +20,27 @@ export const adaptAsyncDataForContent = (
   if (status === "loading" || status === "init") {
     return { loading: true };
   }
+
   if (status === "error") {
+    const message =
+      errorMessage != null && errorMessage.length > 0
+        ? errorMessage
+        : "Something went wrong";
     return {
-      error: {
-        message:
-          errorMessage != null && errorMessage.length > 0
-            ? errorMessage
-            : "Something went wrong",
-      },
+      error: { message },
     };
   }
-  return {};
-};
 
-const myErrorHandler = (error: Error, info: { componentStack: string }) => {
-  // TODO Do something with the error
-  // E.g. log to an error logging client here
-  console.groupCollapsed(["[ERROR] GlobalErrorBoundary: " + error.message]);
-  console.log(error);
-  console.log(info.componentStack);
-  console.groupEnd();
+  return {};
 };
 
 const useStyles = makeStyles((theme) => ({
   toolbarOffset: theme.mixins.toolbar,
   root: {},
-  rootPadding: {
-    padding: theme.spacing(3, 3, 0), // TODO decrease on mobile
-    marginBottom: theme.spacing(2),
-  },
+  rootPadding: ({ isDesktop }: { isDesktop: boolean }) => ({
+    padding: isDesktop ? theme.spacing(3, 3, 0) : theme.spacing(1, 1, 0),
+    marginBottom: isDesktop ? theme.spacing(2) : theme.spacing(1),
+  }),
   rootOverflow: { overflow: "auto" },
 }));
 
@@ -66,7 +60,8 @@ export const AppPageContent: React.FC<Props> = ({
   hasPadding,
   children,
 }) => {
-  const styles = useStyles();
+  const isDesktop = useDesktopLayout();
+  const styles = useStyles({ isDesktop });
   const classes = clsx(
     styles.toolbarOffset,
     styles.root,
@@ -78,12 +73,12 @@ export const AppPageContent: React.FC<Props> = ({
   return (
     <div className={classes}>
       <ErrorBoundary
-        FallbackComponent={FullPageErrorMessageFallback}
-        onError={myErrorHandler}
+        FallbackComponent={TrullyFatalErrorMessageFallback}
+        onError={globalErrorHandler}
       >
         {loading ? (
           <PageLoader />
-        ) : error ? (
+        ) : error != null ? (
           <FullPageErrorMessage {...error} />
         ) : (
           children

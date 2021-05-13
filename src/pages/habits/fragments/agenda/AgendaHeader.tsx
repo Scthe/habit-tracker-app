@@ -8,11 +8,11 @@ import {
   DateNextPrevSelector,
   WeekPreview,
 } from "~components";
-import { DayOfYear } from "~utils";
+import { DayOfYear, WeekdayFmt } from "~utils";
+import { ResponsiveSize, useResponsive } from "~hooks";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   weekSelector: {
-    marginBottom: theme.spacing(2),
     flex: 1,
   },
   weekPreview: {
@@ -20,18 +20,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO hamburger menu is on same height as this
-
 interface Props {
   currentDate: DayOfYear;
   setCurrentDate: (newDate: DayOfYear) => void;
 }
+
+const getWeekdayNameFmt = (responsive: ResponsiveSize): WeekdayFmt => {
+  switch (responsive) {
+    case "phone":
+      return "N";
+    case "tablet":
+      return "NN";
+    case "laptop":
+      return "NNN";
+    case "desktop":
+      return "NNNN";
+  }
+};
 
 export const AgendaHeader: React.FC<Props> = ({
   currentDate,
   setCurrentDate,
 }) => {
   const styles = useStyles();
+  const responsive = useResponsive();
+
+  const weekdayNameFmt = getWeekdayNameFmt(responsive);
 
   return (
     <AppBar position="static">
@@ -49,6 +63,7 @@ export const AgendaHeader: React.FC<Props> = ({
           activeDate={currentDate}
           setCurrentDate={setCurrentDate}
           className={styles.weekPreview}
+          nameFormat={weekdayNameFmt}
         />
       </Toolbar>
     </AppBar>

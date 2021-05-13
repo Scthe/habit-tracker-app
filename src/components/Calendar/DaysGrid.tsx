@@ -34,7 +34,7 @@ export interface Props {
   };
 }
 
-export const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(() => ({
   root: {},
   week: {
     display: "flex",
@@ -54,7 +54,6 @@ export const DaysGrid: React.FC<Props> = ({
   const styles = useStyles();
   const dateUtil = useUserDateSettings();
 
-  const currentMonthNumber = shownMonth.month;
   const weeksInCalendar = dateUtil.getDaysInCalendar(shownMonth);
 
   const createDaysProps = (day: DayOfYear): CalendarDayProps => {
@@ -62,7 +61,7 @@ export const DaysGrid: React.FC<Props> = ({
       day,
       relativeToToday: relativeToToday(day),
       size,
-      isDayInCurrentMonth: day.month === currentMonthNumber,
+      isDayInCurrentMonth: day.month === shownMonth.month,
       className: clsx(styles.day, classes?.day),
       role: "cell",
     };

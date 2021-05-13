@@ -11,8 +11,6 @@ import { UserDateUtils, useUserDateSettings } from "~hooks";
 import { ToolbarTitle } from "~components";
 import { createDateFromDay, DayOfYear, deconstructDate } from "~utils";
 
-// TODO adjust how many leters to show
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flex: "0",
   },
   text: {
-    paddingTop: theme.spacing(1), // TODO probably change this to align to hamburger menu. Or inject?
+    paddingTop: theme.spacing(1),
   },
 }));
 

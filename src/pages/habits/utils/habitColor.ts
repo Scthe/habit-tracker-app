@@ -1,5 +1,3 @@
-import { Theme } from "@material-ui/core/styles";
-
 import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
@@ -43,12 +41,14 @@ export const getHabitHtmlColor = (c: HabitColor): string => {
   }
 };
 
-export const getHabitHtmlTextColor = (theme: Theme, c: HabitColor): string => {
+export const getHabitHtmlTextColor = (c: HabitColor): string => {
   switch (c) {
-    // TODO yellow also uses black
     case HabitColor.Transparent:
-      return theme.palette.text.primary;
+    case HabitColor.Yellow:
+    case HabitColor.Lime:
+    case HabitColor.Orange:
+      return "#212121";
     default:
-      return theme.palette.common.white;
+      return "white";
   }
 };

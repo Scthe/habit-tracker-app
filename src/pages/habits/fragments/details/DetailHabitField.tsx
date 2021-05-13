@@ -1,15 +1,19 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField, { TextFieldProps } from "@material-ui/core/TextField";
+import TextField, {
+  StandardTextFieldProps,
+  TextFieldProps,
+} from "@material-ui/core/TextField";
 import defaultsDeep from "lodash/defaultsDeep";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(3),
+    display: "flex",
   },
 }));
 
-interface DetailHabitFieldProps {
+interface DetailHabitFieldProps extends Partial<StandardTextFieldProps> {
   id: string;
   label: string;
   value: string;
@@ -33,6 +37,8 @@ export const DetailHabitField: React.FC<DetailHabitFieldProps> = (props) => {
       label={props.label}
       value={props.value}
       className={styles.root}
+      fullWidth={false}
+      InputProps={{ disableUnderline: true }}
     />
   );
 };

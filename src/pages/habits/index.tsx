@@ -9,7 +9,7 @@ import Form from "./layouts/shared/form";
 import { useDesktopLayout } from "~hooks";
 import { RedirectPreserveState } from "~utils";
 
-// TODO subscribe to habits here? And do not fetch in subviews?
+// TODO [firebase improvement] subscribe to habits here? And do not fetch in subviews?
 
 // NOTE: this code may seem weird, but our goal is to never trigger
 // umnmount/mount on `isDesktop` change. This needs to be precise..

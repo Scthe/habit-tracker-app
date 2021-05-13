@@ -44,7 +44,6 @@ interface Props {
   setSearch: (s: string) => void;
 }
 
-// TODO max-width on desktop
 export const ManageHeader: React.FC<Props> = ({ search, setSearch }) => {
   const styles = useStyles();
   // no need for debounce since we already have all data

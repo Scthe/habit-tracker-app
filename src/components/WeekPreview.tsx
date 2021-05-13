@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import times from "lodash/times";
 
-import { useDesktopLayout, useUserDateSettings } from "~hooks";
+import { useUserDateSettings } from "~hooks";
 import {
   addDays,
   DayOfYear,
@@ -86,20 +86,20 @@ interface Props {
   activeDate: DayOfYear;
   setCurrentDate: (newDate: DayOfYear) => void;
   className?: string;
+  nameFormat: WeekdayFmt;
 }
 
 export const WeekPreview: React.FC<Props> = ({
   activeDate,
   setCurrentDate,
   className,
+  nameFormat,
 }) => {
   // material-ui tabs do not allow multiline
   const styles = useStyles();
   const dateUtils = useUserDateSettings();
-  const isDesktop = useDesktopLayout();
 
   const [mondayDate] = dateUtils.getWeekStartEndDays(activeDate);
-  const weekdayNameFmt: WeekdayFmt = isDesktop ? "NNNN" : "N";
 
   return (
     <div className={clsx(styles.root, className)}>
@@ -107,7 +107,7 @@ export const WeekPreview: React.FC<Props> = ({
         <DayButton
           key={idx}
           day={addDays(mondayDate, idx)}
-          weekdayNameFmt={weekdayNameFmt}
+          weekdayNameFmt={nameFormat}
           onClick={setCurrentDate}
           activeDate={activeDate}
         />

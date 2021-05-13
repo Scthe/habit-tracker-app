@@ -21,6 +21,8 @@ export const useResponsive = (): "desktop" | "laptop" | "tablet" | "phone" => {
   return "phone";
 };
 
+export type ResponsiveSize = ReturnType<typeof useResponsive>;
+
 export const useDesktopLayout = (): boolean => {
   const resp = useResponsive();
   return resp !== "phone";

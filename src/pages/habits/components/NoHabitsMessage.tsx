@@ -12,9 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO this has children? how it is used?!
 export const NoHabitsMessage: React.FC<ListEmptyProps> = ({
-  children,
+  children, // e.g. "Create a habit and it will show up here." or "No habits for today"
   ...rest
 }) => {
   const styles = useStyles();

@@ -7,8 +7,6 @@ import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
 const Agenda = lazy(() => import("../../fragments/agenda"));
 const HabitDetails = lazy(() => import("../../fragments/details"));
 
-// TODO highlight shown/selected item?
-
 export default (): JSX.Element => {
   const [selectedItem, setSelectedItem] = useState<Habit | null>(null);
 
@@ -21,7 +19,10 @@ export default (): JSX.Element => {
     <AppPage appMenuActiveItem="agenda">
       <MasterDetailsLayout>
         <MasterView>
-          <Agenda onItemClick={handleItemClick} />
+          <Agenda
+            onItemClick={handleItemClick}
+            selectedItem={selectedItem?.id}
+          />
         </MasterView>
 
         <DetailsView
@@ -30,7 +31,11 @@ export default (): JSX.Element => {
           itemFallback={{ message: "No habit selected" }}
         >
           {selectedItem !== null ? (
-            <HabitDetails id={selectedItem.id} habit={selectedItem} />
+            <HabitDetails
+              id={selectedItem.id}
+              habit={selectedItem}
+              isInMasterDetailLayout={true}
+            />
           ) : null}
         </DetailsView>
       </MasterDetailsLayout>

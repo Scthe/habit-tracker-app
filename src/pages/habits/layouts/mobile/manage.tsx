@@ -17,7 +17,7 @@ export default (): JSX.Element => {
 
   return (
     <AppPage appMenuActiveItem="manage">
-      <Manage onItemClick={handleItemClick} />
+      <Manage onItemClick={handleItemClick} selectedItem={undefined} />
     </AppPage>
   );
 };

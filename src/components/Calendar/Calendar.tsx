@@ -18,6 +18,9 @@ export type Props = DaysGridProps & {
   loading?: boolean;
   className?: string;
   setShownMonth: (nextMonth: MonthOfYear) => void;
+  classes?: {
+    skeleton?: string;
+  };
 };
 
 export const useStyles = makeStyles((theme) => ({
@@ -25,10 +28,10 @@ export const useStyles = makeStyles((theme) => ({
   skeleton: {},
   daysHeader: {
     display: "flex",
+    margin: theme.spacing(1, 0, 0.5),
   },
   weekDayLabel: {
     flex: "1",
-    margin: theme.spacing(0.5, 0),
     textAlign: "center",
     display: "flex",
     justifyContent: "center",
@@ -74,7 +77,10 @@ export const Calendar: React.FC<Props> = (props) => {
       </div>
 
       {loading ? (
-        <CalendarSkeleton className={styles.skeleton} />
+        <CalendarSkeleton
+          size={size}
+          className={clsx(styles.skeleton, props.classes?.skeleton)}
+        />
       ) : (
         <DaysGrid {...props} />
       )}

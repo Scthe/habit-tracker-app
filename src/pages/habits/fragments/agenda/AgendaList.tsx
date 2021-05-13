@@ -1,21 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { NoHabitsMessage } from "../../components";
 import { HabitAgendaItem } from "./useAgendaData";
 import { AgendaListItem, HabitClickHandler } from "./AgendaListItem";
+import { sortBy } from "./sortBy";
 import { AsyncList, ListEmptyProps } from "~components";
 import { AsyncData } from "~types";
 import { DayOfYear } from "~utils";
-
-// TODO sort order
-// today/future:
-// - first NOT_DONE in [time_left, name] order
-// - first DONE in [time_left, name] order
-// past:
-// - [time_left, name] order
-// BUT: cache/ref this on first mount, so checking DONE the item does not change order.
-// add the beforeRender prop to AsyncList or smth. Be careful on day change, as id's will not match
-// maybe useEffect(function resort(){...}, [stringify(currentDate), data.status]);
 
 const EmptyMsg: React.FC<ListEmptyProps> = (props) => (
   <NoHabitsMessage {...props}>Today is a free day!</NoHabitsMessage>
@@ -26,6 +17,7 @@ interface Props {
   currentDate: DayOfYear;
   className?: string;
   onItemClick: HabitClickHandler;
+  selectedItem: string | undefined;
 }
 
 export const AgendaList: React.FC<Props> = ({
@@ -33,22 +25,17 @@ export const AgendaList: React.FC<Props> = ({
   currentDate,
   className,
   onItemClick,
+  selectedItem,
 }) => {
-  /*
-  type HabitId = Habit["id"];
-  const sortOrder = useState<HabitId[]>[];
-  useEffect(() => { // not optimal, will run after the first render
-    if (data.status === "success") {
-      sortOrder = sortHabits(data.data);
-    }
-  }, [stringifyDay(currentDate), data.status]);
-  */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const beforeRender = useCallback(sortBy(currentDate), [currentDate]);
 
   return (
     <AsyncList
       data={data}
       className={className}
       keyExtractor={(e) => e.habit.id}
+      beforeRender={beforeRender}
       emptyListMsg={EmptyMsg}
       renderItem={(e) => (
         <AgendaListItem
@@ -56,6 +43,7 @@ export const AgendaList: React.FC<Props> = ({
           habit={e.habit}
           status={e.status}
           onClick={onItemClick}
+          isSelected={e.habit.id === selectedItem}
         />
       )}
     />

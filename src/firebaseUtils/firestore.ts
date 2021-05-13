@@ -24,7 +24,7 @@ const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
     case "loading":
       return { status: "loading" };
     case "error": {
-      // TODO verify we rethrow or inform sentry. TBH why not here?
+      // TODO [error-handling] verify we rethrow or inform sentry. TBH why not here?
       console.error("Async request error", data.error);
       return { status: "error", error: data.error! };
     }
@@ -56,7 +56,6 @@ export const useFirestoreOnce = <R = unknown, Args extends any[] = any[]>(
   };
 };
 
-// TODO use this
 export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
   createReference: (db: Firestore) => DocumentReference<R>, // please useCallback this!!!
   mapper: (item: R | undefined) => U,
@@ -79,7 +78,6 @@ export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
         });
       },
       (error) => {
-        // TODO show alert "Error synchronizing data"
         onError && onError(error);
         setAsyncData({ status: "error", error });
       }
