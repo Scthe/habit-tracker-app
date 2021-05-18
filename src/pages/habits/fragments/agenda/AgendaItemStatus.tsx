@@ -91,8 +91,6 @@ const ToggleStatusCheckbox: React.FC<Props> = ({
       const nextStatus = getOppositeStatus(status);
       await setHabitDone.execute({
         habitId: habit.id,
-        habitName: habit.name,
-        habitColor: habit.color,
         status: nextStatus,
         day: currentDate,
       });

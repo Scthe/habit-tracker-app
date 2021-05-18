@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { fade, makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { HabitCompletionStatus } from "../../_types";
@@ -15,19 +15,21 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
     textAlign: "center",
     padding: "6px 0",
-    borderRadius: "25%",
     margin: "3px",
   },
   wasDone: {
     fontWeight: "bold",
-    color: theme.palette.app.habits.done,
+    background: fade(theme.palette.app.habits.done, 0.8),
+    color: theme.palette.common.white,
   },
   wasFailed: {
-    color: theme.palette.app.habits.notDone,
+    background: fade(theme.palette.app.habits.notDone, 0.8),
+    color: theme.palette.common.white,
   },
   today: {
     fontWeight: "bold",
-    color: theme.palette.app.today,
+    background: theme.palette.primary.main,
+    color: theme.palette.common.white,
   },
   neutral: {
     background: "transparent",

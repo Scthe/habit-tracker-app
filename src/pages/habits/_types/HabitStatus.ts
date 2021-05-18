@@ -17,8 +17,6 @@ export const getOppositeStatus = (
 
 export interface HabitStatus {
   habitId: Habit["id"];
-  habitName: Habit["name"];
-  habitColor: Habit["color"];
   status: HabitCompletionStatus;
   day: DayOfYear; // serialize as string in firebase?
   userId: string;

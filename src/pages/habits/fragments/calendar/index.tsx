@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useGetHabitStatuses } from "../../api";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarMonth } from "./CalendarMonth";
+import { useCalendarData } from "./useCalendarData";
 import { deconstructDateToMonth } from "~utils";
 import { AppPageContent } from "pages/_shared";
 
@@ -23,7 +23,7 @@ const Calendar: React.FC<unknown> = () => {
     deconstructDateToMonth(new Date())
   );
 
-  const habitStatusesAsync = useGetHabitStatuses(shownMonth);
+  const calendarDataAsync = useCalendarData(shownMonth);
 
   return (
     <>
@@ -37,7 +37,7 @@ const Calendar: React.FC<unknown> = () => {
         <CalendarMonth
           shownMonth={shownMonth}
           setShownMonth={setShownMonth}
-          habitStatuses={habitStatusesAsync.data}
+          habitsPerDay={calendarDataAsync}
         />
       </AppPageContent>
     </>

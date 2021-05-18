@@ -1,44 +1,56 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField, {
-  StandardTextFieldProps,
-  TextFieldProps,
-} from "@material-ui/core/TextField";
-import defaultsDeep from "lodash/defaultsDeep";
+import InputLabel from "@material-ui/core/InputLabel";
+import Linkify from "react-linkify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(3),
-    display: "flex",
+  },
+  label: {
+    display: "block",
+    marginBottom: theme.spacing(0.5),
   },
 }));
 
-interface DetailHabitFieldProps extends Partial<StandardTextFieldProps> {
+interface DetailHabitFieldProps {
   id: string;
   label: string;
   value: string;
-  restProps?: TextFieldProps;
+  linkify?: boolean;
 }
 
-export const DetailHabitField: React.FC<DetailHabitFieldProps> = (props) => {
+export const DetailHabitField: React.FC<DetailHabitFieldProps> = ({
+  id,
+  label,
+  value,
+  linkify,
+}) => {
   const styles = useStyles();
 
-  const tfProps: TextFieldProps = defaultsDeep(
-    {
-      InputProps: { readOnly: true },
-    },
-    props.restProps
-  );
-
+  const valueEl = <div id={id}>{value}</div>;
   return (
-    <TextField
-      {...tfProps}
-      id={props.id}
-      label={props.label}
-      value={props.value}
-      className={styles.root}
-      fullWidth={false}
-      InputProps={{ disableUnderline: true }}
-    />
+    <div className={styles.root}>
+      <InputLabel htmlFor={id} shrink className={styles.label}>
+        {label}
+      </InputLabel>
+      {linkify ? (
+        <Linkify componentDecorator={componentDecorator}>{valueEl}</Linkify>
+      ) : (
+        valueEl
+      )}
+    </div>
   );
 };
+
+function componentDecorator(
+  decoratedHref: string,
+  decoratedText: string,
+  key: number
+) {
+  return (
+    <a key={key} href={decoratedHref} target="_blank" rel="noopener noreferrer">
+      {decoratedText}
+    </a>
+  );
+}

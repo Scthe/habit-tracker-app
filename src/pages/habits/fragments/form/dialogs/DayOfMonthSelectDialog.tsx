@@ -44,7 +44,9 @@ export const DayOfMonthSelectDialog: React.FC<Props> = ({
               " "
             )}
           </ListItemIcon>
-          <span>{numberOrdering(item.item)}</span>
+          <span>
+            {numberOrdering(item.item)} {item.isSelected ? "(selected)" : ""}
+          </span>
         </>
       )}
     </ValuePickDialog>

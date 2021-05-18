@@ -1,5 +1,5 @@
 import { HabitStatus } from "../../_types";
-import { habitActivityDoc } from "../references";
+import { habitMonthlyActivityDoc } from "../references";
 import {
   useFirestore,
   useFirestoreOnce,
@@ -16,7 +16,10 @@ const getAllStatuses = async (
   year: number,
   month: number
 ): Promise<HabitStatus[]> => {
-  const docSnapshot = await habitActivityDoc(db, userId, { year, month }).get();
+  const docSnapshot = await habitMonthlyActivityDoc(db, userId, {
+    year,
+    month,
+  }).get();
   const item = docSnapshot.data();
   return Object.values(item || {});
 };

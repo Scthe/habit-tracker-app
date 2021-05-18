@@ -73,9 +73,9 @@ describe("HabitFormValidationSchema", () => {
       ["", true],
       ["1", true],
       ["12", true],
-      [createStringWithLen(49), true],
-      [createStringWithLen(50), true],
-      [createStringWithLen(51), false],
+      [createStringWithLen(499), true],
+      [createStringWithLen(500), true],
+      [createStringWithLen(501), false],
     ])("should validate description '%s' as (ok=%s)", (val, isOk) => {
       formValues.description = val;
       expect(is(formValues, HabitFormValidationSchema)).toBe(isOk);

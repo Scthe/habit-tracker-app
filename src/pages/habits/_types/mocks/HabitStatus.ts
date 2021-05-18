@@ -1,12 +1,10 @@
 /* eslint-disable import/no-unused-modules */
 
-import { HabitStatus, HabitCompletionStatus, HabitColor } from "..";
-import { getFromArray, getFromEnum } from "~utils";
+import { HabitStatus, HabitCompletionStatus } from "..";
+import { getFromArray } from "~utils";
 
 export const mockHabitDayStatus = (i = 0): HabitStatus => ({
   habitId: `habit ${i}`,
-  habitName: `Habit ${i}`,
-  habitColor: getFromEnum(HabitColor, i),
   status: getFromArray(
     [HabitCompletionStatus.DONE, HabitCompletionStatus.NOT_DONE],
     i

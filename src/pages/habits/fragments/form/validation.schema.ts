@@ -56,7 +56,7 @@ const ReminderTimeSchema: Describe<FormValues["reminderTime"]> = object({
 export const HabitFormValidationSchema = object({
   name: size(string(), 3, 20),
   color: HabitColor,
-  description: size(string(), 0, 50),
+  description: size(string(), 0, 500),
   repeat: union([
     RepetitionDailySchema,
     RepetitionWeeklySchema,

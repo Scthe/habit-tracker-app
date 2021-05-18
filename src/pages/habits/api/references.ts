@@ -38,7 +38,7 @@ export const habitsQueryRef = (db: Firestore, userId: string): Query<Habit> =>
 ////////////////////////
 /// HABIT ACTIVITY
 
-export const habitActivityDoc = (
+export const habitMonthlyActivityDoc = (
   db: Firestore,
   userId: string,
   date: MonthOfYear

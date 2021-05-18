@@ -1,46 +1,40 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { lighten, makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import { HabitStatus } from "../../_types";
-import { HabitsList } from "./HabitsList";
-import {
-  CalendarDayProps,
-  byCalendarSize,
-  StyleCalendarDayProps,
-} from "~components";
-import { AppTheme } from "theme";
-
-const TODAY_CIRCLE_SIZE = "25px";
+import { HabitWithStatus } from "./useCalendarData";
+import { CalendarDayProps, byCalendarSize } from "~components";
+import { AppTheme, byThemeColor } from "theme";
+import { HabitCompletionStatus } from "pages/habits/_types";
+import { HabitCalendarDayStatus } from "pages/habits/components";
 
 type Props = CalendarDayProps & {
-  habitStatuses: HabitStatus[];
+  habits: HabitWithStatus[];
 };
 
-type StyleProps = StyleCalendarDayProps & { day: number };
-
-const useStyles = makeStyles<AppTheme, StyleProps>((theme) => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
-    padding: "5px 0",
+    padding: theme.spacing(0.5, 0, 0),
+    display: "flex",
+    flexDirection: "column",
   },
-  date: {
+  dayNumber: {
     textAlign: "center",
-    marginBottom: "5px",
+    marginBottom: theme.spacing(0.5),
+    flexGrow: 0,
   },
-  today: {
-    color: "transparent", // I'm the CSS master..
-    position: "relative",
-    "&::before": {
-      content: (p) => `"${p.day}"`,
-      width: TODAY_CIRCLE_SIZE,
-      height: TODAY_CIRCLE_SIZE,
-      background: theme.palette.app.today,
-      borderRadius: "50%",
-      position: "absolute",
-      color: "white",
-      lineHeight: TODAY_CIRCLE_SIZE,
-      top: "-2px",
-    },
+  dayNumberText: {
+    borderBottom: "2px solid transparent",
+    minWidth: "20%",
+    display: "inline-block",
+  },
+  dayNumberTextToday: () => {
+    const main = theme.palette.primary.main;
+    const c = byThemeColor(theme, main, lighten(main, 0.2));
+    return {
+      borderBottomColor: c,
+      color: c,
+    };
   },
   notThisMonth: {
     background: "transparent",
@@ -48,6 +42,10 @@ const useStyles = makeStyles<AppTheme, StyleProps>((theme) => ({
   },
   dayContent: {
     fontSize: byCalendarSize("0.5rem", "0.7rem"),
+  },
+  status: {
+    flexGrow: 1,
+    fontSize: "1.3em",
   },
 }));
 
@@ -57,32 +55,38 @@ export const CalendarDay: React.FC<Props> = ({
   isDayInCurrentMonth,
   className,
   role,
-  habitStatuses,
+  habits,
   size,
 }) => {
-  const styles = useStyles({
-    size,
-    day: day.day,
-  });
+  const styles = useStyles({ size });
 
   const isToday = relativeToToday === "today";
+  const allWereDone = habits.every(
+    (h) => h.status === HabitCompletionStatus.DONE
+  );
   const rootClassName = clsx(
     className,
     styles.root,
     isDayInCurrentMonth ? "" : styles.notThisMonth
   );
-  const dayNumberClassName = clsx(styles.date, isToday ? styles.today2 : "");
+  const dayNumberTextClassName = clsx(
+    styles.dayNumberText,
+    isToday && styles.dayNumberTextToday
+  );
 
   return (
     <div role={role} className={rootClassName}>
-      <div className={dayNumberClassName}>
-        <span className={isToday ? styles.today : ""}>{day.day}</span>
+      <div className={styles.dayNumber}>
+        <span className={dayNumberTextClassName}>{day.day}</span>
       </div>
 
-      {isDayInCurrentMonth && habitStatuses.length > 0 ? (
-        <div className={styles.dayContent}>
-          <HabitsList day={day} size={size} habitStatuses={habitStatuses} />
-        </div>
+      {isDayInCurrentMonth ? (
+        <HabitCalendarDayStatus
+          showAsLink
+          day={day}
+          isDone={allWereDone}
+          className={styles.status}
+        />
       ) : null}
     </div>
   );

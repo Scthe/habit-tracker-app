@@ -74,8 +74,8 @@ export const DetailsFields: React.FC<Props> = ({ habit, className }) => {
 
       {habit.description.length > 0 ? (
         <DetailHabitField
+          linkify
           {...fieldProps("description", "Notes", habit.description)}
-          multiline={true}
         />
       ) : null}
 

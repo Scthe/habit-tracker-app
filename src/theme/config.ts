@@ -1,4 +1,4 @@
-import { darken, lighten, Theme } from "@material-ui/core/styles";
+import { lighten, Theme } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import { ThemeColor } from "./useTheme";
 
@@ -16,6 +16,10 @@ export const customTheme = (themeColor: ThemeColor, theme: Theme) => {
   return {
     themeColor,
     palette: {
+      primary: {
+        // lighter than default, better contrast on dark theme (still quite bad tho)
+        main: byThemeColor(p.primary.main, lighten(p.primary.main, 0.1)),
+      },
       alerts: {
         error: {
           background: p.error.main,
@@ -35,7 +39,6 @@ export const customTheme = (themeColor: ThemeColor, theme: Theme) => {
         },
       },
       app: {
-        today: p.primary.main,
         fullPageMessage: {
           color: p.text.disabled,
         },
@@ -46,12 +49,10 @@ export const customTheme = (themeColor: ThemeColor, theme: Theme) => {
         body: byThemeColor(
           {
             background: "#f3f7fa",
-            backgroundSecondary: darken("#f3f7fa", 0.2),
             color: "#212121",
           },
           {
             background: "#121212",
-            backgroundSecondary: lighten("#121212", 0.3),
             color: "white",
           }
         ),
@@ -65,7 +66,7 @@ export const customTheme = (themeColor: ThemeColor, theme: Theme) => {
       },
       viewFragment: {
         display: "flex" as const,
-        flexDirection: "column" as const, // TODO or webkit-fill-available on phone?
+        flexDirection: "column" as const, // or webkit-fill-available?
         height: "100vh",
       },
     },

@@ -4,20 +4,19 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
-import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormikContext } from "formik";
 
 import { AppMenuToggleButton, ButtonLoading, ToolbarTitle } from "~components";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   menuButton: {},
   title: {
     flexGrow: 1,
   },
   saveButton: {
     "&:disabled": {
-      color: grey[500],
+      color: theme.palette.text.disabled,
     },
   },
 }));

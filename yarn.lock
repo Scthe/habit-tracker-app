@@ -1654,6 +1654,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-linkify@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/react-linkify@npm:1.0.0"
+  dependencies:
+    "@types/react": "*"
+  checksum: 762b04695e4f23dc03f44761d0c693a38d2a1c4546508ae04906cc7c86f40200cd6b02f9c254cdd14881aba0f2409fddeb879f04da52c6ec3f9e7b5e234b39bf
+  languageName: node
+  linkType: hard
+
 "@types/react-router-dom@npm:^5.1.7":
   version: 5.1.7
   resolution: "@types/react-router-dom@npm:5.1.7"
@@ -5195,6 +5204,7 @@ __metadata:
     "@types/node": ^14.14.31
     "@types/react": ^17.0.3
     "@types/react-dom": ^17.0.1
+    "@types/react-linkify": ^1.0.0
     "@types/react-router-dom": ^5.1.7
     "@types/webpack-env": ^1.16.0
     "@typescript-eslint/eslint-plugin": ^4.15.1
@@ -5232,6 +5242,7 @@ __metadata:
     react-async-hook: ^3.6.2
     react-dom: ^17.0.1
     react-error-boundary: ^3.1.1
+    react-linkify: ^1.0.0-alpha
     react-router-dom: ^5.2.0
     source-map-loader: ^2.0.1
     superstruct: ^0.15.1
@@ -7099,6 +7110,15 @@ __metadata:
   version: 1.1.6
   resolution: "lines-and-columns@npm:1.1.6"
   checksum: 798b80ed7ae3fba34d43fe29591ccb4f16f6fca1da4e1f9922b92264b91d931012433c248daf8e44caa74feb40c0eaa0f27a14f8ee68b6ffb425f3c3f785af27
+  languageName: node
+  linkType: hard
+
+"linkify-it@npm:^2.0.3":
+  version: 2.2.0
+  resolution: "linkify-it@npm:2.2.0"
+  dependencies:
+    uc.micro: ^1.0.1
+  checksum: 7905b34078d1fd85d4310c5c5381164cbdf781835e0cb5ac73d13ff14d0c87347e02655bdff5cec63631949a3b586c5f8e1e81ee0ce62ae799df58178748eb3e
   languageName: node
   linkType: hard
 
@@ -9350,6 +9370,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-linkify@npm:^1.0.0-alpha":
+  version: 1.0.0-alpha
+  resolution: "react-linkify@npm:1.0.0-alpha"
+  dependencies:
+    linkify-it: ^2.0.3
+    tlds: ^1.199.0
+  checksum: ff6b6153bd150342d5fac587517578cae9542d98b29ef48697d2d15e833e231d720a29449402349b99bcd84c40fd611828ea5abbbb7cf6c3b9afb75428626de7
+  languageName: node
+  linkType: hard
+
 "react-router-dom@npm:^5.2.0":
   version: 5.2.0
   resolution: "react-router-dom@npm:5.2.0"
@@ -10790,6 +10820,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tlds@npm:^1.199.0":
+  version: 1.221.1
+  resolution: "tlds@npm:1.221.1"
+  bin:
+    tlds: bin.js
+  checksum: d493971a7130a284490f6e70141004e508bae412fd12fbe59b8e65a286f0f49eaf898d557549def510388a121252e14c24c64f18ce6b822813058f904e23837b
+  languageName: node
+  linkType: hard
+
 "tmpl@npm:1.0.x":
   version: 1.0.4
   resolution: "tmpl@npm:1.0.4"
@@ -11080,6 +11119,13 @@ typescript@^4.1.5:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 3be44317593182e8ce494c114e7ad9b0bb2553a22f3085cc6da4f0a36912c20850daa9be4c898af2ab6fc8b12f430c1c9e46ac715721867cd38643f2350d3ef9
+  languageName: node
+  linkType: hard
+
+"uc.micro@npm:^1.0.1":
+  version: 1.0.6
+  resolution: "uc.micro@npm:1.0.6"
+  checksum: 9dfe5ad0a08059c3eb6ded70b7cfb6fdcb5908b385af9d4717cee7f140571f5c2bb89405093ace07cfd0e283f409495d2feafd321b4b703c1fa3014e129dab27
   languageName: node
   linkType: hard
 

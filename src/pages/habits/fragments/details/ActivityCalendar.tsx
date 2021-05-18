@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import grey from "@material-ui/core/colors/grey";
 
 import { getStatus } from "../../utils";
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
@@ -27,7 +28,9 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
   calendar: {
     paddingTop: theme.spacing(1),
-    background: theme.palette.app.body.backgroundSecondary,
+    borderWidth: "0 1px 1px",
+    borderStyle: "solid",
+    borderColor: grey[500],
   },
   skeleton: {
     height: "220px",

@@ -1,11 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { HabitStatus } from "../../_types";
 import { CalendarDay } from "./CalendarDay";
+import { CalendarData, HabitWithStatus } from "./useCalendarData";
 import { Calendar } from "~components";
 import { useDesktopLayout } from "~hooks";
-import { DayOfYear, isSameDay, MonthOfYear, sortStringCmpFn } from "~utils";
+import { DayOfYear, isSameDay, MonthOfYear } from "~utils";
 import { AsyncData } from "~types";
 
 const useStyles = makeStyles((theme) => {
@@ -25,7 +25,10 @@ const useStyles = makeStyles((theme) => {
       flexDirection: "column",
     },
     week: {
-      flex: "1",
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+      minHeight: 0,
       borderTop: `1px solid ${borderColor}`,
     },
     day: {
@@ -37,31 +40,27 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
+const getHabitsForDay = (
+  day: DayOfYear,
+  calendar: AsyncData<CalendarData>
+): HabitWithStatus[] => {
+  if (calendar.status !== "success") {
+    return [];
+  }
+  const habitsForDay = calendar.data.find((c) => isSameDay(c.day, day));
+  return habitsForDay?.habits || [];
+};
+
 interface Props {
   shownMonth: MonthOfYear;
   setShownMonth: (nextMonth: MonthOfYear) => void;
-  habitStatuses: AsyncData<HabitStatus[]>;
+  habitsPerDay: AsyncData<CalendarData>;
 }
-
-const getHabitStatuses = (
-  day: DayOfYear,
-  statusesAsync: AsyncData<HabitStatus[]>
-): HabitStatus[] => {
-  if (statusesAsync.status === "success") {
-    const statusesForDay = statusesAsync.data.filter((e) =>
-      isSameDay(e.day, day)
-    );
-    return statusesForDay.sort((a, b) =>
-      sortStringCmpFn(a.habitName, b.habitName)
-    );
-  }
-  return [];
-};
 
 export const CalendarMonth: React.FC<Props> = ({
   shownMonth,
   setShownMonth,
-  habitStatuses,
+  habitsPerDay,
 }) => {
   const styles = useStyles();
   const isDesktop = useDesktopLayout();
@@ -73,7 +72,7 @@ export const CalendarMonth: React.FC<Props> = ({
       setShownMonth={setShownMonth}
       allowKeyboardControl={true}
       loading={
-        habitStatuses.status === "init" || habitStatuses.status === "loading"
+        habitsPerDay.status === "init" || habitsPerDay.status === "loading"
       }
       className={styles.calendar}
       classes={{
@@ -85,7 +84,7 @@ export const CalendarMonth: React.FC<Props> = ({
       renderDay={(dayProps) => (
         <CalendarDay
           {...dayProps}
-          habitStatuses={getHabitStatuses(dayProps.day, habitStatuses)}
+          habits={getHabitsForDay(dayProps.day, habitsPerDay)}
         />
       )}
     />

@@ -53,7 +53,11 @@ export const ColorSelectDialog: React.FC<Props> = ({
           <ListItemAvatar>
             <ColorPreview color={item.item} isSelected={item.isSelected} />
           </ListItemAvatar>
-          <ListItemText primary={HabitColor[item.item]} />
+          <ListItemText
+            primary={`${HabitColor[item.item]} ${
+              item.isSelected ? " (selected)" : ""
+            }`}
+          />
         </>
       )}
     </ValuePickDialog>

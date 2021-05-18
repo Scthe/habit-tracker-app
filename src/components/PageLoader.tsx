@@ -9,6 +9,7 @@ export const PageLoader: React.FC<unknown> = () => {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
+      width="100%"
     >
       <CircularProgress />
     </Box>

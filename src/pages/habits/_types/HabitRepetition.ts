@@ -1,5 +1,7 @@
 import { Weekday } from "~utils";
 
+// TODO [feature] target number for *summary? So we can count the hours/books etc.
+
 /** Do something every day */
 export interface RepetitionDaily {
   type: "daily";
@@ -13,13 +15,11 @@ export interface RepetitionWeekly {
 export interface RepetitionWeeklySummary {
   type: "weekly_summary";
   endsOn: Weekday;
-  // TODO [feature] target number? So we can count the hours etc.
 }
 /** e.g. "I want to read 6 books every month". Reminder on 20th. */
 export interface RepetitionMonthlySummary {
   type: "monthly_summary";
   endsOn: number;
-  // TODO [feature] target number? So we can count the books etc.
 }
 
 export type HabitRepetition =

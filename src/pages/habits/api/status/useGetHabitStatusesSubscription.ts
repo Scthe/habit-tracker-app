@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import { HabitStatus } from "../../_types";
-import { habitActivityDoc } from "../references";
+import { habitMonthlyActivityDoc } from "../references";
 import { AsyncData } from "~types";
 import { MonthOfYear } from "~utils";
 import { useLoggedUser } from "~storage";
@@ -17,7 +17,7 @@ export const useGetHabitStatusesSubscription = (
   const { uid } = useLoggedUser();
 
   const createReference = useCallback(
-    (db) => habitActivityDoc(db, uid, { year, month }),
+    (db) => habitMonthlyActivityDoc(db, uid, { year, month }),
     [uid, year, month]
   );
 

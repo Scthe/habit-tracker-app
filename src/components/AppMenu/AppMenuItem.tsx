@@ -22,10 +22,10 @@ const useItemStyles = makeStyles((theme: AppTheme) => ({
   itemNotActive: {},
   itemActive: {
     color: theme.palette.primary.main,
-    background: lighten(theme.palette.primary.main, 0.8),
+    background: lighten(theme.palette.primary.main, 0.9),
     fontWeight: "bold",
     "&:hover": {
-      background: lighten(theme.palette.primary.main, 0.6),
+      background: lighten(theme.palette.primary.main, 0.8),
     },
   },
   itemIcon: {

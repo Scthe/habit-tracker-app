@@ -46,8 +46,6 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
     try {
       await setHabitDone.execute({
         habitId: habit.id,
-        habitName: habit.name,
-        habitColor: habit.color,
         status: getOppositeStatus(status),
         day: deconstructDate(new Date()),
       });

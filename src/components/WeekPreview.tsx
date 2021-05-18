@@ -19,9 +19,11 @@ const useDayButtonStyles = makeStyles(() => ({
     minWidth: 0,
   },
   itemDayNotActive: {
-    opacity: 0.4,
+    opacity: 0.9,
   },
-  itemDayActive: {},
+  itemDayActive: {
+    fontWeight: "bold",
+  },
   itemDayButtonLabel: {
     display: "block",
   },

@@ -37,6 +37,8 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     color: theme.palette.text.secondary,
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
 }));
 

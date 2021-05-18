@@ -1,5 +1,5 @@
 import React from "react";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import Box from "@material-ui/core/Box";
 import { darken } from "@material-ui/core/styles";
@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     },
   },
   rootActive: {
-    background: lighten(theme.palette.primary.main, 0.4),
+    background: darken(theme.palette.background.paper, 0.2),
     "&:hover": {
-      background: lighten(theme.palette.primary.main, 0.3),
+      background: darken(theme.palette.background.paper, 0.15),
     },
   },
   colorStrip: {
