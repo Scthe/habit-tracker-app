@@ -9,7 +9,7 @@ export type CurrentUser = {
   isAnonymous: boolean;
   email: string | null;
   emailVerified: boolean;
-  providerId: string;
+  providerId: string; // display as "Authentication method"
   creationTime?: string; // from metadata
   lastSignInTime?: string; // from metadata
 };
@@ -34,12 +34,14 @@ const adaptFirebaseUser = (user: firebaseNS.User): CurrentUser => ({
 });
 
 export const UserProvider: React.FC = ({ children }) => {
-  // TODO try auth().currentUser
+  // NOTE: auth().currentUser is not a magic bypass to get user data. It's null on first render
+  // and TBH. we might as well do it by hand.
   const [userData, setUserData] = useState<AuthCtxType>({ status: "init" });
   const auth = useAuth();
 
   useEffect(() => {
     return auth.onAuthStateChanged((user) => {
+      console.log("onAuthStateChanged:", user);
       if (user == null) {
         setUserData({ status: "notlogged" });
       } else {

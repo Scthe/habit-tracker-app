@@ -3,9 +3,10 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import DesktopViews from "./layouts/desktop";
 import MobileViews from "./layouts/mobile";
-import { ROUTES } from "./constants";
 import Calendar from "./layouts/shared/calendar";
 import Form from "./layouts/shared/form";
+
+import { ROUTES } from "./constants";
 import { useDesktopLayout } from "~hooks";
 import { RedirectPreserveState } from "~utils";
 

@@ -1,59 +1,36 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import { getHabitHtmlColor, getHabitHtmlTextColor } from "pages/habits/utils";
-import { HabitColorList } from "pages/habits/_types";
-import { oppositeThemeColor, useTheme } from "theme/useTheme";
-import { Debug } from "~components";
-import { useAuth, useStorage } from "~firebaseUtils";
-import { useUserStatus } from "~storage";
+import DesktopViews from "./layouts/desktop";
+import MobileViews from "./layouts/mobile";
 
-// TODO finish me
+import { ROUTES } from "./constants";
+import { useDesktopLayout } from "~hooks";
+import { RedirectPreserveState } from "~utils";
+
+const MOBILE_ROUTES = [
+  <Route exact path={ROUTES.edit} component={MobileViews.UserEdit} />,
+  <Route path={ROUTES.base} component={MobileViews.UserDetails} />,
+] as JSX.Element[];
+
+const DESKTOP_ROUTES = [
+  <Route path={ROUTES.base} component={DesktopViews.UserDetails} />,
+  <RedirectPreserveState exact from={ROUTES.edit} to={ROUTES.base} />,
+] as JSX.Element[];
 
 // eslint-disable-next-line import/no-unused-modules
 export default (): JSX.Element => {
-  const storage = useStorage();
-  console.log({ storage }); // test lazy load?
-  const auth = useAuth();
-  const user = useUserStatus();
+  const isDesktop = useDesktopLayout();
 
-  const [themeColor, toggleThemeColor] = useTheme();
-  const nextThemeColor = oppositeThemeColor(themeColor);
-
+  const routes: JSX.Element[] = isDesktop ? DESKTOP_ROUTES : MOBILE_ROUTES;
   return (
-    <div>
-      <h1>USER PAGE</h1>
+    <Switch>
+      {routes.map((e, i) => ({ ...e, key: i }))}
 
-      <hr />
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => auth.signOut()}
-      >
-        Logout
-      </Button>
-
-      <hr />
-      <Button color="primary" variant="contained" onClick={toggleThemeColor}>
-        Make it {nextThemeColor}
-      </Button>
-
-      <hr />
-      {HabitColorList.map((col) => (
-        <div
-          key={col}
-          style={{
-            color: getHabitHtmlTextColor(col),
-            background: getHabitHtmlColor(col),
-            padding: "10px",
-          }}
-        >
-          hellow
-        </div>
-      ))}
-
-      <hr />
-      <Debug v={user} />
-    </div>
+      {/* fallback */}
+      <Redirect path="*" to={ROUTES.base} />
+    </Switch>
   );
 };
+
+export { ROUTES as UserRoutes };

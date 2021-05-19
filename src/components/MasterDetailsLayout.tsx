@@ -52,7 +52,7 @@ export const MasterView: React.FC<Props> = ({ className, children }) => {
 interface DetailsViewProps {
   className?: string;
   hasItem: boolean;
-  itemFallback?: Partial<ContentMessageProps>;
+  itemFallback?: Partial<ContentMessageProps> | null;
   /** key is just to show loader between details. User might not notice change without it */
   detailKey?: string;
 }
@@ -70,7 +70,7 @@ export const DetailsView: React.FC<DetailsViewProps> = ({
       icon: "block",
       message: "No item selected",
     },
-    itemFallback
+    itemFallback || {}
   );
 
   return (
@@ -82,9 +82,9 @@ export const DetailsView: React.FC<DetailsViewProps> = ({
               {children}
             </Paper>
           </Slide>
-        ) : (
+        ) : itemFallback != null ? (
           <ContentMessage {...fallbackProps} />
-        )}
+        ) : null}
       </Suspense>
     </div>
   );
