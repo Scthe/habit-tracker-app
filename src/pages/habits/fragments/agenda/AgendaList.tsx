@@ -10,9 +10,9 @@ import { DayOfYear } from "~utils";
 
 const EmptyMsg: React.FC<ListEmptyProps> = (props) => (
   <NoHabitsMessage {...props}>
-      No activities found.
-      <br/>
-      Please enjoy your day!
+    No activities found.
+    <br />
+    Please enjoy your day!
   </NoHabitsMessage>
 );
 

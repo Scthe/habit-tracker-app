@@ -104,7 +104,7 @@ const ToggleStatusCheckbox: React.FC<Props> = ({
   };
 
   if (setHabitDone.loading) {
-    return <CircularProgress size="40px" color="primary" />;
+    return <CircularProgress size="35px" color="primary" />;
   }
 
   return (

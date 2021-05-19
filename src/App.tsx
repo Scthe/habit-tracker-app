@@ -7,14 +7,14 @@ import { FirebaseAppProvider, firebaseConfig } from "./firebaseUtils";
 import { AppRouter } from "./AppRouter";
 import { UserProvider } from "./storage";
 import { AppThemeProvider } from "./theme";
-import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
-import { PageLoader } from "./components/PageLoader";
+import { GlobalErrorBoundary } from "./pages/_shared";
+import { ContentLoader } from "./components";
 import { AlertProvider } from "./hooks/useShowAlert";
 
 const App: React.FC<unknown> = () => {
   return (
     <GlobalErrorBoundary>
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<ContentLoader />}>
         <FirebaseAppProvider firebaseConfig={firebaseConfig}>
           <UserProvider>
             <AppThemeProvider>

@@ -5,8 +5,8 @@ import Slide from "@material-ui/core/Slide";
 import merge from "lodash/merge";
 import clsx from "clsx";
 
-import { PageLoader } from "./PageLoader";
-import { FullPageMessage, FullPageMessageProps } from "~components";
+import { ContentLoader } from "./contentStatus/ContentLoader";
+import { ContentMessage, ContentMessageProps } from "./contentStatus";
 import { AppTheme } from "theme";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
@@ -44,7 +44,7 @@ export const MasterView: React.FC<Props> = ({ className, children }) => {
 
   return (
     <div className={clsx(styles.col1, className)}>
-      <Suspense fallback={<PageLoader />}>{children}</Suspense>
+      <Suspense fallback={<ContentLoader />}>{children}</Suspense>
     </div>
   );
 };
@@ -52,7 +52,7 @@ export const MasterView: React.FC<Props> = ({ className, children }) => {
 interface DetailsViewProps {
   className?: string;
   hasItem: boolean;
-  itemFallback?: Partial<FullPageMessageProps>;
+  itemFallback?: Partial<ContentMessageProps>;
   /** key is just to show loader between details. User might not notice change without it */
   detailKey?: string;
 }
@@ -75,7 +75,7 @@ export const DetailsView: React.FC<DetailsViewProps> = ({
 
   return (
     <div className={clsx(styles.col2, className)}>
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<ContentLoader />}>
         {hasItem ? (
           <Slide direction="left" in={true} mountOnEnter unmountOnExit>
             <Paper key={detailKey} elevation={9} className={styles.detailPaper}>
@@ -83,7 +83,7 @@ export const DetailsView: React.FC<DetailsViewProps> = ({
             </Paper>
           </Slide>
         ) : (
-          <FullPageMessage {...fallbackProps} />
+          <ContentMessage {...fallbackProps} />
         )}
       </Suspense>
     </div>

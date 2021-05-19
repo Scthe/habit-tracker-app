@@ -33,7 +33,7 @@ const RANDOM_EXAMPLES = [
   "running",
 ];
 const getRandomActivity = (currentAct: string | undefined): string => {
-  const xs = RANDOM_EXAMPLES.filter(e => e != currentAct);
+  const xs = RANDOM_EXAMPLES.filter((e) => e != currentAct);
   return sample(xs)!;
 };
 
@@ -58,10 +58,7 @@ export const NoHabitsMessage: React.FC<ListEmptyProps> = ({
   const styles = useStyles();
   const [currentText, setCurrentText] = useState(getRandomActivity(undefined));
 
-  useInterval(
-    () => setCurrentText(getRandomActivity(currentText)),
-    sec2ms(3)
-  );
+  useInterval(() => setCurrentText(getRandomActivity(currentText)), sec2ms(3));
 
   return (
     <ListEmpty {...rest}>
@@ -69,9 +66,7 @@ export const NoHabitsMessage: React.FC<ListEmptyProps> = ({
 
       <div className={styles.createHabit}>
         <Link to={ROUTES.create} className={styles.link}>
-        How about{" "}
-          <span className={styles.linkActivity}>{currentText}</span>
-        ?
+          How about <span className={styles.linkActivity}>{currentText}</span>?
         </Link>
       </div>
     </ListEmpty>

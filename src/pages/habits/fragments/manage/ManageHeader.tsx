@@ -68,6 +68,9 @@ export const ManageHeader: React.FC<Props> = ({ search, setSearch }) => {
             }}
             inputProps={{ "aria-label": "search" }}
           />
+
+          {/* hijack focus */}
+          <input type="text" autoFocus={true} style={{ display: "none" }} />
         </div>
       </Toolbar>
     </AppBar>

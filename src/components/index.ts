@@ -2,7 +2,7 @@
 export * from "./AppMenu";
 export * from "./Calendar";
 export * from "./List";
-export * from "./statusMessage";
+export * from "./contentStatus";
 
 // files:
 export * from "./ButtonLoading";
@@ -12,7 +12,6 @@ export * from "./Debug";
 export * from "./ExtraValidationText";
 export * from "./PageViewAnalytics";
 export * from "./MasterDetailsLayout";
-export * from "./PageLoader";
 export * from "./ToolbarTitle";
 export * from "./ValuePickDialog";
 export * from "./WeekPreview";

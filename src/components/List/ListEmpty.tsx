@@ -1,5 +1,5 @@
 import React from "react";
-import { FullPageMessage } from "~components";
+import { ContentMessage } from "~components";
 
 export interface ListEmptyProps {
   icon?: string;
@@ -16,7 +16,7 @@ export const ListEmpty: React.FC<ListEmptyProps> = ({
     textToShow = wasFilteredOut ? "No matching results" : "No results";
   }
 
-  return <FullPageMessage icon={icon!} message={textToShow} />;
+  return <ContentMessage icon={icon!} message={textToShow} />;
 };
 
 ListEmpty.defaultProps = {

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     flex: "1",
     display: "flex",
     flexDirection: "row",
-    padding: theme.spacing(1, 2),
+    padding: theme.spacing(1, 3),
     cursor: "pointer",
   },
   action: {

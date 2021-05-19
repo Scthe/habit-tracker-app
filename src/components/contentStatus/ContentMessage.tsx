@@ -19,9 +19,15 @@ interface Props {
   icon: string;
   message: React.ReactNode;
 }
-export type FullPageMessageProps = Props;
+export type ContentMessageProps = Props;
 
-export const FullPageMessage: React.FC<Props> = ({
+/**
+ * Big message text and icon. Used for special states.
+ *
+ * It does not display toolbar or drawer, so if this component is fullscreen,
+ * The user cannot do anything else.
+ */
+export const ContentMessage: React.FC<Props> = ({
   icon,
   message,
   children,

@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     textDecoration: "line-through",
   },
   habitDoneRipple: {
-    // TODO may create horizontal scroll on mobile
     color: theme.palette.app.habits.done,
   },
 }));

@@ -1,17 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { ErrorBoundary } from "react-error-boundary";
 import clsx from "clsx";
 
 import {
-  FullPageErrorMessage,
-  TrullyFatalErrorMessageFallback,
-  FullPageMessageProps,
-  PageLoader,
+  ContentErrorMessage,
+  ContentErrorMessageProps,
+  ContentLoader,
 } from "~components";
 import { AsyncData } from "~types";
 import { useDesktopLayout } from "~hooks";
-import { globalErrorHandler } from "~utils";
 
 export const adaptAsyncDataForContent = (
   { status }: AsyncData<unknown>,
@@ -47,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   className?: string;
   loading?: boolean;
-  error?: Partial<FullPageMessageProps>;
+  error?: ContentErrorMessageProps;
   canOverflow?: boolean;
   hasPadding?: boolean;
 }
@@ -72,18 +69,13 @@ export const AppPageContent: React.FC<Props> = ({
 
   return (
     <div className={classes}>
-      <ErrorBoundary
-        FallbackComponent={TrullyFatalErrorMessageFallback}
-        onError={globalErrorHandler}
-      >
-        {loading ? (
-          <PageLoader />
-        ) : error != null ? (
-          <FullPageErrorMessage {...error} />
-        ) : (
-          children
-        )}
-      </ErrorBoundary>
+      {loading ? (
+        <ContentLoader />
+      ) : error != null ? (
+        <ContentErrorMessage {...error} />
+      ) : (
+        children
+      )}
     </div>
   );
 };

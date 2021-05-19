@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {},
   editLink: {
     color: "inherit",
+    textDecoration: "none",
   },
   editLinkDisabled: {
     color: theme.palette.text.disabled,

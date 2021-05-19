@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { darken, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import times from "lodash/times";
@@ -13,7 +13,7 @@ import {
   WeekdayFmt,
 } from "~utils";
 
-const useDayButtonStyles = makeStyles(() => ({
+const useDayButtonStyles = makeStyles((theme) => ({
   itemDay: {
     flex: 1,
     minWidth: 0,
@@ -23,6 +23,7 @@ const useDayButtonStyles = makeStyles(() => ({
   },
   itemDayActive: {
     fontWeight: "bold",
+    background: darken(theme.palette.primary.main, 0.1),
   },
   itemDayButtonLabel: {
     display: "block",

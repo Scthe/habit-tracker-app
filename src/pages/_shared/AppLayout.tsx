@@ -1,9 +1,13 @@
 import React, { Suspense } from "react";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import { ErrorBoundary } from "react-error-boundary";
 
-import { AppMenuDrawer, PageLoader } from "~components";
+import { LoadingPageWithDrawer } from "./internal/LoadingPageWithDrawer";
+import { ErrorPageWithDrawer } from "./internal/ErrorPageWithDrawer";
+import { AppMenuDrawer } from "~components";
 import { useAppMenuActiveLink } from "~storage";
+import { globalErrorHandler } from "~utils";
 
 const useStyles = makeStyles(() => ({
   drawer: {
@@ -20,14 +24,19 @@ export const AppLayout: React.FC<unknown> = ({ children }) => {
   const currentItem = useAppMenuActiveLink();
   const styles = useStyles();
 
-  // IMPORTANT: do not trigger unmount/mount of children on media responsive change!
+  // IMPORTANT: do not trigger unmount/mount of children on media responsive change! It resets form state.
   return (
     <Box display="flex">
       <AppMenuDrawer currentItem={currentItem} className={styles.drawer} />
 
-      <Suspense fallback={<PageLoader />}>
-        <div className={styles.content}>{children}</div>
-      </Suspense>
+      <ErrorBoundary
+        FallbackComponent={ErrorPageWithDrawer}
+        onError={globalErrorHandler}
+      >
+        <Suspense fallback={<LoadingPageWithDrawer />}>
+          <div className={styles.content}>{children}</div>
+        </Suspense>
+      </ErrorBoundary>
     </Box>
   );
 };
