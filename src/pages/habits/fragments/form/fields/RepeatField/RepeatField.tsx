@@ -1,16 +1,12 @@
 import React from "react";
 import { useField } from "formik";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 
 import { FormValues } from "../../useFormInitValues";
 import { WeekdaySelection } from "./WeekdaySelection";
 import { DayOfMonthSelection } from "./DayOfMonthSelection";
 import { assertUnreachable, Weekday } from "~utils";
 import { HabitRepetition } from "pages/habits/_types";
-import { ExtraValidationText } from "~components";
+import { ExtraValidationText, SelectFromConst } from "~components";
 
 type RepeatType = HabitRepetition["type"];
 
@@ -66,12 +62,8 @@ export const RepeatField: React.FC<Props> = (props) => {
   const currentValue: HabitRepetition = field.value;
   const currentType: RepeatType = currentValue.type;
 
-  const handleTypeChange = (
-    e: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    const newValue = createRepetitionObjectFromType(
-      e.target.value as RepeatType
-    );
+  const handleTypeChange = (repeatType: RepeatType) => {
+    const newValue = createRepetitionObjectFromType(repeatType);
     helpers.setValue(newValue);
   };
   const handleWeeklyChange = (days: Weekday[]) => {
@@ -86,20 +78,14 @@ export const RepeatField: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <FormControl variant="filled" className={props.className}>
-        <InputLabel shrink>Repeat</InputLabel>
-        <Select
-          name={props.name}
-          value={currentType}
-          onChange={handleTypeChange}
-        >
-          {VALUES.map((v) => (
-            <MenuItem key={v.type} value={v.type}>
-              {v.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <SelectFromConst<RepeatType>
+        id={props.name}
+        label="Repeat"
+        currentValue={currentType}
+        onChange={handleTypeChange}
+        values={VALUES}
+        className={props.className}
+      />
 
       {currentValue.type === "weekly" ? (
         <WeekdaySelection

@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -19,6 +20,10 @@ import { AppTheme } from "theme";
 
 interface Props {
   id?: string;
+  classes?: {
+    root?: string;
+    content?: string;
+  };
 }
 
 const useStyles = makeStyles((theme: AppTheme) => ({
@@ -31,7 +36,7 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
 }));
 
-const HabitFormPage: React.FC<Props> = ({ id }) => {
+const HabitFormPage: React.FC<Props> = ({ id, classes }) => {
   const styles = useStyles();
   const history = useHistory();
   const showAlert = useShowAlert();
@@ -43,7 +48,7 @@ const HabitFormPage: React.FC<Props> = ({ id }) => {
       onSubmit={saveHabit}
       history={history}
       showAlert={showAlert}
-      className={styles.form}
+      className={clsx(styles.form, classes?.root)}
       initialValues={
         initValuesAsync.status == "success"
           ? initValuesAsync.data
@@ -52,7 +57,10 @@ const HabitFormPage: React.FC<Props> = ({ id }) => {
     >
       <HabitFormHeader isEdit={isEdit} />
 
-      <AppPageContent {...adaptAsyncDataForContent(initValuesAsync)}>
+      <AppPageContent
+        {...adaptAsyncDataForContent(initValuesAsync)}
+        className={classes?.content}
+      >
         {initValuesAsync.status === "success" ? (
           <>
             <NameField name="name" className={styles.fieldSpacing} />

@@ -25,6 +25,12 @@ const uiConfig = {
   ],
 };
 
+console.log([
+  firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
+]);
+
 // Initialize the FirebaseUI Widget using Firebase.
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 // The start method will wait until the DOM is loaded.

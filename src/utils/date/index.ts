@@ -8,8 +8,8 @@ import startOfWeek from "date-fns/startOfWeek";
 import format from "date-fns/format";
 import getDaysInMonth from "date-fns/getDaysInMonth";
 
-import { getFromArray } from "../index";
-import { createDateFromDay, deconstructDate } from "./DayOfYear";
+import { getDateDiff, getFromArray, stringifyDateDiff } from "../index";
+import { createDateFromDay, daysRelative, deconstructDate } from "./DayOfYear";
 
 export enum Weekday {
   Monday = 1,
@@ -81,4 +81,29 @@ export const deconstructDateToMonth = (d: Date): MonthOfYear => {
 export const clampToMonthLength = (day: number, month: MonthOfYear): number => {
   const daysInMonth = getDaysInMonth(createDateFromMonth(month));
   return clamp(day, 0, daysInMonth);
+};
+
+export const displayDateWithDiff = (
+  createdAt: Date | null | undefined
+): string | null => {
+  if (createdAt == null) {
+    return null;
+  }
+
+  const dayCreatedAt = deconstructDate(createdAt);
+  const dayNow = deconstructDate(new Date());
+  const relativeToToday = daysRelative(dayCreatedAt, dayNow);
+  if (relativeToToday === "today") {
+    return "Today";
+  }
+
+  const diff = getDateDiff(
+    createDateFromDay(dayCreatedAt, 1, 0),
+    createDateFromDay(dayNow, 1, 0)
+  );
+  const diffStr = stringifyDateDiff(diff);
+  const relativeDiffStr =
+    relativeToToday === "future" ? `In ${diffStr}` : `${diffStr} ago`;
+  const date = format(createdAt, "d LLLL yyyy");
+  return `${date} (${relativeDiffStr})`;
 };

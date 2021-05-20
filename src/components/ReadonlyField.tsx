@@ -13,27 +13,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DetailHabitFieldProps {
+interface Props {
   id: string;
   label: string;
-  value: string;
+  value: string | null | undefined;
   linkify?: boolean;
+  onMissingValue?: "hide" | "-" | "empty";
 }
 
-export const DetailHabitField: React.FC<DetailHabitFieldProps> = ({
+export const ReadonlyField: React.FC<Props> = ({
   id,
   label,
   value,
   linkify,
+  onMissingValue,
 }) => {
   const styles = useStyles();
 
-  const valueEl = <div id={id}>{value}</div>;
+  const shownValue = getValue(value, onMissingValue);
+  if (shownValue == null) {
+    return null;
+  }
+
+  const valueEl = <div id={id}>{shownValue}</div>;
   return (
     <div className={styles.root}>
       <InputLabel htmlFor={id} shrink className={styles.label}>
         {label}
       </InputLabel>
+
       {linkify ? (
         <Linkify componentDecorator={componentDecorator}>{valueEl}</Linkify>
       ) : (
@@ -42,6 +50,25 @@ export const DetailHabitField: React.FC<DetailHabitFieldProps> = ({
     </div>
   );
 };
+
+ReadonlyField.defaultProps = {
+  onMissingValue: "-",
+};
+
+function getValue(
+  value: Props["value"],
+  onMissingValue: Props["onMissingValue"]
+): string | null {
+  const hasValue = value != null && value.length > 0;
+  switch (onMissingValue!) {
+    case "-":
+      return hasValue ? value! : "-";
+    case "empty":
+      return hasValue ? value! : "";
+    case "hide":
+      return hasValue ? value! : null;
+  }
+}
 
 function componentDecorator(
   decoratedHref: string,

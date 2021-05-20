@@ -7,7 +7,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { getNextDateWhenHabitIsDoable } from "../../utils";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
 import { useSetHabitDone } from "../../api";
-import { DetailHabitField } from "./DetailHabitField";
+import { ReadonlyField } from "~components";
 import {
   createDateFromDay,
   deconstructDate,
@@ -105,7 +105,7 @@ export const HabitTodayStatus: React.FC<Props> = (props) => {
   );
   const dateDiff = getDateDiff(todayDate, habitReminder);
   return (
-    <DetailHabitField
+    <ReadonlyField
       id="next-occurence"
       label="Next occurence"
       value={`In ${stringifyDateDiff(dateDiff)}`}

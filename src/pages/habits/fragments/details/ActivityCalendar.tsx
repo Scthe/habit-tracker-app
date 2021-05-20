@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import grey from "@material-ui/core/colors/grey";
@@ -8,7 +7,7 @@ import { getStatus } from "../../utils";
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
 import { useGetHabitStatuses } from "../../api";
 import { ActivityDay } from "./ActivityDay";
-import { Calendar, DateNextPrevSelector } from "~components";
+import { Calendar, DateNextPrevSelector, SectionHeader } from "~components";
 import { DayOfYear, deconstructDateToMonth } from "~utils";
 import { AsyncData } from "~types";
 import { AppTheme } from "theme";
@@ -20,7 +19,6 @@ interface Props {
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {},
-  header: { marginBottom: theme.spacing(1) },
   calendarWrapper: {},
   monthsSwitcher: {
     background: theme.palette.primary.main,
@@ -60,9 +58,7 @@ export const ActivityCalendar: React.FC<Props> = ({
 
   return (
     <div className={styles.root}>
-      <Typography variant="h5" className={styles.header}>
-        Activity
-      </Typography>
+      <SectionHeader>Activity</SectionHeader>
 
       <div className={styles.calendarWrapper}>
         <Paper square={true} className={styles.monthsSwitcher}>

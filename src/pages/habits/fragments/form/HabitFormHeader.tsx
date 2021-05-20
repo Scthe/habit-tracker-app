@@ -11,9 +11,6 @@ import { AppMenuToggleButton, ButtonLoading, ToolbarTitle } from "~components";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {},
-  title: {
-    flexGrow: 1,
-  },
   saveButton: {
     "&:disabled": {
       color: theme.palette.text.disabled,

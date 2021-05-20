@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { ContentLoader } from "./contentStatus/ContentLoader";
 import { ContentMessage, ContentMessageProps } from "./contentStatus";
 import { AppTheme } from "theme";
+import { LoadingPageWithDrawer } from "pages/_shared/internal/LoadingPageWithDrawer";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -44,7 +45,7 @@ export const MasterView: React.FC<Props> = ({ className, children }) => {
 
   return (
     <div className={clsx(styles.col1, className)}>
-      <Suspense fallback={<ContentLoader />}>{children}</Suspense>
+      <Suspense fallback={<LoadingPageWithDrawer />}>{children}</Suspense>
     </div>
   );
 };

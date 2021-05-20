@@ -4,9 +4,16 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 // but let's have nicer hook API
 export const useResponsive = (): "desktop" | "laptop" | "tablet" | "phone" => {
-  const desktop = useMediaQuery("(min-width:1440px)");
-  const laptop = useMediaQuery("(min-width:1265px)");
-  const tablet = useMediaQuery("(min-width:800px)");
+  const mq = (width: number): Parameters<typeof useMediaQuery> => [
+    `(min-width:${width}px)`,
+    {
+      defaultMatches: document.body.clientWidth >= width,
+    },
+  ];
+
+  const desktop = useMediaQuery(...mq(1440));
+  const laptop = useMediaQuery(...mq(1265));
+  const tablet = useMediaQuery(...mq(800));
 
   if (desktop) {
     return "desktop";

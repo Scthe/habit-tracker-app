@@ -19,10 +19,8 @@ export const adaptAsyncDataForContent = (
   }
 
   if (status === "error") {
-    const message =
-      errorMessage != null && errorMessage.length > 0
-        ? errorMessage
-        : "Something went wrong";
+    const hasMsg = errorMessage != null && errorMessage.length > 0;
+    const message = hasMsg ? errorMessage : "Something went wrong";
     return {
       error: { message },
     };

@@ -1,36 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
-import type firebaseNS from "firebase";
+
+import {
+  AuthProviderId,
+  AuthProviderData,
+  CurrentUser,
+  adaptFirebaseUser,
+} from "./CurrentUser";
 import { useAuth } from "~firebaseUtils";
 import { createSuspendedPreloadHook } from "~utils";
 
-export type CurrentUser = {
-  uid: string;
-  displayName: string | null;
-  isAnonymous: boolean;
-  email: string | null;
-  emailVerified: boolean;
-  providerId: string; // display as "Authentication method"
-  creationTime?: string; // from metadata
-  lastSignInTime?: string; // from metadata
-};
+export { AuthProviderId, AuthProviderData, CurrentUser };
 
 type NotLogged = { status: "notlogged" };
 type Logged = { status: "logged"; user: CurrentUser };
 type AuthCtxType = { status: "init" } | NotLogged | Logged;
 
-export const CurrentUserContext = React.createContext<AuthCtxType>({
+const CurrentUserContext = React.createContext<AuthCtxType>({
   status: "init",
-});
-
-const adaptFirebaseUser = (user: firebaseNS.User): CurrentUser => ({
-  uid: user.uid,
-  displayName: user.displayName,
-  isAnonymous: user.isAnonymous,
-  email: user.email,
-  emailVerified: user.emailVerified,
-  providerId: user.providerId,
-  creationTime: user.metadata.creationTime,
-  lastSignInTime: user.metadata.lastSignInTime,
 });
 
 export const UserProvider: React.FC = ({ children }) => {

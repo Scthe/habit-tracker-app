@@ -14,8 +14,15 @@ body {
   padding: 0;
   margin: 0;
   border: none;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
+@media (max-width: 800px) {
+  /* Allow to scroll down to hide address bar*/
+  body {
+    overflow-y: scroll;
+  }
+}
+
 body > div {
   width: 100%;
 }
