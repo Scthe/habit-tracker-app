@@ -9,7 +9,7 @@ import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { UserDateUtils, useUserDateSettings } from "hooks/useUserDateSettings";
 import { ToolbarTitle } from "components/ToolbarTitle";
-import { createDateFromDay, DayOfYear, deconstructDate } from "~utils";
+import { createDateFromDay, DayOfYear, deconstructDate } from "utils/date";
 
 const useStyles = makeStyles((theme) => ({
   root: {

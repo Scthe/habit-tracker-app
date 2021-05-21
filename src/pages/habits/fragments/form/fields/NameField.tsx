@@ -3,7 +3,7 @@ import { useField } from "formik";
 import TextField from "@material-ui/core/TextField";
 
 import { FormValues } from "../useFormInitValues";
-import { getFieldError } from "~utils";
+import { getFieldError } from "utils/form";
 
 interface Props {
   name: keyof FormValues;

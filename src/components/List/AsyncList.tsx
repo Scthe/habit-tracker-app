@@ -5,7 +5,7 @@ import { ListLoader } from "./ListLoader";
 import { ListError } from "./ListError";
 import { ListEmpty, ListEmptyProps } from "./ListEmpty";
 import { AsyncData } from "~types";
-import { extractProperty, ValueExtractor } from "~utils";
+import { extractProperty, ValueExtractor } from "utils";
 
 type ReactListKey = string | number; // c'mon!
 

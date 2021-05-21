@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import get from "lodash/get";
 import { useLocation } from "react-router-dom";
 
-import { DayOfYear, deconstructDate, isSameDay } from "~utils";
+import { DayOfYear, deconstructDate, isSameDay } from "utils/date";
 
 export const useCurrentDay = (): [DayOfYear, (d: DayOfYear) => void] => {
   const location = useLocation();

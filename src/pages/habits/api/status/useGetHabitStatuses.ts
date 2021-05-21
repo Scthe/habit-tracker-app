@@ -1,19 +1,17 @@
 import { getDoc } from "firebase/firestore";
+import type firestoreNS from "firebase/firestore";
 
 import { HabitStatus } from "../../_types";
 import { habitMonthlyActivityDoc } from "../references";
 import {
-  useFirestore,
   useFirestoreOnce,
   UseFirestoreOnceType,
-} from "firebaseUtils/useFirestore";
-import { MonthOfYear } from "~utils";
+} from "firebaseUtils/firestore/useFirestoreOnce";
+import { MonthOfYear } from "utils/date";
 import { useLoggedUser } from "~storage";
 
-type Firestore = ReturnType<typeof useFirestore>;
-
 const getAllStatuses = async (
-  db: Firestore,
+  db: firestoreNS.FirebaseFirestore,
   userId: string,
   year: number,
   month: number

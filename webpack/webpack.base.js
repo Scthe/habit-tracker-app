@@ -35,7 +35,7 @@ const baseWebpackConfig = (mode) => ({
     assetModuleFilename: "images/[hash][ext][query]",
   },
   performance: {
-    maxEntrypointSize: 250 * 1024, // 250kb
+    maxEntrypointSize: 485 * 1024, // 485kb pre-gzip. Gzip done on firebase, so no need here
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],

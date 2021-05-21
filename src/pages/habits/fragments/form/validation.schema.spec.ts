@@ -11,7 +11,7 @@ import {
 } from "../../_types";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormValidationSchema } from "./validation.schema";
-import { Weekday, ALL_WEEK_DAYS } from "~utils";
+import { Weekday, ALL_WEEK_DAYS } from "utils/date";
 
 // The amount of errors in validation schemas i've seen is staggering.
 // Because someone forgot to update after changing typescripts typedefs.

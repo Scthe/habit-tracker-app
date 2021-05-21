@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppMenuToggleButton } from "components/AppMenu";
 import { DateNextPrevSelector } from "components/DateNextPrevSelector";
 import { WeekPreview } from "components/WeekPreview";
-import { DayOfYear, WeekdayFmt } from "~utils";
+import { DayOfYear, WeekdayFmt } from "utils/date";
 import { ResponsiveSize, useResponsive } from "hooks/useResponsive";
 
 const useStyles = makeStyles(() => ({

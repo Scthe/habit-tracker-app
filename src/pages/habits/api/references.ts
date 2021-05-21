@@ -3,9 +3,9 @@ import type firestoreNS from "firebase/firestore";
 
 import { Habit, HabitStatus } from "../_types";
 import { habitConverter } from "./converters";
-import type { Firestore } from "firebaseUtils/useFirestore";
-import { MonthOfYear } from "~utils";
+import { MonthOfYear } from "utils/date";
 
+type Firestore = firestoreNS.FirebaseFirestore;
 type DocReference<T> = firestoreNS.DocumentReference<T>;
 type CollectionReference<T> = firestoreNS.CollectionReference<T>;
 type Query<T> = firestoreNS.Query<T>;

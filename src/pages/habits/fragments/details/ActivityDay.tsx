@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import { HabitCompletionStatus } from "../../_types";
 import { CalendarDayProps } from "components/Calendar";
-import { relativeToToday } from "~utils";
+import { relativeToToday } from "utils/date";
 import { AppTheme } from "theme";
 
 type Props = CalendarDayProps & {

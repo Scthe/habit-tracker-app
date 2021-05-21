@@ -7,7 +7,7 @@ import { AgendaHeader } from "./AgendaHeader";
 import { HabitClickHandler } from "./AgendaListItem";
 import { AppPageContent } from "pages/_shared";
 import { useGlobalKeyDown } from "hooks/useGlobalKeyDown";
-import { addDays } from "~utils";
+import { addDays } from "utils/date";
 
 // TOOD [feature] swipe left/right for prev/next item
 

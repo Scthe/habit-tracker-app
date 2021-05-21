@@ -1,7 +1,7 @@
 import React from "react";
 import { FieldMetaProps } from "formik";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import { getFieldError } from "~utils";
+import { getFieldError } from "utils/form";
 
 interface Props {
   error?: boolean;

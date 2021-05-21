@@ -10,7 +10,8 @@ import {
   RepetitionWeekly,
   RepetitionWeeklySummary,
 } from "..";
-import { Weekday, createMock, getFromArray, getFromEnum } from "~utils";
+import { createMock, getFromArray, getFromEnum } from "utils";
+import { Weekday } from "utils/date";
 
 const REPEAT_DAILY: RepetitionDaily = { type: "daily" };
 const REPEAT_WEEKLY: RepetitionWeekly = {

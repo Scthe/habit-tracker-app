@@ -1,4 +1,4 @@
-import { Weekday } from "~utils";
+import { Weekday } from "utils/date";
 
 // TODO [feature] target number for *summary? So we can count the hours/books etc.
 

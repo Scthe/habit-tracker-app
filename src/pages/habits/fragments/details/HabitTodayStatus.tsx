@@ -14,7 +14,7 @@ import {
   getDateDiff,
   isSameDay,
   stringifyDateDiff,
-} from "~utils";
+} from "utils/date";
 import { useShowAlert } from "hooks/useShowAlert";
 
 const LOADER_SIZE = "42px";

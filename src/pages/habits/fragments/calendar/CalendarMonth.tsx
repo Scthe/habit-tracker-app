@@ -5,7 +5,7 @@ import { CalendarDay } from "./CalendarDay";
 import { CalendarData, HabitWithStatus } from "./useCalendarData";
 import { Calendar } from "components/Calendar";
 import { useDesktopLayout } from "hooks/useResponsive";
-import { DayOfYear, isSameDay, MonthOfYear } from "~utils";
+import { DayOfYear, isSameDay, MonthOfYear } from "utils/date";
 import { AsyncData } from "~types";
 
 const useStyles = makeStyles((theme) => {

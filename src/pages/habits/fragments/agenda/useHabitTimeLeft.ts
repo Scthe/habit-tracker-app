@@ -9,7 +9,7 @@ import {
   getDateDiff,
   min2ms,
   stringifyDateDiff,
-} from "~utils";
+} from "utils/date";
 
 const recalcTimeLeft = (habitDate: Date): string => {
   const now = new Date();

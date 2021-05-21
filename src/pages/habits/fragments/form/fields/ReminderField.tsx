@@ -4,7 +4,7 @@ import { TimePicker } from "@material-ui/pickers/TimePicker";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
 import { FormValues, REMINDER_MINUTES_STEP } from "../useFormInitValues";
-import { getFieldError } from "~utils";
+import { getFieldError } from "utils/form";
 
 interface Props {
   name: keyof FormValues;

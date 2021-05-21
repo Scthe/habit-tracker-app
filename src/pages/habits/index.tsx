@@ -8,7 +8,7 @@ import Form from "./layouts/shared/form";
 
 import { ROUTES } from "./constants";
 import { useDesktopLayout } from "hooks/useResponsive";
-import { RedirectPreserveState } from "~utils";
+import { RedirectPreserveState } from "utils/reactUtils";
 
 // TODO [firebase improvement] subscribe to habits here? And do not fetch in subviews?
 

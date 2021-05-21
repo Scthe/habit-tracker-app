@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unused-modules */
 
 import { HabitStatus, HabitCompletionStatus } from "..";
-import { getFromArray } from "~utils";
+import { getFromArray } from "utils";
 
 export const mockHabitDayStatus = (i = 0): HabitStatus => ({
   habitId: `habit ${i}`,

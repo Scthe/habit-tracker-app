@@ -8,7 +8,7 @@ import { TimeDisplaySelect } from "./fields/TimeDisplaySelect";
 import { ReadonlyField } from "components/ReadonlyField";
 import { SectionHeader } from "components/SectionHeader";
 import { CurrentUser } from "~storage";
-import { displayDateWithDiff } from "~utils";
+import { displayDateWithDiff } from "utils/date";
 
 interface Props {
   user: CurrentUser;

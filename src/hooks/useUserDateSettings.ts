@@ -15,7 +15,7 @@ import {
   MonthOfYear,
   Weekday,
   WeekdayFmt,
-} from "~utils";
+} from "utils/date";
 
 const getWeekStartEndDays = (weekStartsOn: Weekday) => {
   return (dayOfYear: DayOfYear): [DayOfYear, DayOfYear] => {

@@ -3,7 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { useUserDateSettings } from "hooks/useUserDateSettings";
-import { DayOfYear, DaysRelation, MonthOfYear, relativeToToday } from "~utils";
+import {
+  DayOfYear,
+  DaysRelation,
+  MonthOfYear,
+  relativeToToday,
+} from "utils/date";
 
 export interface CalendarDayProps {
   day: DayOfYear;

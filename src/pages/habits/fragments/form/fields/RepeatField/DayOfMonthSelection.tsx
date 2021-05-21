@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 
 import { DayOfMonthSelectDialog } from "../../dialogs/DayOfMonthSelectDialog";
-import { numberOrdering } from "~utils";
+import { numberOrdering } from "utils";
 
 const useStyles = makeStyles(() => ({
   dialogButton: {

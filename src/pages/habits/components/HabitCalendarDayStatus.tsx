@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 import { routeAgenda } from "../constants";
 import { AppTheme } from "theme";
-import { DayOfYear } from "~utils";
+import { DayOfYear } from "utils/date";
 
 interface Props {
   day: DayOfYear;

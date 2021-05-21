@@ -2,7 +2,7 @@ import React from "react";
 
 import { HabitsListItem } from "../../components";
 import { Habit } from "../../_types";
-import { assertUnreachable } from "~utils";
+import { assertUnreachable } from "utils";
 
 export type HabitClickHandler = (habit: Habit) => void;
 

@@ -10,7 +10,7 @@ import { ActivityDay } from "./ActivityDay";
 import { Calendar } from "components/Calendar";
 import { DateNextPrevSelector } from "components/DateNextPrevSelector";
 import { SectionHeader } from "components/SectionHeader";
-import { DayOfYear, deconstructDateToMonth } from "~utils";
+import { DayOfYear, deconstructDateToMonth } from "utils/date";
 import { AsyncData } from "~types";
 import { AppTheme } from "theme";
 

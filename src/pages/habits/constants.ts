@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Habit } from "./_types";
-import { DayOfYear } from "~utils";
+import { DayOfYear } from "utils/date";
 
 export const ROUTES = {
   base: "/habits",

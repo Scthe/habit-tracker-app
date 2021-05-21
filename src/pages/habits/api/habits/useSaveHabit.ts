@@ -1,10 +1,11 @@
 import { useCallback } from "react";
 import { addDoc, Timestamp, updateDoc } from "firebase/firestore";
+import type firestoreNS from "firebase/firestore";
 
 import { Habit } from "../../_types";
 import { FormValues } from "../../fragments/form/useFormInitValues";
 import { habitDocRef, habitsCollectionRef } from "../references";
-import { Firestore, useFirestore } from "firebaseUtils/useFirestore";
+import { useFirestore } from "firebaseUtils/useFirestore";
 import { CurrentUser, useLoggedUser } from "~storage";
 
 type HabitId = Habit["id"];
@@ -12,7 +13,7 @@ type HabitId = Habit["id"];
 export type SaveHabitFn = (values: FormValues) => Promise<HabitId>;
 
 const createHabit = async (
-  db: Firestore,
+  db: firestoreNS.FirebaseFirestore,
   values: FormValues,
   userId: CurrentUser["uid"]
 ): Promise<HabitId> => {
@@ -28,7 +29,7 @@ const createHabit = async (
 };
 
 const editHabit = async (
-  db: Firestore,
+  db: firestoreNS.FirebaseFirestore,
   id: HabitId,
   values: FormValues
 ): Promise<HabitId> => {

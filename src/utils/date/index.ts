@@ -8,8 +8,9 @@ import startOfWeek from "date-fns/startOfWeek";
 import format from "date-fns/format";
 import getDaysInMonth from "date-fns/getDaysInMonth";
 
-import { getDateDiff, getFromArray, stringifyDateDiff } from "../index";
+import { getFromArray } from "../index";
 import { createDateFromDay, daysRelative, deconstructDate } from "./DayOfYear";
+import { getDateDiff, stringifyDateDiff } from "./dateDiff";
 
 export enum Weekday {
   Monday = 1,
@@ -61,7 +62,6 @@ export const getWeekdayName = (
 
 export const sec2ms = (x: number): number => Math.floor(x * 1000);
 export const min2ms = (x: number): number => sec2ms(x) * 60;
-export const hours2ms = (x: number): number => min2ms(x) * 60;
 export const min2hours = (x: number): number => Math.floor(x / 60);
 export const hours2days = (x: number): number => Math.floor(x / 24);
 

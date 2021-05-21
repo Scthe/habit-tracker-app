@@ -5,7 +5,7 @@ import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { ValuePickDialog } from "components/ValuePickDialog";
-import { numberOrdering } from "~utils";
+import { numberOrdering } from "utils";
 
 const useStyles = makeStyles((theme) => ({
   active: {

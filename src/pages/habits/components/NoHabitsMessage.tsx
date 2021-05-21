@@ -6,7 +6,7 @@ import sample from "lodash/sample";
 import { ROUTES } from "../constants";
 import { ListEmpty, ListEmptyProps } from "components/List";
 import { useInterval } from "hooks/useInterval";
-import { sec2ms } from "~utils";
+import { sec2ms } from "utils/date";
 
 const RANDOM_EXAMPLES = [
   "learning German",

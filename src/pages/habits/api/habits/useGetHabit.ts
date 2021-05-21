@@ -1,17 +1,19 @@
 import { getDoc } from "firebase/firestore";
+import type firestoreNS from "firebase/firestore";
 
 import { Habit } from "../../_types";
 import { habitDocRef } from "../references";
 import {
-  useFirestore,
   useFirestoreOnce,
   UseFirestoreOnceType,
-} from "firebaseUtils/useFirestore";
+} from "firebaseUtils/firestore/useFirestoreOnce";
 
 type HabitId = Habit["id"];
-type Firestore = ReturnType<typeof useFirestore>;
 
-const getById = async (db: Firestore, id?: HabitId): Promise<Habit | null> => {
+const getById = async (
+  db: firestoreNS.FirebaseFirestore,
+  id?: HabitId
+): Promise<Habit | null> => {
   if (id == null) {
     return null;
   }

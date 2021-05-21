@@ -8,7 +8,7 @@ import {
   adaptFirebaseUser,
 } from "./CurrentUser";
 import { useAuth } from "firebaseUtils/useAuth";
-import { createSuspendedPreloadHook } from "~utils";
+import { createSuspendedPreloadHook } from "utils/reactUtils";
 
 // TODO check if unplug is really needed (entries in package.json)
 export { AuthProviderId, AuthProviderData, CurrentUser };

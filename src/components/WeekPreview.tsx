@@ -11,7 +11,7 @@ import {
   getWeekdayNameFromDay,
   isSameDay,
   WeekdayFmt,
-} from "~utils";
+} from "utils/date";
 
 const useDayButtonStyles = makeStyles((theme) => ({
   itemDay: {

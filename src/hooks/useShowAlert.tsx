@@ -55,7 +55,9 @@ type AlertStorage = {
   showAlert: (props: CustomizableSnackbarProps) => void;
   dismissAlert: (id: AlertId) => void;
 };
-type ShowAlertFn = AlertStorage["showAlert"];
+
+// eslint-disable-next-line import/no-unused-modules
+export type ShowAlertFn = AlertStorage["showAlert"];
 
 let nextId: AlertId = 1;
 

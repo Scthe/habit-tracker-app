@@ -6,7 +6,10 @@ import addMonthsToDate from "date-fns/addMonths";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 
 import { Weekday } from ".";
-import { WeekdayFmt, getWeekdayName as getWeekdayNameFromDayIdx } from "~utils";
+import {
+  WeekdayFmt,
+  getWeekdayName as getWeekdayNameFromDayIdx,
+} from "./index";
 
 /**
  * Like `Date`, but does not have hours, minutes etc.

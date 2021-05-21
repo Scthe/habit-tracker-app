@@ -22,11 +22,7 @@
     "strict": true,
     "paths": {
       "~storage": ["storage"],
-      "~components": ["components"],
-      "~hooks": ["hooks"],
-      "~utils": ["utils"],
-      "~types": ["_types"],
-      "~firebaseUtils": ["firebaseUtils"]
+      "~types": ["_types"]
     }
   },
   "include": ["./src"],

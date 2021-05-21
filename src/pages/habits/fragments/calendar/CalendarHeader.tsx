@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppMenuToggleButton } from "components/AppMenu";
 import { DateNextPrevSelector } from "components/DateNextPrevSelector";
 import { useDesktopLayout } from "hooks/useResponsive";
-import { MonthOfYear } from "~utils";
+import { MonthOfYear } from "utils/date";
 
 const useStyles = makeStyles(() => ({
   selector: { flex: "1" },

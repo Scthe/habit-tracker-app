@@ -1,7 +1,8 @@
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
 import { useGetHabits, useGetHabitStatusesSubscription } from "../../api";
 import { getStatus, showHabitOnDay } from "../../utils";
-import { combineAsyncData, DayOfYear } from "~utils";
+import { combineAsyncData } from "utils";
+import type { DayOfYear } from "utils/date";
 import { AsyncData } from "~types";
 
 export interface HabitAgendaItem {
