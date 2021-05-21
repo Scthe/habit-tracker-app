@@ -31,6 +31,13 @@ export const UserProvider: React.FC = ({ children }) => {
       if (user == null) {
         setUserData({ status: "notlogged" });
       } else {
+        console.log("USER", {
+          uid: user.uid,
+          displayName: user.displayName,
+          isAnonymous: user.isAnonymous,
+          email: user.email,
+          pd: user.providerData,
+        });
         setUserData({
           status: "logged",
           user: adaptFirebaseUser(user),

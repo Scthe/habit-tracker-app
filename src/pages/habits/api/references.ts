@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 import { Habit, HabitStatus } from "../_types";
 import { habitConverter } from "./converters";

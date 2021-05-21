@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { Habit } from "../_types";
 
 type HabitConverter = firebase.firestore.FirestoreDataConverter<Habit>;

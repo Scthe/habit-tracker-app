@@ -33,7 +33,7 @@ SOFTWARE.
 // Bascially we lazy-load in first `useSDK_NAME`. We require suspense to show loader while we load the libs.
 // Throws if there was some actual problem.
 
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { SuspenseSubject } from "./SuspenseSubject";
 import { useFirebaseApp } from "./";
 
@@ -42,11 +42,11 @@ type ComponentName =
   | "auth"
   // | 'database'
   | "firestore"
-  | "functions"
-  | "messaging"
-  | "performance"
-  | "remoteConfig"
-  | "storage";
+// | "functions"
+// | "messaging"
+// | "performance"
+// | "remoteConfig"
+// | "storage";
 
 type ValueOf<T> = T[keyof T];
 type App = firebase.app.App;
@@ -56,15 +56,15 @@ type FirebaseNamespaceComponent = ValueOf<Pick<typeof firebase, ComponentName>>;
 function importSDK(sdk: ComponentName): Promise<unknown> {
   // prettier-ignore
   switch (sdk) {
-    case "analytics": return import(/* webpackChunkName: "analytics" */ "firebase/analytics");
-    case "auth": return import(/* webpackChunkName: "auth" */ "firebase/auth");
+    case "analytics": return import(/* webpackChunkName: "analytics" */ "firebase/compat/analytics");
+    case "auth": return import(/* webpackChunkName: "auth" */ "firebase/compat/auth");
     // case 'database': return import(/* webpackChunkName: "database" */ 'firebase/database');
-    case "firestore": return import(/* webpackChunkName: "firestore" */ "firebase/firestore");
-    case "functions": return import(/* webpackChunkName: "functions" */ "firebase/functions");
-    case "messaging": return import(/* webpackChunkName: "messaging" */ "firebase/messaging");
-    case "performance": return import( /* webpackChunkName: "performance" */ "firebase/performance");
-    case "remoteConfig": return import(/* webpackChunkName: "remoteConfig" */ "firebase/remote-config");
-    case "storage": return import(/* webpackChunkName: "storage" */ "firebase/storage");
+    case "firestore": return import(/* webpackChunkName: "firestore" */ "firebase/compat/firestore");
+    // case "functions": return import(/* webpackChunkName: "functions" */ "firebase/compat/functions");
+    // case "messaging": return import(/* webpackChunkName: "messaging" */ "firebase/compat/messaging");
+    // case "performance": return import( /* webpackChunkName: "performance" */ "firebase/compat/performance");
+    // case "remoteConfig": return import(/* webpackChunkName: "remoteConfig" */ "firebase/compat/remote-config");
+    // case "storage": return import(/* webpackChunkName: "storage" */ "firebase/compat/storage");
   }
 }
 
@@ -73,15 +73,15 @@ function proxyComponent(componentName: "auth"): typeof firebase.auth;
 function proxyComponent(componentName: "analytics"): typeof firebase.analytics;
 // function proxyComponent(componentName: 'database'): typeof firebase.database;
 function proxyComponent(componentName: "firestore"): typeof firebase.firestore;
-function proxyComponent(componentName: "functions"): typeof firebase.functions;
-function proxyComponent(componentName: "messaging"): typeof firebase.messaging;
-function proxyComponent(
-  componentName: "performance"
-): typeof firebase.performance;
-function proxyComponent(
-  componentName: "remoteConfig"
-): typeof firebase.remoteConfig;
-function proxyComponent(componentName: "storage"): typeof firebase.storage;
+// function proxyComponent(componentName: "functions"): typeof firebase.functions;
+// function proxyComponent(componentName: "messaging"): typeof firebase.messaging;
+// function proxyComponent(
+// componentName: "performance"
+// ): typeof firebase.performance;
+// function proxyComponent(
+// componentName: "remoteConfig"
+// ): typeof firebase.remoteConfig;
+// function proxyComponent(componentName: "storage"): typeof firebase.storage;
 function proxyComponent(
   componentName: ComponentName
 ): FirebaseNamespaceComponent {
@@ -109,11 +109,11 @@ export const useAuth = proxyComponent("auth");
 export const useAnalytics = proxyComponent("analytics");
 // export const useDatabase = proxyComponent('database');
 export const useFirestore = proxyComponent("firestore");
-export const useFunctions = proxyComponent("functions");
-export const useMessaging = proxyComponent("messaging");
-export const usePerformance = proxyComponent("performance");
-export const useRemoteConfig = proxyComponent("remoteConfig");
-export const useStorage = proxyComponent("storage");
+// export const useFunctions = proxyComponent("functions");
+// export const useMessaging = proxyComponent("messaging");
+// export const usePerformance = proxyComponent("performance");
+// export const useRemoteConfig = proxyComponent("remoteConfig");
+// export const useStorage = proxyComponent("storage");
 
 interface PreloadOpts {
   firebaseApp: App;
@@ -131,21 +131,21 @@ function preloadFactory(
 function preloadFactory(
   componentName: "firestore"
 ): PreloadFn<typeof componentName>;
-function preloadFactory(
-  componentName: "functions"
-): PreloadFn<typeof componentName>;
-function preloadFactory(
-  componentName: "messaging"
-): PreloadFn<typeof componentName>;
-function preloadFactory(
-  componentName: "performance"
-): PreloadFn<typeof componentName>;
-function preloadFactory(
-  componentName: "remoteConfig"
-): PreloadFn<typeof componentName>;
-function preloadFactory(
-  componentName: "storage"
-): PreloadFn<typeof componentName>;
+// function preloadFactory(
+// componentName: "functions"
+// ): PreloadFn<typeof componentName>;
+// function preloadFactory(
+// componentName: "messaging"
+// ): PreloadFn<typeof componentName>;
+// function preloadFactory(
+// componentName: "performance"
+// ): PreloadFn<typeof componentName>;
+// function preloadFactory(
+// componentName: "remoteConfig"
+// ): PreloadFn<typeof componentName>;
+// function preloadFactory(
+// componentName: "storage"
+// ): PreloadFn<typeof componentName>;
 function preloadFactory(componentName: ComponentName) {
   return (opts: PreloadOpts) =>
     preload(componentName, opts.firebaseApp).promise; // just await this, do not use the result..
@@ -186,8 +186,8 @@ export const preloadAuth = preloadFactory("auth");
 export const preloadAnalytics = preloadFactory("analytics");
 // export const preloadDatabase = preloadFactory('database');
 export const preloadFirestore = preloadFactory("firestore");
-export const preloadFunctions = preloadFactory("functions");
-export const preloadMessaging = preloadFactory("messaging");
-export const preloadPerformance = preloadFactory("performance");
-export const preloadRemoteConfig = preloadFactory("remoteConfig");
-export const preloadStorage = preloadFactory("storage");
+// export const preloadFunctions = preloadFactory("functions");
+// export const preloadMessaging = preloadFactory("messaging");
+// export const preloadPerformance = preloadFactory("performance");
+// export const preloadRemoteConfig = preloadFactory("remoteConfig");
+// export const preloadStorage = preloadFactory("storage");

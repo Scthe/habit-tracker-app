@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import * as React from "react";
 
 const FirebaseAppContext = React.createContext<firebase.app.App | undefined>(

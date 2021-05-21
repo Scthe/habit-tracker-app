@@ -16,18 +16,22 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src --fix --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
+    "@firebase/app": "0.0.900-exp.d92a36260",
+    "@firebase/app-compat": "0.0.900-exp.d92a36260",
+    "@firebase/auth-compat": "0.0.900-exp.d92a36260",
+    "@firebase/firestore-compat": "0.0.900-exp.d92a36260",
     "@fontsource/roboto": "^4.2.3",
     "@material-ui/core": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
     "clsx": "^1.1.1",
     "date-fns": "^2.19.0",
-    "firebase": "^8.4.3",
-    "firebaseui": "^4.8.0",
+    "firebase": "9.0.0-beta.2",
     "formik": "^2.2.6",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
@@ -87,5 +91,19 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "4.0.0-beta.2",
     "webpack-merge": "^5.7.3"
+  },
+  "dependenciesMeta": {
+    "@firebase/app@0.0.900-exp.d92a36260": {
+      "unplugged": true
+    },
+    "@firebase/app-compat@0.0.900-exp.d92a36260": {
+      "unplugged": true
+    },
+    "@firebase/firestore-compat@0.0.900-exp.d92a36260": {
+      "unplugged": true
+    },
+    "firebase@9.0.0-beta.2": {
+      "unplugged": true
+    }
   }
 }
