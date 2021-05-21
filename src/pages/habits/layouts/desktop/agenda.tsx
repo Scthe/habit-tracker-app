@@ -4,8 +4,13 @@ import { Habit } from "../../_types";
 import { AppPage } from "pages/_shared";
 import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
 
-const Agenda = lazy(() => import("../../fragments/agenda"));
-const HabitDetails = lazy(() => import("../../fragments/details"));
+const Agenda = lazy(
+  () => import(/* webpackChunkName: "habitsAgenda" */ "../../fragments/agenda")
+);
+const HabitDetails = lazy(
+  () =>
+    import(/* webpackChunkName: "habitsDetails" */ "../../fragments/details")
+);
 
 export default (): JSX.Element => {
   const [selectedItem, setSelectedItem] = useState<Habit | null>(null);

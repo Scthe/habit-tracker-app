@@ -1,4 +1,4 @@
-import type firebaseNS from "firebase/compat";
+import type firebaseNS from "firebase/auth";
 
 export type AuthProviderId =
   | "google.com"
@@ -44,17 +44,17 @@ function parseDate(d: string | undefined) {
   return d != null ? new Date(d) : undefined;
 }
 
-function adaptProvidersData(
-  data: firebaseNS.User
-): AuthProviderData[] {
+function adaptProvidersData(data: firebaseNS.User): AuthProviderData[] {
   const isProviderData = (
     e: firebaseNS.UserInfo | null
   ): e is firebaseNS.UserInfo => e != null;
 
-  return data.providerData.filter(isProviderData).map((e: firebaseNS.UserInfo) => ({
-    displayName: e.displayName,
-    email: e.email,
-    providerId: isKnownProvider(e.providerId) ? e.providerId : "unknown",
-    uid: e.uid,
-  }));
+  return data.providerData
+    .filter(isProviderData)
+    .map((e: firebaseNS.UserInfo) => ({
+      displayName: e.displayName,
+      email: e.email,
+      providerId: isKnownProvider(e.providerId) ? e.providerId : "unknown",
+      uid: e.uid,
+    }));
 }

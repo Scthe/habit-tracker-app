@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 import {
   AuthProviderId,
@@ -9,6 +10,7 @@ import {
 import { useAuth } from "~firebaseUtils";
 import { createSuspendedPreloadHook } from "~utils";
 
+// TODO check if unplug is really needed (entries in package.json)
 export { AuthProviderId, AuthProviderData, CurrentUser };
 
 type NotLogged = { status: "notlogged" };
@@ -26,18 +28,11 @@ export const UserProvider: React.FC = ({ children }) => {
   const auth = useAuth();
 
   useEffect(() => {
-    return auth.onAuthStateChanged((user) => {
+    return onAuthStateChanged(auth, (user) => {
       console.log("onAuthStateChanged:", user);
       if (user == null) {
         setUserData({ status: "notlogged" });
       } else {
-        console.log("USER", {
-          uid: user.uid,
-          displayName: user.displayName,
-          isAnonymous: user.isAnonymous,
-          email: user.email,
-          pd: user.providerData,
-        });
         setUserData({
           status: "logged",
           user: adaptFirebaseUser(user),

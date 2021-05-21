@@ -1,5 +1,7 @@
+import { getDoc } from "firebase/firestore";
+
 import { Habit } from "../../_types";
-import { habitDocRefWithConverter } from "../references";
+import { habitDocRef } from "../references";
 import {
   useFirestore,
   useFirestoreOnce,
@@ -14,7 +16,7 @@ const getById = async (db: Firestore, id?: HabitId): Promise<Habit | null> => {
     return null;
   }
 
-  const docSnapshot = await habitDocRefWithConverter(db, id).get();
+  const docSnapshot = await getDoc(habitDocRef(db, id));
   if (!docSnapshot.exists) {
     return null;
   }

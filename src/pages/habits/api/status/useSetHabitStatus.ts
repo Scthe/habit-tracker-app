@@ -1,5 +1,7 @@
 import { useCallback } from "react";
 import { useAsyncCallback, UseAsyncReturn } from "react-async-hook";
+import { setDoc } from "firebase/firestore";
+
 import { HabitStatus } from "../../_types";
 import { habitMonthlyActivityDoc } from "../references";
 import { CurrentUser, useLoggedUser } from "~storage";
@@ -22,10 +24,9 @@ const setStatus = async (
   };
   const day = nextStatus.day;
   const key = `${day.year}-${day.month}-${day.day}-${nextStatus.habitId}`;
-  await habitMonthlyActivityDoc(db, uid, data.day).set(
-    { [key]: nextStatus },
-    { merge: true }
-  );
+  const ref = habitMonthlyActivityDoc(db, uid, data.day);
+
+  await setDoc(ref, { [key]: nextStatus }, { merge: true });
 
   return nextStatus;
 };

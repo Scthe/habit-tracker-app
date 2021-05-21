@@ -2,8 +2,6 @@ require("./login.css").default;
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-// import "firebase/compat/analytics";
-// import * as firebaseui from "firebaseui";
 
 import { firebaseConfig } from "firebaseUtils/firebase.config";
 
@@ -14,7 +12,10 @@ import { firebaseConfig } from "firebaseUtils/firebase.config";
 // TODO what if we are already logged?
 // TODO yarn unplug firebase
 
+// configure firebaseui that we got from CDN
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).firebase = firebase;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const firebaseui = (window as any).firebaseui;
 
 // Firebase config

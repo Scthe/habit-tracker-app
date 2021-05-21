@@ -1,14 +1,13 @@
-import firebase from "firebase/compat/app";
 import { useCallback } from "react";
+import { addDoc, Timestamp, updateDoc } from "firebase/firestore";
 
 import { Habit } from "../../_types";
 import { FormValues } from "../../fragments/form/useFormInitValues";
 import { habitDocRef, habitsCollectionRef } from "../references";
-import { useFirestore } from "~firebaseUtils";
+import { Firestore, useFirestore } from "~firebaseUtils";
 import { CurrentUser, useLoggedUser } from "~storage";
 
 type HabitId = Habit["id"];
-type Firestore = ReturnType<typeof useFirestore>;
 
 export type SaveHabitFn = (values: FormValues) => Promise<HabitId>;
 
@@ -17,12 +16,12 @@ const createHabit = async (
   values: FormValues,
   userId: CurrentUser["uid"]
 ): Promise<HabitId> => {
-  console.log("CREATE", values);
   const now = new Date();
-  const doc = await habitsCollectionRef(db).add({
+  const collectionRef = habitsCollectionRef(db);
+  const doc = await addDoc(collectionRef, {
     ...values,
-    createdAt: firebase.firestore.Timestamp.fromDate(now),
-    editedAt: firebase.firestore.Timestamp.fromDate(now),
+    createdAt: Timestamp.fromDate(now),
+    editedAt: Timestamp.fromDate(now),
     userId,
   });
   return doc.id;
@@ -33,11 +32,11 @@ const editHabit = async (
   id: HabitId,
   values: FormValues
 ): Promise<HabitId> => {
-  console.log(`EDIT '${id}'`, values);
   const now = new Date();
-  await habitDocRef(db, id).update({
+  const ref = habitDocRef(db, id);
+  await updateDoc(ref, {
     ...values,
-    editedAt: firebase.firestore.Timestamp.fromDate(now),
+    editedAt: Timestamp.fromDate(now),
     // preserve `createdAt` and userId
   });
   return id;
@@ -49,7 +48,6 @@ export const useSaveHabit = (id: HabitId | undefined): SaveHabitFn => {
 
   return useCallback(
     (values): Promise<HabitId> => {
-      console.log("SUBMIT", { id, values });
       if (id == null) {
         return createHabit(db, values, uid);
       } else {

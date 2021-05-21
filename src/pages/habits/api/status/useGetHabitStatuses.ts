@@ -1,3 +1,5 @@
+import { getDoc } from "firebase/firestore";
+
 import { HabitStatus } from "../../_types";
 import { habitMonthlyActivityDoc } from "../references";
 import {
@@ -16,10 +18,11 @@ const getAllStatuses = async (
   year: number,
   month: number
 ): Promise<HabitStatus[]> => {
-  const docSnapshot = await habitMonthlyActivityDoc(db, userId, {
+  const ref = habitMonthlyActivityDoc(db, userId, {
     year,
     month,
-  }).get();
+  });
+  const docSnapshot = await getDoc(ref);
   const item = docSnapshot.data();
   return Object.values(item || {});
 };

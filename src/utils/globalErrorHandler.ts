@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export const globalErrorHandler = (
   error: Error,
   info: { componentStack: string }

@@ -1,39 +1,38 @@
-import firebase from "firebase/compat/app";
+import { collection, doc, orderBy, query, where } from "firebase/firestore";
+import type firestoreNS from "firebase/firestore";
 
 import { Habit, HabitStatus } from "../_types";
 import { habitConverter } from "./converters";
-import type { useFirestore } from "~firebaseUtils";
+import type { Firestore } from "~firebaseUtils";
 import { MonthOfYear } from "~utils";
 
-type Firestore = ReturnType<typeof useFirestore>;
-type DocReference<T> = firebase.firestore.DocumentReference<T>;
-type CollectionReference<T> = firebase.firestore.CollectionReference<T>;
-type Query<T> = firebase.firestore.Query<T>;
+type DocReference<T> = firestoreNS.DocumentReference<T>;
+type CollectionReference<T> = firestoreNS.CollectionReference<T>;
+type Query<T> = firestoreNS.Query<T>;
 
 ////////////////////////
 /// HABITS
 
 export const habitDocRef = (
   db: Firestore,
-  id: Habit["id"] | undefined
+  id: Habit["id"]
 ): DocReference<Habit> =>
-  db.collection("habits").doc(id).withConverter(habitConverter);
-
-export const habitDocRefWithConverter = (
-  db: Firestore,
-  id: Habit["id"] | undefined
-): DocReference<Habit> =>
-  db.collection("habits").doc(id).withConverter(habitConverter);
+  doc(collection(db, "habits"), id).withConverter(habitConverter);
 
 export const habitsCollectionRef = (
   db: Firestore
-): CollectionReference<unknown> => db.collection("habits");
+): CollectionReference<unknown> => collection(db, "habits");
 
-export const habitsQueryRef = (db: Firestore, userId: string): Query<Habit> =>
-  db
-    .collection("habits")
-    .where("userId", "==", userId)
-    .withConverter(habitConverter);
+export const userHabitsQueryRef = (
+  db: Firestore,
+  userId: string
+): Query<Habit> =>
+  query(
+    //
+    collection(db, "habits"), //
+    where("userId", "==", userId), //
+    orderBy("name", "desc") //
+  ).withConverter(habitConverter);
 
 ////////////////////////
 /// HABIT ACTIVITY
@@ -42,9 +41,8 @@ export const habitMonthlyActivityDoc = (
   db: Firestore,
   userId: string,
   date: MonthOfYear
-): DocReference<Record<string, HabitStatus>> =>
-  db
-    .collection("user")
-    .doc(userId)
-    .collection("habit_activity")
-    .doc(`${date.year}-${date.month}`);
+): DocReference<Record<string, HabitStatus>> => {
+  const key = `${date.year}-${date.month}`;
+  const userRef = doc(collection(db, "user"), userId);
+  return doc(collection(userRef, "habit_activity"), key);
+};

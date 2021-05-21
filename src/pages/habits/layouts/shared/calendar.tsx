@@ -1,7 +1,10 @@
 import React, { lazy } from "react";
 import { AppPage } from "pages/_shared";
 
-const Calendar = lazy(() => import("../../fragments/calendar"));
+const Calendar = lazy(
+  () =>
+    import(/* webpackChunkName: "habitsCalendar" */ "../../fragments/calendar")
+);
 
 // eslint is drunk?
 // eslint-disable-next-line import/no-unused-modules

@@ -7,6 +7,7 @@ const webpackConfig = merge(baseWebpackConfig("production"), {
   devtool: false,
   optimization: {
     minimize: true,
+    // chunkIds: "named", // for debugging file content
   },
 });
 

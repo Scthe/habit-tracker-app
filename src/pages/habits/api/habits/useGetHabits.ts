@@ -1,5 +1,5 @@
 import { Habit } from "../../_types";
-import { habitsQueryRef } from "../references";
+import { userHabitsQueryRef } from "../references";
 import {
   collectQueryResults,
   useFirestore,
@@ -7,13 +7,13 @@ import {
   UseFirestoreOnceType,
 } from "~firebaseUtils";
 import { useLoggedUser } from "~storage";
+import { getDocs } from "firebase/firestore";
 
 type Firestore = ReturnType<typeof useFirestore>;
 
 const getAll = async (db: Firestore, userId: string): Promise<Habit[]> => {
-  const querySnapshot = await habitsQueryRef(db, userId)
-    .orderBy("name", "desc")
-    .get();
+  const q = userHabitsQueryRef(db, userId);
+  const querySnapshot = await getDocs(q);
   return collectQueryResults(querySnapshot);
 };
 

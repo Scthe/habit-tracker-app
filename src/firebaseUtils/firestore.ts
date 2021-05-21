@@ -1,4 +1,5 @@
-import firebase from "firebase/compat/app";
+import { onSnapshot } from "firebase/firestore";
+import type firestoreNS from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
   AsyncState,
@@ -9,13 +10,11 @@ import { useFirestore } from "~firebaseUtils";
 
 import { AsyncData } from "~types";
 
-type Firestore = ReturnType<typeof useFirestore>;
-type QuerySnapshot<T> = firebase.firestore.QuerySnapshot<T>;
-type DocumentReference<T> = firebase.firestore.DocumentReference<T>;
+export type Firestore = ReturnType<typeof useFirestore>;
+type QuerySnapshot<T> = firestoreNS.QuerySnapshot<T>;
+type DocumentReference<T> = firestoreNS.DocumentReference<T>;
 
-export type FirestoreErrorHandler = (
-  err: firebase.firestore.FirestoreError
-) => void;
+export type FirestoreErrorHandler = (err: firestoreNS.FirestoreError) => void;
 
 const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
   switch (data.status) {
@@ -25,7 +24,7 @@ const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
       return { status: "loading" };
     case "error": {
       // TODO [error-handling] verify we rethrow or inform sentry. TBH why not here?
-      console.error("Async request error", data.error);
+      console.error("Firestore request error", data.error);
       return { status: "error", error: data.error! };
     }
     case "success":
@@ -39,6 +38,7 @@ export interface UseFirestoreOnceType<T> {
   refetch: () => Promise<T>;
 }
 
+/** Do a single query of a single document */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useFirestoreOnce = <R = unknown, Args extends any[] = any[]>(
   asyncFunction: (db: Firestore, ...args: Args) => Promise<R>,
@@ -56,6 +56,7 @@ export const useFirestoreOnce = <R = unknown, Args extends any[] = any[]>(
   };
 };
 
+/** Subscribe to a single doc */
 export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
   createReference: (db: Firestore) => DocumentReference<R>, // please useCallback this!!!
   mapper: (item: R | undefined) => U,
@@ -69,7 +70,9 @@ export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
     // this works differently than one time request. "loading" happens only once at startup and will NEVER go came back
     setAsyncData({ status: "loading" });
 
-    const unsubscribe = createReference(db).onSnapshot(
+    const ref = createReference(db);
+    const unsubscribe = onSnapshot(
+      ref,
       (docSnapshot) => {
         const data = docSnapshot.data();
         setAsyncData({
@@ -89,6 +92,7 @@ export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
   return asyncData;
 };
 
+/** Iterate over QuerySnapshot and collect resuts into array */
 export const collectQueryResults = <T>(
   querySnapshot: QuerySnapshot<T>
 ): T[] => {
