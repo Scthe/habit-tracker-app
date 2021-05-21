@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentMessage } from "~components";
+import { ContentMessage } from "components/contentStatus";
 
 export interface ListEmptyProps {
   icon?: string;

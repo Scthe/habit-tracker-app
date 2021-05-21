@@ -6,7 +6,7 @@ import {
   useFirestore,
   useFirestoreOnce,
   UseFirestoreOnceType,
-} from "~firebaseUtils";
+} from "firebaseUtils/useFirestore";
 import { MonthOfYear } from "~utils";
 import { useLoggedUser } from "~storage";
 

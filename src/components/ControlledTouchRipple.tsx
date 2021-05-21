@@ -4,7 +4,7 @@ import TouchRipple from "@material-ui/core/ButtonBase/TouchRipple";
 export type ControlledTouchRippleTriggerRef = React.MutableRefObject<
   null | (() => void)
 >;
-export type ControlledTouchRippleCenterRef = React.RefObject<null | HTMLElement>;
+type ControlledTouchRippleCenterRef = React.RefObject<null | HTMLElement>;
 
 interface Props {
   triggerRef: ControlledTouchRippleTriggerRef;

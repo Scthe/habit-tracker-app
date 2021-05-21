@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import { useUserDateSettings } from "~hooks";
+import { useUserDateSettings } from "hooks/useUserDateSettings";
 import { DayOfYear, DaysRelation, MonthOfYear, relativeToToday } from "~utils";
 
 export interface CalendarDayProps {
@@ -14,7 +14,7 @@ export interface CalendarDayProps {
   role: "cell";
 }
 
-export type StyleCalendarDayProps = Pick<CalendarDayProps, "size">;
+type StyleCalendarDayProps = Pick<CalendarDayProps, "size">;
 
 export const byCalendarSize = function <PropT extends StyleCalendarDayProps>(
   valSmall: string,

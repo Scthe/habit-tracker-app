@@ -3,7 +3,7 @@ import { lighten, makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { HabitWithStatus } from "./useCalendarData";
-import { CalendarDayProps, byCalendarSize } from "~components";
+import { CalendarDayProps, byCalendarSize } from "components/Calendar";
 import { AppTheme, byThemeColor } from "theme";
 import { HabitCompletionStatus } from "pages/habits/_types";
 import { HabitCalendarDayStatus } from "pages/habits/components";

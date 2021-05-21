@@ -5,7 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { CalendarSkeleton } from "./CalendarSkeleton";
 import { DaysGrid, Props as DaysGridProps } from "./DaysGrid";
-import { useUserDateSettings, useGlobalKeyDown } from "~hooks";
+import { useUserDateSettings } from "hooks/useUserDateSettings";
+import { useGlobalKeyDown } from "hooks/useGlobalKeyDown";
 import { MonthOfYear, addMonths as addMonthsToDay } from "~utils";
 
 const addMonths = (month: MonthOfYear, months: number): MonthOfYear => {

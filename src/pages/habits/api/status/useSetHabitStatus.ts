@@ -5,7 +5,7 @@ import { setDoc } from "firebase/firestore";
 import { HabitStatus } from "../../_types";
 import { habitMonthlyActivityDoc } from "../references";
 import { CurrentUser, useLoggedUser } from "~storage";
-import { useFirestore } from "~firebaseUtils";
+import { useFirestore } from "firebaseUtils/useFirestore";
 
 type SetHabitDoneArg = Omit<HabitStatus, "userId">;
 type Firestore = ReturnType<typeof useFirestore>;

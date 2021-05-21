@@ -6,7 +6,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import uniq from "lodash/uniq";
 
 import { Weekday } from "~utils";
-import { useUserDateSettings } from "~hooks";
+import { useUserDateSettings } from "hooks/useUserDateSettings";
 
 const useStyles = makeStyles(() => ({
   weekdayWrapper: {

@@ -1,4 +1,4 @@
-import { useResponsive } from "~hooks";
+import { useResponsive } from "hooks/useResponsive";
 
 export type AppMenuVariant =
   | "temporary"

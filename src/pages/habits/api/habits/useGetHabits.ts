@@ -1,3 +1,5 @@
+import { getDocs } from "firebase/firestore";
+
 import { Habit } from "../../_types";
 import { userHabitsQueryRef } from "../references";
 import {
@@ -5,9 +7,8 @@ import {
   useFirestore,
   useFirestoreOnce,
   UseFirestoreOnceType,
-} from "~firebaseUtils";
+} from "firebaseUtils/useFirestore";
 import { useLoggedUser } from "~storage";
-import { getDocs } from "firebase/firestore";
 
 type Firestore = ReturnType<typeof useFirestore>;
 

@@ -7,7 +7,7 @@ import Icon from "@material-ui/core/Icon";
 
 import { getHabitHtmlColor } from "../../../utils";
 import { HabitColor, HabitColorList } from "../../../_types";
-import { ValuePickDialog } from "~components";
+import { ValuePickDialog } from "components/ValuePickDialog";
 
 export const ColorPreview: React.FC<{
   color: HabitColor;

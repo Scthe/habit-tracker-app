@@ -9,7 +9,10 @@ import clsx from "clsx";
 import { AppTheme } from "../../../theme";
 import { Habit } from "../_types";
 import { getHabitHtmlColor } from "../utils";
-import { ControlledTouchRipple, ControlledTouchRippleProps } from "~components";
+import {
+  ControlledTouchRipple,
+  ControlledTouchRippleProps,
+} from "components/ControlledTouchRipple";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   root: {

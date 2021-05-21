@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { useParams } from "react-router-dom";
 
 import { AppPage } from "pages/_shared";
-import { useSingleColumnLayoutStyles } from "~hooks";
+import { useSingleColumnLayoutStyles } from "hooks/useSingleColumnLayoutStyles";
 
 const Form = lazy(
   () => import(/* webpackChunkName: "habitsForm" */ "../../fragments/form")

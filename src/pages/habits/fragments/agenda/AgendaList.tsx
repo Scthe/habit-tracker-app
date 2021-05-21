@@ -4,7 +4,7 @@ import { NoHabitsMessage } from "../../components";
 import { HabitAgendaItem } from "./useAgendaData";
 import { AgendaListItem, HabitClickHandler } from "./AgendaListItem";
 import { sortBy } from "./sortBy";
-import { AsyncList, ListEmptyProps } from "~components";
+import { AsyncList, ListEmptyProps } from "components/List";
 import { AsyncData } from "~types";
 import { DayOfYear } from "~utils";
 

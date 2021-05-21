@@ -6,7 +6,8 @@ import { WeekdaySelection } from "./WeekdaySelection";
 import { DayOfMonthSelection } from "./DayOfMonthSelection";
 import { assertUnreachable, Weekday } from "~utils";
 import { HabitRepetition } from "pages/habits/_types";
-import { ExtraValidationText, SelectFromConst } from "~components";
+import { ExtraValidationText } from "components/ExtraValidationText";
+import { SelectFromConst } from "components/SelectFromConst";
 
 type RepeatType = HabitRepetition["type"];
 

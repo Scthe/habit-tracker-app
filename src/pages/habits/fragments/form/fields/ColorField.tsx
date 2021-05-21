@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import { HabitColor } from "../../../_types";
 import { FormValues } from "../useFormInitValues";
 import { ColorPreview, ColorSelectDialog } from "../dialogs/ColorSelectDialog";
-import { ExtraValidationText } from "~components";
+import { ExtraValidationText } from "components/ExtraValidationText";
 
 const useStyles = makeStyles((theme) => ({
   preview: {

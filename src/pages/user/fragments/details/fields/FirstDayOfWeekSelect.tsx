@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getWeekdayName, Weekday } from "~utils";
-import { SelectFromConst } from "~components";
+import { SelectFromConst } from "components/SelectFromConst";
 
 interface ValueType {
   type: Weekday;

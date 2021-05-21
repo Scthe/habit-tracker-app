@@ -6,7 +6,7 @@ import {
   useFirestore,
   useFirestoreOnce,
   UseFirestoreOnceType,
-} from "~firebaseUtils";
+} from "firebaseUtils/useFirestore";
 
 type HabitId = Habit["id"];
 type Firestore = ReturnType<typeof useFirestore>;

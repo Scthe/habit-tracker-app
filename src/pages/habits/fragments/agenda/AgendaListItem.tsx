@@ -7,7 +7,7 @@ import { useHabitTimeLeft } from "./useHabitTimeLeft";
 import { AgendaItemStatus } from "./AgendaItemStatus";
 import { DayOfYear } from "~utils";
 import { AppTheme } from "theme";
-import { ControlledTouchRippleTriggerRef } from "~components";
+import { ControlledTouchRippleTriggerRef } from "components/ControlledTouchRipple";
 
 export type HabitClickHandler = (habit: Habit) => void;
 

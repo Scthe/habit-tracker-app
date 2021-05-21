@@ -3,7 +3,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { HabitCompletionStatus } from "../../_types";
-import { CalendarDayProps } from "~components";
+import { CalendarDayProps } from "components/Calendar";
 import { relativeToToday } from "~utils";
 import { AppTheme } from "theme";
 

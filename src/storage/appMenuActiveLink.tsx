@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import create from "zustand";
 
 import { CurrentActiveElement } from "../components/AppMenu/constants";
-import { useHideDrawer } from "~components";
+import { useHideDrawer } from "components/AppMenu";
 
 type ActiveAppMenuStorage = {
   activeItemId?: CurrentActiveElement;

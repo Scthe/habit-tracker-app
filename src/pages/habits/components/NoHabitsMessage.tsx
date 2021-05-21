@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import sample from "lodash/sample";
 
 import { ROUTES } from "../constants";
-import { ListEmpty, ListEmptyProps } from "~components";
-import { useInterval } from "~hooks";
+import { ListEmpty, ListEmptyProps } from "components/List";
+import { useInterval } from "hooks/useInterval";
 import { sec2ms } from "~utils";
 
 const RANDOM_EXAMPLES = [

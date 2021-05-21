@@ -9,7 +9,7 @@ import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
 import { canFinishHabitOnDay } from "../../utils";
 import { useSetHabitDone } from "../../api";
 import { DayOfYear, relativeToToday } from "~utils";
-import { useShowAlert } from "~hooks";
+import { useShowAlert } from "hooks/useShowAlert";
 import { AppTheme } from "theme";
 
 const useStyles = makeStyles((theme: AppTheme) => ({

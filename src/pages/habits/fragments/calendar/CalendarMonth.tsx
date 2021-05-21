@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { CalendarDay } from "./CalendarDay";
 import { CalendarData, HabitWithStatus } from "./useCalendarData";
-import { Calendar } from "~components";
-import { useDesktopLayout } from "~hooks";
+import { Calendar } from "components/Calendar";
+import { useDesktopLayout } from "hooks/useResponsive";
 import { DayOfYear, isSameDay, MonthOfYear } from "~utils";
 import { AsyncData } from "~types";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Habit } from "../../_types";
-import { ReadonlyField } from "~components";
+import { ReadonlyField } from "components/ReadonlyField";
 import {
   assertUnreachable,
   stringifyNumber,

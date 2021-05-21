@@ -7,7 +7,7 @@ import {
   HabitsManageListItem,
 } from "./HabitsManageListItem";
 import { AsyncData } from "~types";
-import { AsyncList, ListEmptyProps } from "~components";
+import { AsyncList, ListEmptyProps } from "components/List";
 
 const EmptyMsg: React.FC<ListEmptyProps> = (props) => (
   <NoHabitsMessage {...props}>

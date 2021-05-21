@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Icon from "@material-ui/core/Icon";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { AppMenuToggleButton } from "~components";
+import { AppMenuToggleButton } from "components/AppMenu";
 
 const useStyles = makeStyles((theme) => ({
   search: {

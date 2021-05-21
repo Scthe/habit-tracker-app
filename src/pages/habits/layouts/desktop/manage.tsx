@@ -4,7 +4,11 @@ import get from "lodash/get";
 
 import { Habit } from "../../_types";
 import { AppPage } from "pages/_shared";
-import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
+import {
+  DetailsView,
+  MasterDetailsLayout,
+  MasterView,
+} from "components/MasterDetailsLayout";
 
 const Manage = lazy(
   () => import(/* webpackChunkName: "habitsManage" */ "../../fragments/manage")

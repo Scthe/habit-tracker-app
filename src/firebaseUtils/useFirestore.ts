@@ -1,4 +1,4 @@
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, getFirestore } from "firebase/firestore";
 import type firestoreNS from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
@@ -6,15 +6,20 @@ import {
   useAsync,
   UseAsyncOptionsNormalized,
 } from "react-async-hook";
-import { useFirestore } from "~firebaseUtils";
 
+import { useFirebaseApp } from "./firebaseApp";
 import { AsyncData } from "~types";
 
-export type Firestore = ReturnType<typeof useFirestore>;
+export type Firestore = ReturnType<typeof getFirestore>;
 type QuerySnapshot<T> = firestoreNS.QuerySnapshot<T>;
 type DocumentReference<T> = firestoreNS.DocumentReference<T>;
 
 export type FirestoreErrorHandler = (err: firestoreNS.FirestoreError) => void;
+
+export const useFirestore = (): Firestore => {
+  const app = useFirebaseApp();
+  return getFirestore(app);
+};
 
 const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
   switch (data.status) {

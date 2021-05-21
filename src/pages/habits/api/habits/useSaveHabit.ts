@@ -4,7 +4,7 @@ import { addDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { Habit } from "../../_types";
 import { FormValues } from "../../fragments/form/useFormInitValues";
 import { habitDocRef, habitsCollectionRef } from "../references";
-import { Firestore, useFirestore } from "~firebaseUtils";
+import { Firestore, useFirestore } from "firebaseUtils/useFirestore";
 import { CurrentUser, useLoggedUser } from "~storage";
 
 type HabitId = Habit["id"];

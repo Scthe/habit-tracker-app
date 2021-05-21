@@ -10,7 +10,7 @@ import clsx from "clsx";
 
 import { routeEdit } from "../../constants";
 import { Habit } from "../../_types";
-import { ToolbarTitle } from "~components";
+import { ToolbarTitle } from "components/ToolbarTitle";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {},

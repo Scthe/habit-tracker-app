@@ -8,7 +8,7 @@ import { useLoggedUser } from "~storage";
 import {
   FirestoreErrorHandler,
   useFirestoreDocSubscription,
-} from "~firebaseUtils";
+} from "firebaseUtils/useFirestore";
 
 export const useGetHabitStatusesSubscription = (
   { month, year }: MonthOfYear,

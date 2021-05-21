@@ -7,7 +7,9 @@ import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormikContext } from "formik";
 
-import { AppMenuToggleButton, ButtonLoading, ToolbarTitle } from "~components";
+import { AppMenuToggleButton } from "components/AppMenu";
+import { ToolbarTitle } from "components/ToolbarTitle";
+import { ButtonLoading } from "components/ButtonLoading";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {},

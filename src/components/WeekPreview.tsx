@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import times from "lodash/times";
 
-import { useUserDateSettings } from "~hooks";
+import { useUserDateSettings } from "hooks/useUserDateSettings";
 import {
   addDays,
   DayOfYear,
@@ -46,7 +46,7 @@ interface DayButtonProps {
   className?: string;
 }
 
-export const DayButton: React.FC<DayButtonProps> = ({
+const DayButton: React.FC<DayButtonProps> = ({
   day,
   activeDate,
   weekdayNameFmt,

@@ -2,7 +2,11 @@ import React, { lazy, useCallback, useState } from "react";
 
 import { Habit } from "../../_types";
 import { AppPage } from "pages/_shared";
-import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
+import {
+  DetailsView,
+  MasterDetailsLayout,
+  MasterView,
+} from "components/MasterDetailsLayout";
 
 const Agenda = lazy(
   () => import(/* webpackChunkName: "habitsAgenda" */ "../../fragments/agenda")
