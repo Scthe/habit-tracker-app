@@ -1,25 +1,26 @@
+import { getDoc } from "firebase/firestore";
+import type firestoreNS from "firebase/firestore";
+
 import { HabitStatus } from "../../_types";
 import { habitMonthlyActivityDoc } from "../references";
 import {
-  useFirestore,
   useFirestoreOnce,
   UseFirestoreOnceType,
-} from "~firebaseUtils";
-import { MonthOfYear } from "~utils";
+} from "firebaseUtils/firestore/useFirestoreOnce";
+import { MonthOfYear } from "utils/date";
 import { useLoggedUser } from "~storage";
 
-type Firestore = ReturnType<typeof useFirestore>;
-
 const getAllStatuses = async (
-  db: Firestore,
+  db: firestoreNS.FirebaseFirestore,
   userId: string,
   year: number,
   month: number
 ): Promise<HabitStatus[]> => {
-  const docSnapshot = await habitMonthlyActivityDoc(db, userId, {
+  const ref = habitMonthlyActivityDoc(db, userId, {
     year,
     month,
-  }).get();
+  });
+  const docSnapshot = await getDoc(ref);
   const item = docSnapshot.data();
   return Object.values(item || {});
 };

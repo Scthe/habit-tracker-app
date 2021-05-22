@@ -5,9 +5,9 @@ import { HabitsListItem } from "../../components";
 import { Habit, HabitCompletionStatus } from "../../_types";
 import { useHabitTimeLeft } from "./useHabitTimeLeft";
 import { AgendaItemStatus } from "./AgendaItemStatus";
-import { DayOfYear } from "~utils";
+import { DayOfYear } from "utils/date";
 import { AppTheme } from "theme";
-import { ControlledTouchRippleTriggerRef } from "~components";
+import { ControlledTouchRippleTriggerRef } from "components/ControlledTouchRipple";
 
 export type HabitClickHandler = (habit: Habit) => void;
 

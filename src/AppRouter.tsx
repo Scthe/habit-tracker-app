@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route, HashRouter as Router } from "react-router-dom";
-import { PageViewAnalytics } from "./components";
 
 import { AppLayout } from "./pages/_shared";
 import Habits from "./pages/habits";
 import User, { UserRoutes } from "./pages/user";
 import { useUserWithSuspense } from "~storage";
+import { PageViewAnalytics } from "components/PageViewAnalytics";
 
 export const AppRouter: React.FC<unknown> = () => {
   const user = useUserWithSuspense();

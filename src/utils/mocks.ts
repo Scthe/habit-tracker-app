@@ -1,4 +1,4 @@
-import { getFromEnum } from "~utils";
+import { getFromEnum } from "utils";
 
 export const createMock = <T>(defaultVal: T) => {
   return (override: Partial<T> = {}): T => ({

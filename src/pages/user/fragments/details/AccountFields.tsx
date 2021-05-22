@@ -5,9 +5,10 @@ import { getProviderName } from "../../utils";
 import { UserPreferences } from "../../_types";
 import { FirstDayOfWeekSelect } from "./fields/FirstDayOfWeekSelect";
 import { TimeDisplaySelect } from "./fields/TimeDisplaySelect";
-import { ReadonlyField, SectionHeader } from "~components";
+import { ReadonlyField } from "components/ReadonlyField";
+import { SectionHeader } from "components/SectionHeader";
 import { CurrentUser } from "~storage";
-import { displayDateWithDiff } from "~utils";
+import { displayDateWithDiff } from "utils/date";
 
 interface Props {
   user: CurrentUser;

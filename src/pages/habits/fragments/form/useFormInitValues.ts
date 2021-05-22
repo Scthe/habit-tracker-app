@@ -5,7 +5,7 @@ import pick from "lodash/pick";
 import { Habit, HabitColor } from "../../_types";
 import { useGetHabit } from "../../api";
 import { AsyncData } from "~types";
-import { floorToDivisibleBy } from "~utils";
+import { floorToDivisibleBy } from "utils";
 
 export type FormValues = Omit<
   Habit,

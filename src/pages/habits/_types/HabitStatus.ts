@@ -1,5 +1,5 @@
 import { Habit } from "./Habit";
-import { DayOfYear } from "~utils";
+import { DayOfYear } from "utils/date";
 
 export enum HabitCompletionStatus {
   /** Completed successfully */

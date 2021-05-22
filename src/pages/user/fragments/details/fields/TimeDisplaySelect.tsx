@@ -1,7 +1,7 @@
 import React from "react";
 
 import { TimeDisplay } from "../../../_types";
-import { SelectFromConst } from "~components";
+import { SelectFromConst } from "components/SelectFromConst";
 
 interface ValueType {
   type: TimeDisplay;

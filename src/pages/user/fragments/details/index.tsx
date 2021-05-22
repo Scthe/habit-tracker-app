@@ -4,7 +4,7 @@ import { AccountHeader } from "./AccountHeader";
 import { AccountFields } from "./AccountFields";
 import { AppPageContent } from "pages/_shared";
 import { useLoggedUser } from "~storage";
-import { Weekday } from "~utils";
+import { Weekday } from "utils/date";
 
 interface Props {
   className?: string;

@@ -1,7 +1,8 @@
-import firebase from "firebase/app";
+import { initializeApp, registerVersion } from "firebase/app";
+import type { FirebaseApp } from "firebase/app";
 import * as React from "react";
 
-const FirebaseAppContext = React.createContext<firebase.app.App | undefined>(
+const FirebaseAppContext = React.createContext<FirebaseApp | undefined>(
   undefined
 );
 
@@ -13,10 +14,10 @@ export const FirebaseAppProvider: React.FC<Props> = ({
   firebaseConfig,
   children,
 }) => {
-  const firebaseApp: firebase.app.App = React.useMemo(() => {
+  const firebaseApp = React.useMemo(() => {
     const reactVersion = React.version || "unknown";
-    firebase.registerVersion("react", reactVersion);
-    return firebase.initializeApp(firebaseConfig);
+    registerVersion("react", reactVersion);
+    return initializeApp(firebaseConfig);
   }, [firebaseConfig]);
 
   return (
@@ -26,7 +27,7 @@ export const FirebaseAppProvider: React.FC<Props> = ({
   );
 };
 
-export const useFirebaseApp = (): firebase.app.App => {
+export const useFirebaseApp = (): FirebaseApp => {
   const firebaseApp = React.useContext(FirebaseAppContext);
   if (!firebaseApp) {
     throw new Error(

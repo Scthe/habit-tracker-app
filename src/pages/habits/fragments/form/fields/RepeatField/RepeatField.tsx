@@ -4,9 +4,11 @@ import { useField } from "formik";
 import { FormValues } from "../../useFormInitValues";
 import { WeekdaySelection } from "./WeekdaySelection";
 import { DayOfMonthSelection } from "./DayOfMonthSelection";
-import { assertUnreachable, Weekday } from "~utils";
+import { assertUnreachable } from "utils";
+import { Weekday } from "utils/date";
 import { HabitRepetition } from "pages/habits/_types";
-import { ExtraValidationText, SelectFromConst } from "~components";
+import { ExtraValidationText } from "components/ExtraValidationText";
+import { SelectFromConst } from "components/SelectFromConst";
 
 type RepeatType = HabitRepetition["type"];
 

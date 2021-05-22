@@ -22,7 +22,7 @@ import {
 } from "./AppMenuToggleButton";
 import { AppMenuItem } from "./AppMenuItem";
 import { AppMenuVariant, useAppMenuVariant } from "./useAppMenuVariant";
-import { useAuth } from "~firebaseUtils";
+import { useAuth } from "firebaseUtils/useAuth";
 import { useTheme } from "theme";
 
 const items = [

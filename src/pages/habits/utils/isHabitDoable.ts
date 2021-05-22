@@ -2,13 +2,13 @@ import times from "lodash/times";
 import { HabitRepetition } from "pages/habits/_types";
 import {
   addDays,
-  assertUnreachable,
   clampToMonthLength,
   DayOfYear,
   deconstructDate,
   differenceInDays,
   getWeekdayFromDay,
-} from "~utils";
+} from "utils/date";
+import { assertUnreachable } from "utils";
 
 /**
  * Should we even show this habit?

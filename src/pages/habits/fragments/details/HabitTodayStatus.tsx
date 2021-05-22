@@ -7,15 +7,15 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { getNextDateWhenHabitIsDoable } from "../../utils";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
 import { useSetHabitDone } from "../../api";
-import { ReadonlyField } from "~components";
+import { ReadonlyField } from "components/ReadonlyField";
 import {
   createDateFromDay,
   deconstructDate,
   getDateDiff,
   isSameDay,
   stringifyDateDiff,
-} from "~utils";
-import { useShowAlert } from "~hooks";
+} from "utils/date";
+import { useShowAlert } from "hooks/useShowAlert";
 
 const LOADER_SIZE = "42px";
 

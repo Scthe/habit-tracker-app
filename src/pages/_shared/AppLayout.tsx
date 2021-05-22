@@ -5,9 +5,9 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { LoadingPageWithDrawer } from "./internal/LoadingPageWithDrawer";
 import { ErrorPageWithDrawer } from "./internal/ErrorPageWithDrawer";
-import { AppMenuDrawer } from "~components";
+import { AppMenuDrawer } from "components/AppMenu";
 import { useAppMenuActiveLink } from "~storage";
-import { globalErrorHandler } from "~utils";
+import { globalErrorHandler } from "utils/errorHandler";
 
 const useStyles = makeStyles(() => ({
   drawer: {

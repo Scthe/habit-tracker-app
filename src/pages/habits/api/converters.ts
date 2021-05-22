@@ -1,7 +1,7 @@
-import firebase from "firebase/app";
+import type firestoreNS from "firebase/firestore";
 import { Habit } from "../_types";
 
-type HabitConverter = firebase.firestore.FirestoreDataConverter<Habit>;
+type HabitConverter = firestoreNS.FirestoreDataConverter<Habit>;
 
 export const habitConverter: HabitConverter = {
   toFirestore: () => {
@@ -9,7 +9,7 @@ export const habitConverter: HabitConverter = {
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data({
-      serverTimestamps: options.serverTimestamps || "estimate",
+      serverTimestamps: options?.serverTimestamps || "estimate",
     });
     return {
       ...data,

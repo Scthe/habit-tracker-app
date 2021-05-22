@@ -1,9 +1,9 @@
 export * from "./useSuspendedPreload";
 
 import React from "react";
-import { FieldMetaProps } from "formik";
 import { Redirect, RedirectProps, Route } from "react-router-dom";
 
+// eslint-disable-next-line import/no-unused-modules
 export const getComponentName = (Comp: React.ComponentType): string => {
   return (
     Comp.name ||
@@ -13,6 +13,7 @@ export const getComponentName = (Comp: React.ComponentType): string => {
   );
 };
 
+// eslint-disable-next-line import/no-unused-modules
 export const setHocName = (
   HocComp: React.ComponentType,
   Comp: React.ComponentType
@@ -20,20 +21,6 @@ export const setHocName = (
   const hocName = getComponentName(HocComp);
   const compName = getComponentName(Comp);
   HocComp.displayName = `${hocName}_${compName}`;
-};
-
-type MaterialUIFieldErrorProps = {
-  error: boolean;
-  helperText?: string;
-};
-export const getFieldError = (
-  meta: FieldMetaProps<unknown>
-): MaterialUIFieldErrorProps => {
-  const showError = meta.touched && meta.error != null && meta.error.length > 0;
-  return {
-    error: showError,
-    helperText: showError ? meta.error : undefined,
-  };
 };
 
 type RedirectPreserveStateProps = Omit<RedirectProps, "from" | "to"> & {

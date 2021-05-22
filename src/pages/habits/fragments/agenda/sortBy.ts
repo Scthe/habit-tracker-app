@@ -2,12 +2,8 @@ import partition from "lodash/partition";
 
 import { HabitCompletionStatus } from "../../_types";
 import { HabitAgendaItem } from "./useAgendaData";
-import {
-  DayOfYear,
-  hasSameElements,
-  relativeToToday,
-  sortStringCmpFn,
-} from "~utils";
+import { hasSameElements, sortStringCmpFn } from "utils";
+import { DayOfYear, relativeToToday } from "utils/date";
 
 // SORT ORDER
 //

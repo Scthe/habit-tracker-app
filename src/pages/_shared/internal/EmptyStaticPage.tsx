@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { AppPage } from "../AppPage";
 import { AppPageContent } from "../AppPageContent";
-import { AppMenuToggleButton } from "~components";
+import { AppMenuToggleButton } from "components/AppMenu";
 
 const useStyles = makeStyles(() => ({
   content: { width: "100%" },

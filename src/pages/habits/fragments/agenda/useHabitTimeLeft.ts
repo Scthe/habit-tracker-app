@@ -2,14 +2,14 @@ import { useState, useCallback, useEffect } from "react";
 import isBefore from "date-fns/isBefore";
 
 import { Habit } from "../../_types";
-import { useInterval } from "~hooks";
+import { useInterval } from "hooks/useInterval";
 import {
   createDateFromDay,
   DayOfYear,
   getDateDiff,
   min2ms,
   stringifyDateDiff,
-} from "~utils";
+} from "utils/date";
 
 const recalcTimeLeft = (habitDate: Date): string => {
   const now = new Date();

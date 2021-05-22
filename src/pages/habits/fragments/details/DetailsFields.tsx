@@ -1,13 +1,9 @@
 import React from "react";
 
 import { Habit } from "../../_types";
-import { ReadonlyField } from "~components";
-import {
-  assertUnreachable,
-  stringifyNumber,
-  getWeekdayName,
-  displayDateWithDiff,
-} from "~utils";
+import { ReadonlyField } from "components/ReadonlyField";
+import { assertUnreachable, stringifyNumber } from "utils";
+import { getWeekdayName, displayDateWithDiff } from "utils/date";
 
 // TODO [feature] count how many times done this habit
 

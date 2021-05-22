@@ -1,4 +1,4 @@
-import { Weekday } from "~utils";
+import { Weekday } from "utils/date";
 
 export type TimeDisplay = "12h" | "24h";
 

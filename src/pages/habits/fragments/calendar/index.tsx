@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarMonth } from "./CalendarMonth";
 import { useCalendarData } from "./useCalendarData";
-import { deconstructDateToMonth } from "~utils";
+import { deconstructDateToMonth } from "utils/date";
 import { AppPageContent } from "pages/_shared";
 
 const useStyles = makeStyles((theme) => ({

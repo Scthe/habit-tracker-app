@@ -3,10 +3,11 @@ import Snackbar, {
   SnackbarCloseReason,
   SnackbarProps,
 } from "@material-ui/core/Snackbar";
-import create from "zustand";
 import Slide from "@material-ui/core/Slide";
-import merge from "lodash/merge";
 import { makeStyles } from "@material-ui/core/styles";
+import create from "zustand";
+import merge from "lodash/merge";
+
 import { AppTheme } from "theme";
 
 const DEFAULT_PROPS: Partial<SnackbarProps> = {
@@ -54,6 +55,8 @@ type AlertStorage = {
   showAlert: (props: CustomizableSnackbarProps) => void;
   dismissAlert: (id: AlertId) => void;
 };
+
+// eslint-disable-next-line import/no-unused-modules
 export type ShowAlertFn = AlertStorage["showAlert"];
 
 let nextId: AlertId = 1;

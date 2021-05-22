@@ -9,7 +9,7 @@ import lime from "@material-ui/core/colors/lime";
 import yellow from "@material-ui/core/colors/yellow";
 import orange from "@material-ui/core/colors/orange";
 
-import { assertUnreachable } from "~utils";
+import { assertUnreachable } from "utils";
 import { HabitColor } from "pages/habits/_types";
 
 export const getHabitHtmlColor = (c: HabitColor): string => {

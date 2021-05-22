@@ -9,8 +9,8 @@ import { SaveHabitFn } from "../../api";
 import { FormValues } from "./useFormInitValues";
 import { HabitFormValidationSchema } from "./validation.schema";
 
-import { ShowAlertFn } from "~hooks";
-import { onFormSubmitErrorFn, useFormSubmitError } from "~utils";
+import type { ShowAlertFn } from "hooks/useShowAlert";
+import { onFormSubmitErrorFn, useFormSubmitError } from "utils/form";
 
 interface Props {
   initialValues: FormValues;

@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { EmptyStaticPage } from "./EmptyStaticPage";
-import { ContentErrorMessage } from "~components";
+import { ContentErrorMessage } from "components/contentStatus";
 
 /**
  * Show toolbar, drawer (or drawer button on mobile) and error message.

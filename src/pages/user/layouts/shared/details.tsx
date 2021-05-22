@@ -1,7 +1,9 @@
 import React, { lazy } from "react";
 import { AppPage } from "pages/_shared";
 
-const UserDetailsFragment = lazy(() => import("../../fragments/details"));
+const UserDetailsFragment = lazy(
+  () => import(/* webpackChunkName: "userDetails" */ "../../fragments/details")
+);
 
 export default (): JSX.Element => {
   return (

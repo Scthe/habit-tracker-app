@@ -3,7 +3,8 @@ import times from "lodash/times";
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
 import { useGetHabits, useGetHabitStatuses } from "../../api";
 import { getStatus, showHabitOnDay } from "../../utils";
-import { combineAsyncData, DayOfYear, MonthOfYear } from "~utils";
+import { combineAsyncData } from "utils";
+import { DayOfYear, MonthOfYear } from "utils/date";
 import { AsyncData } from "~types";
 
 export type HabitWithStatus = Habit & { status: HabitCompletionStatus };

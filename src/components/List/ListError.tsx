@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { ContentMessage } from "~components";
+import { ContentMessage } from "components/contentStatus";
 
 interface Props {
   retry?: () => void;

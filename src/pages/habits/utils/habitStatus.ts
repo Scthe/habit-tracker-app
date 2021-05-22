@@ -1,5 +1,5 @@
 import { Habit, HabitCompletionStatus, HabitStatus } from "pages/habits/_types";
-import { DayOfYear, isSameDay } from "~utils";
+import { DayOfYear, isSameDay } from "utils/date";
 
 export const getStatus = (
   habitId: Habit["id"],

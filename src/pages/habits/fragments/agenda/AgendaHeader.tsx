@@ -3,13 +3,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 
-import {
-  AppMenuToggleButton,
-  DateNextPrevSelector,
-  WeekPreview,
-} from "~components";
-import { DayOfYear, WeekdayFmt } from "~utils";
-import { ResponsiveSize, useResponsive } from "~hooks";
+import { AppMenuToggleButton } from "components/AppMenu";
+import { DateNextPrevSelector } from "components/DateNextPrevSelector";
+import { WeekPreview } from "components/WeekPreview";
+import { DayOfYear, WeekdayFmt } from "utils/date";
+import { ResponsiveSize, useResponsive } from "hooks/useResponsive";
 
 const useStyles = makeStyles(() => ({
   weekSelector: {

@@ -5,7 +5,9 @@ import { routeDetails } from "../../constants";
 import { Habit } from "../../_types";
 import { AppPage } from "pages/_shared";
 
-const Manage = lazy(() => import("../../fragments/manage"));
+const Manage = lazy(
+  () => import(/* webpackChunkName: "habitsManage" */ "../../fragments/manage")
+);
 
 export default (): JSX.Element => {
   const history = useHistory();

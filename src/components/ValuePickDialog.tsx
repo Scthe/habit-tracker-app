@@ -4,7 +4,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
-import { useDesktopLayout } from "~hooks";
+import { useDesktopLayout } from "hooks/useResponsive";
 
 type ItenRenderFn<T> = (props: {
   item: T;

@@ -6,9 +6,9 @@ import {
   ContentErrorMessage,
   ContentErrorMessageProps,
   ContentLoader,
-} from "~components";
+} from "components/contentStatus";
 import { AsyncData } from "~types";
-import { useDesktopLayout } from "~hooks";
+import { useDesktopLayout } from "hooks/useResponsive";
 
 export const adaptAsyncDataForContent = (
   { status }: AsyncData<unknown>,

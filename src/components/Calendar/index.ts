@@ -1,6 +1,2 @@
 export * from "./Calendar";
-export {
-  CalendarDayProps,
-  StyleCalendarDayProps,
-  byCalendarSize,
-} from "./DaysGrid";
+export { CalendarDayProps, byCalendarSize } from "./DaysGrid";

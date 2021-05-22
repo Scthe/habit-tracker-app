@@ -14,7 +14,7 @@ import {
   RepeatField,
   ReminderField,
 } from "./fields";
-import { useShowAlert } from "~hooks";
+import { useShowAlert } from "hooks/useShowAlert";
 import { adaptAsyncDataForContent, AppPageContent } from "pages/_shared";
 import { AppTheme } from "theme";
 

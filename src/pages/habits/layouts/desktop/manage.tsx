@@ -4,10 +4,19 @@ import get from "lodash/get";
 
 import { Habit } from "../../_types";
 import { AppPage } from "pages/_shared";
-import { DetailsView, MasterDetailsLayout, MasterView } from "~components";
+import {
+  DetailsView,
+  MasterDetailsLayout,
+  MasterView,
+} from "components/MasterDetailsLayout";
 
-const Manage = lazy(() => import("../../fragments/manage"));
-const HabitDetails = lazy(() => import("../../fragments/details"));
+const Manage = lazy(
+  () => import(/* webpackChunkName: "habitsManage" */ "../../fragments/manage")
+);
+const HabitDetails = lazy(
+  () =>
+    import(/* webpackChunkName: "habitsDetails" */ "../../fragments/details")
+);
 
 interface SelectedItemState {
   id: string | undefined;

@@ -20,6 +20,7 @@ module.exports = {
     },
   },
   rules: {
+    "no-console": ["warn", { allow: ["warn", "error"] }],
     "no-restricted-imports": [
       "error",
       {

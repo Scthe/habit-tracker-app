@@ -1,7 +1,8 @@
 import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
 import { useGetHabit, useGetHabitStatusesSubscription } from "../../api";
 import { getStatus } from "../../utils";
-import { deconstructDate, combineAsyncData } from "~utils";
+import { combineAsyncData } from "utils";
+import { deconstructDate } from "utils/date";
 import { AsyncData } from "~types";
 
 type HabitDetailsData = Habit & {
