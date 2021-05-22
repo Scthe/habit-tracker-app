@@ -3,8 +3,7 @@ import React from "react";
 import { AccountHeader } from "./AccountHeader";
 import { AccountFields } from "./AccountFields";
 import { AppPageContent } from "pages/_shared";
-import { useLoggedUser } from "~storage";
-import { Weekday } from "utils/date";
+import { useLoggedUser, useUserPreferences } from "~storage";
 
 interface Props {
   className?: string;
@@ -12,20 +11,14 @@ interface Props {
 
 const UserDetailsFragment: React.FC<Props> = ({ className }) => {
   const user = useLoggedUser();
+  const preferences = useUserPreferences();
 
   return (
     <>
       <AccountHeader />
 
-      {/* {...adaptAsyncDataForContent(asyncData, "Could not load habit")} */}
       <AppPageContent className={className}>
-        <AccountFields
-          user={user}
-          userSettings={{
-            firstDayOfWeek: Weekday.Monday,
-            clockDisplay: "12h",
-          }}
-        />
+        <AccountFields user={user} userPreferences={preferences} />
       </AppPageContent>
     </>
   );

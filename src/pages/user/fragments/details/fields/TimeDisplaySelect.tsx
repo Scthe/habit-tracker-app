@@ -1,7 +1,9 @@
 import React from "react";
 
-import { TimeDisplay } from "../../../_types";
+import { useSetUserPreferences } from "../../../api/useSetUserPreferences";
 import { SelectFromConst } from "components/SelectFromConst";
+import { TimeDisplay } from "~storage";
+import { useShowAlert } from "hooks/useShowAlert";
 
 interface ValueType {
   type: TimeDisplay;
@@ -28,13 +30,18 @@ export const TimeDisplaySelect: React.FC<Props> = ({
   currentValue,
   className,
 }) => {
-  // TODO add API hook here
-  const handleChange = (wd: TimeDisplay) => {
-    console.log("TimeDisplaySelect.handleChange", wd);
-    // const newValue = createRepetitionObjectFromType(
-    // e.target.value as RepeatType
-    // );
-    // helpers.setValue(newValue);
+  const setUserPreferences = useSetUserPreferences();
+  const showAlert = useShowAlert();
+
+  const handleChange = async (timeDisplay: TimeDisplay) => {
+    try {
+      await setUserPreferences.execute({ timeDisplay });
+    } catch (e) {
+      showAlert({
+        severity: "error",
+        message: `Error, could not update user preferences`,
+      });
+    }
   };
 
   return (

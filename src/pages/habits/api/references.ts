@@ -28,7 +28,6 @@ export const userHabitsQueryRef = (
   userId: string
 ): Query<Habit> =>
   query(
-    //
     collection(db, "habits"), //
     where("userId", "==", userId), //
     orderBy("name", "desc") //

@@ -2,8 +2,12 @@ import { Weekday } from "utils/date";
 
 export type TimeDisplay = "12h" | "24h";
 
-// TODO update using partial field update in firebase?
 export interface UserPreferences {
   firstDayOfWeek: Weekday;
-  clockDisplay: TimeDisplay;
+  timeDisplay: TimeDisplay;
 }
+
+export const DEFAULT_PREFERENCES: UserPreferences = {
+  firstDayOfWeek: Weekday.Monday,
+  timeDisplay: "12h",
+};

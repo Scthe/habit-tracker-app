@@ -4,6 +4,7 @@ import { Habit } from "../../_types";
 import { ReadonlyField } from "components/ReadonlyField";
 import { assertUnreachable, stringifyNumber } from "utils";
 import { getWeekdayName, displayDateWithDiff } from "utils/date";
+import { useUserDateSettings } from "hooks/useUserDateSettings";
 
 // TODO [feature] count how many times done this habit
 
@@ -13,7 +14,11 @@ interface Props {
 }
 
 export const DetailsFields: React.FC<Props> = ({ habit, className }) => {
-  const reminderText = `${habit.reminderTime.hour}:${habit.reminderTime.minute}`;
+  const dateUtils = useUserDateSettings();
+  const reminderText = dateUtils.formatTime(
+    habit.reminderTime.hour,
+    habit.reminderTime.minute
+  );
   const [repeatLabel, repeatTextRaw] = createRepeatText(habit.repeat);
   const repeatText = `${repeatTextRaw} at ${reminderText}`;
 

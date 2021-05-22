@@ -5,6 +5,7 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
 import { FormValues, REMINDER_MINUTES_STEP } from "../useFormInitValues";
 import { getFieldError } from "utils/form";
+import { useUserPreferences } from "~storage";
 
 interface Props {
   name: keyof FormValues;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const ReminderField: React.FC<Props> = (props) => {
+  const userPreferences = useUserPreferences();
   const [field, meta, helpers] = useField<FormValues["reminderTime"]>(props);
   const d = new Date();
   d.setHours(field.value.hour);
@@ -34,6 +36,7 @@ export const ReminderField: React.FC<Props> = (props) => {
         minutesStep={REMINDER_MINUTES_STEP}
         onChange={handleDateChange}
         inputVariant="filled"
+        ampm={userPreferences.timeDisplay === "12h"}
         {...getFieldError(meta)}
       />
     </div>

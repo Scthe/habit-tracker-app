@@ -2,17 +2,16 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { getProviderName } from "../../utils";
-import { UserPreferences } from "../../_types";
 import { FirstDayOfWeekSelect } from "./fields/FirstDayOfWeekSelect";
 import { TimeDisplaySelect } from "./fields/TimeDisplaySelect";
 import { ReadonlyField } from "components/ReadonlyField";
 import { SectionHeader } from "components/SectionHeader";
-import { CurrentUser } from "~storage";
+import { CurrentUser, UserPreferences } from "~storage";
 import { displayDateWithDiff } from "utils/date";
 
 interface Props {
   user: CurrentUser;
-  userSettings: UserPreferences;
+  userPreferences: UserPreferences;
   className?: string;
 }
 
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const AccountFields: React.FC<Props> = ({
   user,
-  userSettings,
+  userPreferences,
   className,
 }) => {
   const styles = useStyles();
@@ -57,10 +56,10 @@ export const AccountFields: React.FC<Props> = ({
 
       <SectionHeader>Preferences</SectionHeader>
       <FirstDayOfWeekSelect
-        currentValue={userSettings.firstDayOfWeek}
+        currentValue={userPreferences.firstDayOfWeek}
         className={styles.fieldSpacing}
       />
-      <TimeDisplaySelect currentValue={userSettings.clockDisplay} />
+      <TimeDisplaySelect currentValue={userPreferences.timeDisplay} />
     </div>
   );
 };

@@ -1,7 +1,9 @@
 import React from "react";
 
+import { useSetUserPreferences } from "../../../api/useSetUserPreferences";
 import { getWeekdayName, Weekday } from "utils/date";
 import { SelectFromConst } from "components/SelectFromConst";
+import { useShowAlert } from "hooks/useShowAlert";
 
 interface ValueType {
   type: Weekday;
@@ -28,13 +30,18 @@ export const FirstDayOfWeekSelect: React.FC<Props> = ({
   currentValue,
   className,
 }) => {
-  // TODO add API hook here
-  const handleChange = (wd: Weekday) => {
-    console.log("FirstDayOfWeekSelect.handleChange", wd);
-    // const newValue = createRepetitionObjectFromType(
-    // e.target.value as RepeatType
-    // );
-    // helpers.setValue(newValue);
+  const setUserPreferences = useSetUserPreferences();
+  const showAlert = useShowAlert();
+
+  const handleChange = async (firstDayOfWeek: Weekday) => {
+    try {
+      await setUserPreferences.execute({ firstDayOfWeek });
+    } catch (e) {
+      showAlert({
+        severity: "error",
+        message: `Error, could not update user preferences`,
+      });
+    }
   };
 
   return (

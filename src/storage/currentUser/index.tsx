@@ -1,48 +1,76 @@
-import React, { useContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+export * from "./types/CurrentUser";
+export * from "./types/UserPreferences";
+export { userPreferencesDoc } from "./internal/useUserPreferencesAsync";
 
+import React, { useContext } from "react";
+
+import { CurrentUser } from "./types/CurrentUser";
+import { UserPreferences } from "./types/UserPreferences";
 import {
-  AuthProviderId,
-  AuthProviderData,
-  CurrentUser,
-  adaptFirebaseUser,
-} from "./CurrentUser";
-import { useAuth } from "firebaseUtils/useAuth";
+  NotLogged,
+  Logged as UserAuthLogged,
+  useUserLoginState,
+} from "./internal/useUserLoginState";
+import { useUserPreferencesAsync } from "./internal/useUserPreferencesAsync";
 import { createSuspendedPreloadHook } from "utils/reactUtils";
 
 // TODO check if unplug is really needed (entries in package.json)
-export { AuthProviderId, AuthProviderData, CurrentUser };
 
-type NotLogged = { status: "notlogged" };
-type Logged = { status: "logged"; user: CurrentUser };
-type AuthCtxType = { status: "init" } | NotLogged | Logged;
+type Logged = UserAuthLogged & { userPreferences: UserPreferences };
+
+type AuthCtxType =
+  | { status: "init" }
+  | NotLogged
+  | Logged
+  | { status: "error"; error: Error };
 
 const CurrentUserContext = React.createContext<AuthCtxType>({
   status: "init",
 });
 
-export const UserProvider: React.FC = ({ children }) => {
-  // NOTE: auth().currentUser is not a magic bypass to get user data. It's null on first render
-  // and TBH. we might as well do it by hand.
-  const [userData, setUserData] = useState<AuthCtxType>({ status: "init" });
-  const auth = useAuth();
+const mergeUserAndPreferences = (
+  userStatus: ReturnType<typeof useUserLoginState>,
+  preferencesAsync: ReturnType<typeof useUserPreferencesAsync>
+): AuthCtxType => {
+  // console.log("mergeUserAndPreferences", {
+  // userStatus, preferencesAsync
+  // });
+  if (
+    userStatus.status === "init" ||
+    preferencesAsync.status === "init" ||
+    preferencesAsync.status === "loading" // we subscribe to firebase, so this happens only once
+  ) {
+    return { status: "init" };
+  }
 
-  useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
-      console.log("onAuthStateChanged:", user);
-      if (user == null) {
-        setUserData({ status: "notlogged" });
-      } else {
-        setUserData({
-          status: "logged",
-          user: adaptFirebaseUser(user),
-        });
-      }
-    });
-  }, [auth, setUserData]);
+  // ok, so we have both responses, but one of them can be an error
+  if (userStatus.status === "error") {
+    return userStatus;
+  }
+  if (preferencesAsync.status === "error") {
+    return preferencesAsync;
+  }
+
+  // both responses are ok, combine
+  if (userStatus.status === "notlogged") {
+    return userStatus;
+  }
+  return {
+    status: "logged",
+    user: userStatus.user,
+    userPreferences: preferencesAsync.data,
+  };
+};
+
+export const UserProvider: React.FC = ({ children }) => {
+  const userStatus = useUserLoginState();
+  const userPreferencesAsync = useUserPreferencesAsync(
+    userStatus.status === "logged" ? userStatus.user.uid : undefined
+  );
+  const value = mergeUserAndPreferences(userStatus, userPreferencesAsync);
 
   return (
-    <CurrentUserContext.Provider value={userData}>
+    <CurrentUserContext.Provider value={value}>
       {children}
     </CurrentUserContext.Provider>
   );
@@ -68,6 +96,17 @@ export const useLoggedUser = (): CurrentUser => {
   return user.user;
 };
 
+/** Get preferences for currently logged user. Throws if no user is logged in. */
+export const useUserPreferences = (): UserPreferences => {
+  const user = useUserStatus();
+  if (user.status !== "logged") {
+    throw new Error(
+      "Tried to use preferences of current logged user, but we are not logged."
+    );
+  }
+  return user.userPreferences;
+};
+
 /** Throws till status is different than 'init' */
 const useUserSuspenseImpl = createSuspendedPreloadHook(
   (c: AuthCtxType): c is Logged => c.status !== "init"
@@ -79,7 +118,11 @@ const useUserSuspenseImpl = createSuspendedPreloadHook(
  */
 export const useUserWithSuspense = (): Logged | NotLogged => {
   const user = useUserStatus();
-  useUserSuspenseImpl(user);
+  useUserSuspenseImpl(user); // throws if user is still in init
+
+  if (user.status === "error") {
+    throw user.error;
+  }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return user as any;
 };

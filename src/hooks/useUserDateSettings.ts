@@ -5,6 +5,7 @@ import endOfMonth from "date-fns/endOfMonth";
 import lastDayOfWeek from "date-fns/lastDayOfWeek";
 import startOfMonth from "date-fns/startOfMonth";
 import startOfWeek from "date-fns/startOfWeek";
+import format from "date-fns/format";
 
 import {
   createDateFromDay,
@@ -16,6 +17,7 @@ import {
   Weekday,
   WeekdayFmt,
 } from "utils/date";
+import { TimeDisplay, useUserPreferences } from "~storage";
 
 const getWeekStartEndDays = (weekStartsOn: Weekday) => {
   return (dayOfYear: DayOfYear): [DayOfYear, DayOfYear] => {
@@ -46,9 +48,19 @@ const getDaysInCalendar = (weekStartsOn: Weekday) => {
   };
 };
 
+const formatTime = (timeDisplay: TimeDisplay) => {
+  return (hour: number, minute: number) => {
+    const dd = new Date();
+    dd.setHours(hour, minute);
+    const fmtStr = timeDisplay === "12h" ? "h:m a" : "H:m";
+    return format(dd, fmtStr);
+  };
+};
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useUserDateSettings = () => {
-  const firstDayOfWeek: Weekday = Weekday.Monday; // TODO get from settings
+  const userPreferences = useUserPreferences();
+  const { firstDayOfWeek, timeDisplay } = userPreferences;
 
   const dayIndices = times(7, (i) => firstDayOfWeek + i);
 
@@ -58,6 +70,7 @@ export const useUserDateSettings = () => {
     getDaysInCalendar: getDaysInCalendar(firstDayOfWeek),
     getWeekdayNames: (fmt: WeekdayFmt) =>
       dayIndices.map((di) => getWeekdayName(di, fmt)),
+    formatTime: formatTime(timeDisplay),
   };
 };
 
