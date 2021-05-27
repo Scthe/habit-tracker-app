@@ -84,7 +84,13 @@ export const CalendarDay: React.FC<Props> = ({
         <HabitCalendarDayStatus
           showAsLink
           day={day}
-          isDone={allWereDone}
+          complete={
+            habits.length === 0 || relativeToToday === "future"
+              ? "not_applicable"
+              : allWereDone
+              ? "done"
+              : "not_done"
+          }
           className={styles.status}
         />
       ) : null}

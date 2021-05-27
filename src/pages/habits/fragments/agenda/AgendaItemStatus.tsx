@@ -55,7 +55,10 @@ export const AgendaItemStatus: React.FC<Props> = (props) => {
   const { habit, status, currentDate } = props;
   const styles = useStyles();
 
-  const isActionable = canFinishHabitOnDay(habit.repeat, currentDate);
+  // $isActionable below tries to error handle if we received habit that did not exist on current date.
+  // Should never happen, but still
+  const isActionable =
+    canFinishHabitOnDay(habit.repeat, currentDate) === "is-doable";
   const isDone = status === HabitCompletionStatus.DONE;
   const iconStr = getIconString(currentDate, isDone, isActionable);
 

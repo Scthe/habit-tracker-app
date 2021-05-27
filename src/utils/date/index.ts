@@ -65,6 +65,11 @@ export const min2ms = (x: number): number => sec2ms(x) * 60;
 export const min2hours = (x: number): number => Math.floor(x / 60);
 export const hours2days = (x: number): number => Math.floor(x / 24);
 
+export const isValidDate = (d: Date | string): boolean => {
+  const dd = new Date(d);
+  return !isNaN(dd.getTime());
+};
+
 export interface MonthOfYear {
   month: number; // 1-12
   year: number;

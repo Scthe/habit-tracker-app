@@ -22,9 +22,9 @@ import { TimeDisplay, useUserPreferences } from "~storage";
 const getWeekStartEndDays = (weekStartsOn: Weekday) => {
   return (dayOfYear: DayOfYear): [DayOfYear, DayOfYear] => {
     const date = createDateFromDay(dayOfYear);
-    const monday = startOfWeek(date, { weekStartsOn });
-    const sunday = lastDayOfWeek(date, { weekStartsOn });
-    return [deconstructDate(monday), deconstructDate(sunday)];
+    const day0 = startOfWeek(date, { weekStartsOn });
+    const day7 = lastDayOfWeek(date, { weekStartsOn });
+    return [deconstructDate(day0), deconstructDate(day7)];
   };
 };
 
@@ -62,14 +62,17 @@ export const useUserDateSettings = () => {
   const userPreferences = useUserPreferences();
   const { firstDayOfWeek, timeDisplay } = userPreferences;
 
-  const dayIndices = times(7, (i) => firstDayOfWeek + i);
+  const dayIndices = times(7, (i) => (firstDayOfWeek + i) % 7);
 
   return {
     dayIndices,
     getWeekStartEndDays: getWeekStartEndDays(firstDayOfWeek),
     getDaysInCalendar: getDaysInCalendar(firstDayOfWeek),
-    getWeekdayNames: (fmt: WeekdayFmt) =>
-      dayIndices.map((di) => getWeekdayName(di, fmt)),
+    getWeekdays: (fmt: WeekdayFmt) =>
+      dayIndices.map((id) => ({
+        name: getWeekdayName(id, fmt),
+        id: id,
+      })),
     formatTime: formatTime(timeDisplay),
   };
 };

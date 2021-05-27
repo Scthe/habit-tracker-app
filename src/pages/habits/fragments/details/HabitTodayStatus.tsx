@@ -84,31 +84,37 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
   );
 };
 
-// TODO or just 2 big buttons: start timer, mark as done. Timer is a separate `/timer` scren
+// TODO [ux, feature] or just 2 big buttons: start timer, mark as done. Timer is a separate `/timer` scren
 export const HabitTodayStatus: React.FC<Props> = (props) => {
   const { habit } = props;
 
   const todayDate = new Date();
   const todayDay = deconstructDate(todayDate);
-  const nextDoableDay = getNextDateWhenHabitIsDoable(habit.repeat, todayDay);
-  const isActionableToday = isSameDay(todayDay, nextDoableDay);
+  const nextDoableDay = getNextDateWhenHabitIsDoable(habit.repeat);
+  const isActionableToday =
+    nextDoableDay != null && isSameDay(todayDay, nextDoableDay);
 
   if (isActionableToday) {
     return <ToggleTodayHabitDone {...props} />;
   }
 
   // just render how much time is left
-  const habitReminder = createDateFromDay(
-    nextDoableDay,
-    habit.reminderTime.hour,
-    habit.reminderTime.minute
-  );
-  const dateDiff = getDateDiff(todayDate, habitReminder);
+  let value: string | undefined = undefined;
+  if (nextDoableDay != null) {
+    const habitReminder = createDateFromDay(
+      nextDoableDay,
+      habit.reminderTime.hour,
+      habit.reminderTime.minute
+    );
+    const dateDiff = getDateDiff(todayDate, habitReminder);
+    value = `In ${stringifyDateDiff(dateDiff)}`;
+  }
   return (
     <ReadonlyField
       id="next-occurence"
       label="Next occurence"
-      value={`In ${stringifyDateDiff(dateDiff)}`}
+      value={value}
+      onMissingValue="hide"
     />
   );
 };

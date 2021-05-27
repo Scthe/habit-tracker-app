@@ -5,6 +5,7 @@ import { ReadonlyField } from "components/ReadonlyField";
 import { assertUnreachable, stringifyNumber } from "utils";
 import { getWeekdayName, displayDateWithDiff } from "utils/date";
 import { useUserDateSettings } from "hooks/useUserDateSettings";
+import { getCurrentRepeatData } from "pages/habits/utils";
 
 // TODO [feature] count how many times done this habit
 
@@ -19,13 +20,19 @@ export const DetailsFields: React.FC<Props> = ({ habit, className }) => {
     habit.reminderTime.hour,
     habit.reminderTime.minute
   );
-  const [repeatLabel, repeatTextRaw] = createRepeatText(habit.repeat);
-  const repeatText = `${repeatTextRaw} at ${reminderText}`;
+  const [repeatLabel, repeatValueRaw] = createRepeatText(habit.repeat);
+  const repeatText =
+    repeatValueRaw != null ? `${repeatValueRaw} at ${reminderText}` : null;
 
   return (
     <div className={className}>
       <ReadonlyField id="name" label="I want to" value={habit.name} />
-      <ReadonlyField id="repeat" label={repeatLabel} value={repeatText} />
+      <ReadonlyField
+        id="repeat"
+        label={repeatLabel}
+        value={repeatText}
+        onMissingValue="hide"
+      />
 
       {habit.description.length > 0 ? (
         <ReadonlyField
@@ -45,7 +52,14 @@ export const DetailsFields: React.FC<Props> = ({ habit, className }) => {
   );
 };
 
-function createRepeatText(repeat: Habit["repeat"]): [string, string] {
+function createRepeatText(
+  repeatHistory: Habit["repeat"]
+): [string, string | null] {
+  const repeat = getCurrentRepeatData(repeatHistory);
+  if (repeat == null) {
+    return ["Repeat", null];
+  }
+
   switch (repeat.type) {
     case "daily": {
       return ["Repeat", "Everyday"];

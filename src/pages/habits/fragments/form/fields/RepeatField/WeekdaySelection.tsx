@@ -36,7 +36,7 @@ export const WeekdaySelection: React.FC<Props> = ({
   const styles = useStyles();
   const dateUtil = useUserDateSettings();
 
-  const weekdayNames = dateUtil.getWeekdayNames("N");
+  const weekdays = dateUtil.getWeekdays("N");
 
   const onWeekdayChanged = (clickedWeekday: Weekday) => {
     let newValue: Weekday[];
@@ -62,23 +62,22 @@ export const WeekdaySelection: React.FC<Props> = ({
       <InputLabel shrink>{label}</InputLabel>
 
       <Box display="flex" justifyContent="center" marginTop={1}>
-        {weekdayNames.map((dayName, idx) => {
+        {weekdays.map(({ id, name }) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const dayId: Weekday = idx as any;
-          const isSelected = currentValues.includes(dayId);
+          const isSelected = currentValues.includes(id);
           return (
-            <div key={dayId} className={styles.weekdayWrapper}>
+            <div key={id} className={styles.weekdayWrapper}>
               <Button
                 variant="contained"
                 color={isSelected ? "primary" : undefined}
                 disableElevation
-                onClick={() => onWeekdayChanged(dayId)}
+                onClick={() => onWeekdayChanged(id)}
                 classes={{
                   root: styles.dayButtonRoot,
                   label: styles.dayButtonLabel,
                 }}
               >
-                {dayName}
+                {name}
               </Button>
             </div>
           );

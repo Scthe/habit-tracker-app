@@ -1,4 +1,4 @@
-import { Weekday } from "utils/date";
+import { DayOfYear, Weekday } from "utils/date";
 
 // TODO [feature] target number for *summary? So we can count the hours/books etc.
 
@@ -27,3 +27,9 @@ export type HabitRepetition =
   | RepetitionWeekly
   | RepetitionWeeklySummary
   | RepetitionMonthlySummary;
+
+/** This can be edited over time, so we need historical data */
+export type HabitRepetitionHistory = {
+  dateFrom: DayOfYear;
+  repeat: HabitRepetition;
+}[];

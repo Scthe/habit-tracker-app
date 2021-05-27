@@ -2,13 +2,15 @@ import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import { HabitCompletionStatus } from "../../_types";
+import { Habit, HabitStatus } from "../../_types";
 import { CalendarDayProps } from "components/Calendar";
 import { relativeToToday } from "utils/date";
 import { AppTheme } from "theme";
+import { getStatus, showHabitOnDay } from "pages/habits/utils";
 
 type Props = CalendarDayProps & {
-  doneStatus: HabitCompletionStatus;
+  habit: Habit;
+  statuses: HabitStatus[];
 };
 
 const useStyles = makeStyles((theme: AppTheme) => ({
@@ -34,6 +36,9 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   neutral: {
     background: "transparent",
   },
+  future: {
+    background: fade(theme.palette.primary.main, 0.4),
+  },
   notThisMonth: {
     background: "transparent",
     color: theme.palette.text.disabled,
@@ -44,8 +49,10 @@ const getStatusStyles = (
   styles: ReturnType<typeof useStyles>,
   props: Props
 ): string => {
-  const { day, doneStatus, isDayInCurrentMonth } = props;
+  const { day, habit, statuses, isDayInCurrentMonth } = props;
   const relativeToTodayStatus = relativeToToday(day);
+  const showOnThisDay = showHabitOnDay(habit.repeat, day);
+  const doneStatus = getStatus(habit.id, day, statuses);
 
   if (!isDayInCurrentMonth) {
     return styles.notThisMonth;
@@ -53,11 +60,14 @@ const getStatusStyles = (
   if (relativeToTodayStatus === "today") {
     return styles.today;
   }
-  if (doneStatus === HabitCompletionStatus.DONE) {
+  if (!showOnThisDay) {
+    return styles.neutral;
+  }
+  if (doneStatus === "done") {
     return styles.wasDone;
   }
   if (relativeToTodayStatus === "future") {
-    return styles.neutral;
+    return styles.future;
   }
   return styles.wasFailed;
 };

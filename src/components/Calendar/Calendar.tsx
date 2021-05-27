@@ -57,7 +57,9 @@ export const Calendar: React.FC<Props> = (props) => {
   } = props;
   const styles = useStyles();
   const isSmall = size === "small";
-  const weekdayNames = dateUtil.getWeekdayNames(isSmall ? "N" : "NNN");
+  const weekdayNames = dateUtil
+    .getWeekdays(isSmall ? "N" : "NNN")
+    .map((e) => e.name);
 
   useGlobalKeyDown(Boolean(allowKeyboardControl), {
     ArrowLeft: () => setShownMonth(addMonths(shownMonth, -1)),

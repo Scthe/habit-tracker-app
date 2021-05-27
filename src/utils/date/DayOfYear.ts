@@ -64,18 +64,32 @@ export const getWeekdayNameFromDay = (
 export const isDayInPast = (
   checkedDay: DayOfYear,
   referencePoint: DayOfYear
-): boolean =>
-  checkedDay.year < referencePoint.year ||
-  checkedDay.month < referencePoint.month ||
-  checkedDay.day < referencePoint.day;
+): boolean => {
+  if (checkedDay.year < referencePoint.year) {
+    return true;
+  }
+  if (
+    checkedDay.year === referencePoint.year &&
+    checkedDay.month < referencePoint.month
+  ) {
+    return true;
+  }
+  if (
+    checkedDay.year === referencePoint.year &&
+    checkedDay.month === referencePoint.month &&
+    checkedDay.day < referencePoint.day
+  ) {
+    return true;
+  }
+  return false;
+};
 
 export const isDayInFuture = (
   checkedDay: DayOfYear,
   referencePoint: DayOfYear
 ): boolean =>
-  checkedDay.year > referencePoint.year ||
-  checkedDay.month > referencePoint.month ||
-  checkedDay.day > referencePoint.day;
+  !isDayInPast(checkedDay, referencePoint) &&
+  !isSameDay(checkedDay, referencePoint);
 
 export const isSameDay = (
   checkedDay: DayOfYear,

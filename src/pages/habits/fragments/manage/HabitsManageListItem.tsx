@@ -3,6 +3,7 @@ import React from "react";
 import { HabitsListItem } from "../../components";
 import { Habit } from "../../_types";
 import { assertUnreachable } from "utils";
+import { getCurrentRepeatData } from "pages/habits/utils";
 
 export type HabitClickHandler = (habit: Habit) => void;
 
@@ -13,7 +14,10 @@ interface Props {
 }
 
 const getSubtext = (habit: Habit): string => {
-  const { repeat } = habit;
+  const repeat = getCurrentRepeatData(habit.repeat);
+  if (repeat == null) {
+    return "Disabled";
+  }
 
   switch (repeat.type) {
     case "daily":

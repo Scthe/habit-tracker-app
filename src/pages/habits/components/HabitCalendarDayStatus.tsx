@@ -5,12 +5,13 @@ import Icon from "@material-ui/core/Icon";
 import clsx from "clsx";
 
 import { routeAgenda } from "../constants";
+import { HabitDailyHistoricalData } from "../_types";
 import { AppTheme } from "theme";
 import { DayOfYear } from "utils/date";
 
 interface Props {
   day: DayOfYear;
-  isDone: boolean;
+  complete: HabitDailyHistoricalData;
   className?: string;
   showAsLink?: boolean;
 }
@@ -34,25 +35,34 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   iconNotDone: {
     background: theme.palette.app.habits.notDone,
   },
+  iconNoHabits: {
+    background: theme.palette.background.paper,
+  },
 }));
 
 export const HabitCalendarDayStatus: React.FC<Props> = ({
   day,
-  isDone,
+  complete,
   className,
   showAsLink,
 }) => {
   const styles = useStyles();
 
-  const icon = isDone
-    ? {
-        icon: "check",
-        class: styles.iconDone,
-      }
-    : {
-        icon: "close",
-        class: styles.iconNotDone,
-      };
+  const icon =
+    complete === "done"
+      ? {
+          icon: "check",
+          class: styles.iconDone,
+        }
+      : complete === "not_done"
+      ? {
+          icon: "close",
+          class: styles.iconNotDone,
+        }
+      : {
+          icon: "",
+          class: styles.iconNoHabits,
+        };
   const classes = clsx(styles.iconWrapper, icon.class, className);
 
   if (showAsLink) {

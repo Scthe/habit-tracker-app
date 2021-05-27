@@ -18,7 +18,7 @@ export const ContentErrorMessage: React.FC<Props> = ({
 }) => {
   return (
     <ContentMessage
-      icon={icon != null ? icon : "sentiment_dissatisfied"}
+      icon={icon != null ? icon : "highlight_off"}
       message={message != null ? message : "Unexpected error ocurred"}
     >
       {children}

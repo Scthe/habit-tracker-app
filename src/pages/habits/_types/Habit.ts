@@ -1,14 +1,5 @@
 import { HabitColor } from "./HabitColor";
-import { HabitRepetition } from "./HabitRepetition";
-
-/*
-TODO [requirement] Agenda for days past can contain habits that are now disabled/removed.
-The repetition could also have changed (e.g. Mon, Fri turned into Wed). Options:
-
-  - CRON
-  - store (changeDate, repeat) on create/edit and should be good enough?
-     Then sort and binary search for value back then
-*/
+import { HabitRepetitionHistory } from "./HabitRepetition";
 
 // TODO [feature] delete habits
 
@@ -34,8 +25,10 @@ export interface Habit {
   name: string;
   color: HabitColor;
   description: string;
-  /** Do soemthing everyday, on selected days etc. */
-  repeat: HabitRepetition;
+  /** Do something everyday, on selected days etc.
+   * This can be edited over time, so we need historical data
+   */
+  repeat: HabitRepetitionHistory;
   /** Remind me on 18:00 etc. */
   reminderTime: { hour: number; minute: number };
   /** Allow to add a countdown clock. */

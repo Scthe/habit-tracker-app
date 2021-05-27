@@ -9,6 +9,10 @@ export type ThemeColor = "light" | "dark";
 export const oppositeThemeColor = (c: ThemeColor | undefined): ThemeColor =>
   c === "dark" ? "light" : "dark";
 
+const validateThemeColor = (c: unknown): ThemeColor =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  oppositeThemeColor(oppositeThemeColor(c as any));
+
 type ThemeColorStorage = {
   themeColor: ThemeColor | undefined;
   setThemeColor: (themeColor: ThemeColor) => void;
@@ -32,7 +36,7 @@ export const useTheme = (): [ThemeColor, () => void] => {
   // eslint-disable-next-line prefer-const
   let { themeColor, setThemeColor } = useThemeColorStorage();
   if (themeColor == null) {
-    themeColor = locStorageThemeColor;
+    themeColor = validateThemeColor(locStorageThemeColor);
     setThemeColor(themeColor);
   }
 

@@ -5,6 +5,7 @@ import {
   Habit,
   HabitColor,
   HabitRepetition,
+  HabitRepetitionHistory,
   RepetitionDaily,
   RepetitionMonthlySummary,
   RepetitionWeekly,
@@ -33,13 +34,22 @@ const REPEATS: HabitRepetition[] = [
   REPEAT_MONTHLY_SUMMARY,
 ];
 
+const createRepeatMock = (repeat: HabitRepetition): HabitRepetitionHistory => {
+  return [
+    {
+      repeat,
+      dateFrom: { day: 20, month: 1, year: 2021 },
+    },
+  ];
+};
+
 export const HabitMock = createMock<Habit>({
   id: "mock-id",
   name: "mock-name",
   color: HabitColor.Blue,
   description: "mock-description",
   reminderTime: { hour: 18, minute: 15 },
-  repeat: REPEAT_DAILY,
+  repeat: createRepeatMock(REPEAT_DAILY),
   userId: "mock-user-id",
   createdAt: new Date("2021/1/20"),
   editedAt: new Date("2021/2/1"),
@@ -52,7 +62,7 @@ export const HabitsListMock = (count = 25, offset = 0): Habit[] =>
       id: `habit-${i}`,
       name: `Habit ${i}`,
       color: getFromEnum(HabitColor, i),
-      repeat: getFromArray(REPEATS, i),
+      repeat: createRepeatMock(getFromArray(REPEATS, i)),
       reminderTime: { hour: i % 24, minute: (15 + i) % 60 },
     });
   });

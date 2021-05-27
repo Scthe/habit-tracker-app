@@ -30,19 +30,14 @@ const VALUES: Array<{ type: RepeatType; label: string }> = [
     label: "Monthly goal",
   },
 ];
-const createRepetitionObjectFromType = (type: RepeatType): HabitRepetition => {
+const getDefaultValuesForType = (type: RepeatType): HabitRepetition => {
   switch (type) {
     case "daily":
       return { type };
     case "weekly":
       return {
         type,
-        weekdays: [
-          Weekday.Monday,
-          Weekday.Wednesday,
-          Weekday.Friday,
-          Weekday.Sunday,
-        ],
+        weekdays: [Weekday.Tuesday, Weekday.Friday],
       };
     case "weekly_summary":
       return { type, endsOn: Weekday.Sunday };
@@ -65,7 +60,7 @@ export const RepeatField: React.FC<Props> = (props) => {
   const currentType: RepeatType = currentValue.type;
 
   const handleTypeChange = (repeatType: RepeatType) => {
-    const newValue = createRepetitionObjectFromType(repeatType);
+    const newValue = getDefaultValuesForType(repeatType);
     helpers.setValue(newValue);
   };
   const handleWeeklyChange = (days: Weekday[]) => {

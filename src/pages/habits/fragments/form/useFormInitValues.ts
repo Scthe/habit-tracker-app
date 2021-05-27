@@ -2,15 +2,18 @@ import { useLocation } from "react-router-dom";
 import cloneDeep from "lodash/cloneDeep";
 import pick from "lodash/pick";
 
-import { Habit, HabitColor } from "../../_types";
+import { Habit, HabitColor, HabitRepetition } from "../../_types";
 import { useGetHabit } from "../../api";
 import { AsyncData } from "~types";
 import { floorToDivisibleBy } from "utils";
+import { getCurrentRepeatData } from "pages/habits/utils";
 
 export type FormValues = Omit<
   Habit,
-  "id" | "userId" | "createdAt" | "editedAt"
->;
+  "id" | "userId" | "createdAt" | "editedAt" | "repeat"
+> & {
+  repeat: HabitRepetition;
+};
 
 export const DEFAULT_VALUES: FormValues = {
   name: "",
@@ -35,10 +38,14 @@ const createDefaultValues = (): FormValues => {
   return data;
 };
 
-const successValues = (values: Partial<FormValues>): AsyncData<FormValues> => {
+const successValues = (habit: Habit | null): AsyncData<FormValues> => {
+  const defaultValues = createDefaultValues();
+  const repeat = habit != null ? getCurrentRepeatData(habit.repeat) : null;
+
   const allValues: FormValues = {
-    ...createDefaultValues(),
-    ...(values || {}),
+    ...defaultValues,
+    ...(habit || {}),
+    repeat: repeat != null ? repeat : defaultValues.repeat,
   };
   return {
     status: "success",
@@ -66,7 +73,7 @@ export const useFormInitValues = (
   const { data: apiData } = useGetHabit(alreadyHaveData ? undefined : id);
 
   if (alreadyHaveData) {
-    return [!isCreate, successValues(state || {})];
+    return [!isCreate, successValues(state)];
   }
 
   // get data from finished request

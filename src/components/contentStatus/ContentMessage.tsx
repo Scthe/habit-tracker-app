@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
   message: {
     color: theme.palette.app.fullPageMessage.color,
+    marginBottom: theme.spacing(3),
   },
 }));
 

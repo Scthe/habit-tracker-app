@@ -3,15 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import grey from "@material-ui/core/colors/grey";
 
-import { getStatus } from "../../utils";
-import { Habit, HabitCompletionStatus, HabitStatus } from "../../_types";
+import { Habit } from "../../_types";
 import { useGetHabitStatuses } from "../../api";
 import { ActivityDay } from "./ActivityDay";
 import { Calendar } from "components/Calendar";
 import { DateNextPrevSelector } from "components/DateNextPrevSelector";
 import { SectionHeader } from "components/SectionHeader";
-import { DayOfYear, deconstructDateToMonth } from "utils/date";
-import { AsyncData } from "~types";
+import { deconstructDateToMonth } from "utils/date";
 import { AppTheme } from "theme";
 
 interface Props {
@@ -37,17 +35,6 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
 }));
 
-const getHabitStatus = (
-  id: Habit["id"],
-  day: DayOfYear,
-  statusesAsync: AsyncData<HabitStatus[]>
-): HabitCompletionStatus => {
-  if (statusesAsync.status === "success") {
-    return getStatus(id, day, statusesAsync.data);
-  }
-  return HabitCompletionStatus.DONE;
-};
-
 export const ActivityCalendar: React.FC<Props> = ({
   habit,
   allowKeyboardControl,
@@ -57,6 +44,7 @@ export const ActivityCalendar: React.FC<Props> = ({
     deconstructDateToMonth(new Date())
   );
   const statusesAsync = useGetHabitStatuses(shownMonth).data;
+  // TODO [error] add error handling
 
   return (
     <div className={styles.root}>
@@ -86,7 +74,10 @@ export const ActivityCalendar: React.FC<Props> = ({
           renderDay={(props) => (
             <ActivityDay
               {...props}
-              doneStatus={getHabitStatus(habit.id, props.day, statusesAsync)}
+              habit={habit}
+              statuses={
+                statusesAsync.status === "success" ? statusesAsync.data : []
+              }
             />
           )}
         />

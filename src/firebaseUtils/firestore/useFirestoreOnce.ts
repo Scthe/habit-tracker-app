@@ -17,7 +17,7 @@ const adaptFromAsyncHook = <T>(data: AsyncState<T>): AsyncData<T> => {
     case "loading":
       return { status: "loading" };
     case "error": {
-      // TODO [error-handling] verify we rethrow or inform sentry. TBH why not here?
+      // TODO [error] verify we rethrow or inform sentry. TBH why not here?
       console.error("Firestore request error", data.error);
       return { status: "error", error: data.error! };
     }

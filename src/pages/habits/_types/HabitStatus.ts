@@ -1,6 +1,8 @@
 import { Habit } from "./Habit";
 import { DayOfYear } from "utils/date";
 
+export type HabitDailyHistoricalData = "done" | "not_done" | "not_applicable";
+
 export enum HabitCompletionStatus {
   /** Completed successfully */
   DONE = "done",
