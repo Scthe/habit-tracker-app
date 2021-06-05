@@ -40,7 +40,7 @@ export default (): JSX.Element => {
   const { id: selectedId, habit: selectedHabit } = selectedItem;
 
   return (
-    <AppPage appMenuActiveItem="manage">
+    <AppPage appMenuActiveItem="manage" documentTitle="All Habits">
       <MasterDetailsLayout>
         <MasterView>
           <Manage onItemClick={handleItemClick} selectedItem={selectedId} />

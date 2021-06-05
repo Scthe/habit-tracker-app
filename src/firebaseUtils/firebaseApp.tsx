@@ -1,4 +1,4 @@
-import { initializeApp, registerVersion } from "firebase/app";
+import { getApps, initializeApp, registerVersion } from "firebase/app";
 import type { FirebaseApp } from "firebase/app";
 import * as React from "react";
 
@@ -9,6 +9,17 @@ const FirebaseAppContext = React.createContext<FirebaseApp | undefined>(
 interface Props {
   firebaseConfig: Record<string, unknown>;
 }
+
+const _FIREBASE_APP: FirebaseApp | null = null;
+
+export const __getFirebaseApp = (): FirebaseApp | null => {
+  if (_FIREBASE_APP != null) {
+    return _FIREBASE_APP;
+  }
+
+  const apps = getApps();
+  return apps.length > 0 ? apps[0] : null;
+};
 
 export const FirebaseAppProvider: React.FC<Props> = ({
   firebaseConfig,

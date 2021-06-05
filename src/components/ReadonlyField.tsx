@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     marginBottom: theme.spacing(0.5),
   },
+  line: {
+    display: "block",
+    marginBottom: theme.spacing(0.5),
+  },
 }));
 
 interface Props {
@@ -35,7 +39,17 @@ export const ReadonlyField: React.FC<Props> = ({
     return null;
   }
 
-  const valueEl = <div id={id}>{shownValue}</div>;
+  const lines = shownValue.split("\n");
+  const valueEl = (
+    <div id={id}>
+      {lines.map((line, idx) => (
+        <span key={idx} className={styles.line}>
+          {line}
+        </span>
+      ))}
+    </div>
+  );
+
   return (
     <div className={styles.root}>
       <InputLabel htmlFor={id} shrink className={styles.label}>

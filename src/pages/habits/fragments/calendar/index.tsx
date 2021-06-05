@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarMonth } from "./CalendarMonth";
 import { useCalendarData } from "./useCalendarData";
-import { deconstructDateToMonth } from "utils/date";
+import { useCalendarMonth } from "./useCalendarMonth";
 import { AppPageContent } from "pages/_shared";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,10 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Calendar: React.FC<unknown> = () => {
   const styles = useStyles();
-  const [shownMonth, setShownMonth] = useState(
-    deconstructDateToMonth(new Date())
-  );
-
+  const [shownMonth, setShownMonth] = useCalendarMonth();
   const calendarDataAsync = useCalendarData(shownMonth);
 
   return (

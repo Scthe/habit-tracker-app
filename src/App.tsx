@@ -17,15 +17,15 @@ const App: React.FC<unknown> = () => {
     <GlobalErrorBoundary>
       <Suspense fallback={<ContentLoader />}>
         <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-          <UserProvider>
-            <AppThemeProvider>
+          <AppThemeProvider>
+            <UserProvider>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <AlertProvider>
                   <AppRouter />
                 </AlertProvider>
               </MuiPickersUtilsProvider>
-            </AppThemeProvider>
-          </UserProvider>
+            </UserProvider>
+          </AppThemeProvider>
         </FirebaseAppProvider>
       </Suspense>
     </GlobalErrorBoundary>

@@ -16,6 +16,7 @@ import {
   stringifyDateDiff,
 } from "utils/date";
 import { useShowAlert } from "hooks/useShowAlert";
+import { logHabitStatusChange } from "firebaseUtils/analytics";
 
 const LOADER_SIZE = "42px";
 
@@ -44,9 +45,11 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
 
   const handleToggle = async () => {
     try {
+      const nextStatus = getOppositeStatus(status);
+      logHabitStatusChange("details", nextStatus);
       await setHabitDone.execute({
         habitId: habit.id,
-        status: getOppositeStatus(status),
+        status: nextStatus,
         day: deconstructDate(new Date()),
       });
     } catch (e) {

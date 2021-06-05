@@ -1,17 +1,25 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-// TODO [analytics]: not in dev mode, anonymize location wrt. ids (replace with :id)
+import { logPageView } from "firebaseUtils/analytics";
+import { useTheme } from "theme";
+
+/** remove id's */
+const parsePathname = (pathname = ""): string => {
+  const hasNumber = (s: string) => /\d/.test(s);
+
+  const parts = pathname.split("/");
+  const parts2 = parts.map((e) => (hasNumber(e) ? ":id" : e));
+  return parts2.join("/");
+};
 
 export const PageViewAnalytics: React.FC = () => {
-  // const analytics = useAnalytics();
-  // const u = useUser();
-  // console.log("user", u);
+  const { pathname } = useLocation();
+  const [theme] = useTheme();
 
   useEffect(() => {
-    // console.log(NODE_ENV, `'${location.pathname}'`);
-    // analytics.logEvent('page-view', { path_name: location.pathname });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+    logPageView({ theme, pathname: parsePathname(pathname) });
+  }, [pathname, theme]);
 
   return null;
 };

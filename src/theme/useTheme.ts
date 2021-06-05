@@ -3,6 +3,7 @@ import create from "zustand";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { logAppLoaded, logSimpleEvent } from "firebaseUtils/analytics";
 
 export type ThemeColor = "light" | "dark";
 
@@ -39,9 +40,11 @@ export const useTheme = (): [ThemeColor, () => void] => {
     themeColor = validateThemeColor(locStorageThemeColor);
     setThemeColor(themeColor);
   }
+  logAppLoaded(themeColor);
 
   const toggleTheme = useCallback(() => {
     const nextThemeColor = oppositeThemeColor(themeColor);
+    logSimpleEvent("theme_toggle", { to: nextThemeColor });
     setThemeColor(nextThemeColor);
     setLocStorageThemeColor(nextThemeColor);
   }, [themeColor, setThemeColor, setLocStorageThemeColor]);

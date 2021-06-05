@@ -18,7 +18,7 @@ export default (): JSX.Element => {
   );
 
   return (
-    <AppPage appMenuActiveItem="manage">
+    <AppPage appMenuActiveItem="manage" documentTitle="All Habits">
       <Manage onItemClick={handleItemClick} selectedItem={undefined} />
     </AppPage>
   );

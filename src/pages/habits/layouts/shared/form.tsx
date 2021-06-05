@@ -16,7 +16,10 @@ export default (): JSX.Element => {
   const isEdit = id != null;
 
   return (
-    <AppPage appMenuActiveItem={isEdit ? undefined : "create"}>
+    <AppPage
+      appMenuActiveItem={isEdit ? undefined : "create"}
+      documentTitle={isEdit ? "Edit Habit" : "Add Habit"}
+    >
       <Form
         id={id}
         classes={{

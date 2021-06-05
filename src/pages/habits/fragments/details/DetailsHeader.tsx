@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,7 +8,7 @@ import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import { routeEdit } from "../../constants";
+import { routeEdit, ROUTES } from "../../constants";
 import { Habit } from "../../_types";
 import { ToolbarTitle } from "components/ToolbarTitle";
 
@@ -32,7 +32,7 @@ export const DetailsHeader: React.FC<Props> = ({ habit, showBackButton }) => {
   const styles = useStyles();
   const history = useHistory();
 
-  const goBack = () => history.goBack();
+  const goBack = useCallback(() => history.push(ROUTES.manage), []);
   const habitName = habit?.name;
 
   return (

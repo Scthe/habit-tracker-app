@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import grey from "@material-ui/core/colors/grey";
@@ -6,10 +6,10 @@ import grey from "@material-ui/core/colors/grey";
 import { Habit } from "../../_types";
 import { useGetHabitStatuses } from "../../api";
 import { ActivityDay } from "./ActivityDay";
+import { useDetailsMonth } from "./useDetailsMonth";
 import { Calendar } from "components/Calendar";
 import { DateNextPrevSelector } from "components/DateNextPrevSelector";
 import { SectionHeader } from "components/SectionHeader";
-import { deconstructDateToMonth } from "utils/date";
 import { AppTheme } from "theme";
 
 interface Props {
@@ -40,9 +40,7 @@ export const ActivityCalendar: React.FC<Props> = ({
   allowKeyboardControl,
 }) => {
   const styles = useStyles();
-  const [shownMonth, setShownMonth] = useState(
-    deconstructDateToMonth(new Date())
-  );
+  const [shownMonth, setShownMonth] = useDetailsMonth();
   const statusesAsync = useGetHabitStatuses(shownMonth).data;
   // TODO [error] add error handling
 

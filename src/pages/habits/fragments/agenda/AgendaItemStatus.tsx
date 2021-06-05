@@ -11,6 +11,7 @@ import { useSetHabitDone } from "../../api";
 import { DayOfYear, relativeToToday } from "utils/date";
 import { useShowAlert } from "hooks/useShowAlert";
 import { AppTheme } from "theme";
+import { logHabitStatusChange } from "firebaseUtils/analytics";
 
 const useStyles = makeStyles((theme: AppTheme) => ({
   itemIconButton: {
@@ -92,6 +93,7 @@ const ToggleStatusCheckbox: React.FC<Props> = ({
   const handleToggle = async () => {
     try {
       const nextStatus = getOppositeStatus(status);
+      logHabitStatusChange("agenda", nextStatus);
       await setHabitDone.execute({
         habitId: habit.id,
         status: nextStatus,

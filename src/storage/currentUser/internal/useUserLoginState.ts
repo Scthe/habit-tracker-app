@@ -8,6 +8,7 @@ import {
   isKnownProvider,
 } from "../types/CurrentUser";
 import { useAuth } from "firebaseUtils/useAuth";
+import { logSimpleEvent } from "firebaseUtils/analytics";
 
 export type NotLogged = { status: "notlogged" };
 
@@ -29,14 +30,19 @@ export const useUserLoginState = (): UserLoggedState => {
   const auth = useAuth();
 
   useEffect(() => {
-    const onSuccess = (user: firebaseNS.User | null) => {
-      // console.log("onAuthStateChanged:", user);
-      if (user == null) {
+    const onSuccess = (firebaseUser: firebaseNS.User | null) => {
+      // console.log("onAuthStateChanged:", firebaseUser);
+      if (firebaseUser == null) {
         setUserData({ status: "notlogged" });
       } else {
+        const user = adaptFirebaseUser(firebaseUser);
+        logSimpleEvent("user_account_data", {
+          isAnonymous: String(user.isAnonymous),
+          providers: user.providersData.map((p) => p.providerId).join(", "),
+        });
         setUserData({
           status: "logged",
-          user: adaptFirebaseUser(user),
+          user,
         });
       }
     };

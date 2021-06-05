@@ -10,7 +10,7 @@ const Calendar = lazy(
 // eslint-disable-next-line import/no-unused-modules
 export default (): JSX.Element => {
   return (
-    <AppPage appMenuActiveItem={"calendar"}>
+    <AppPage appMenuActiveItem={"calendar"} documentTitle="Calendar">
       <Calendar />
     </AppPage>
   );

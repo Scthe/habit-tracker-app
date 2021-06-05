@@ -23,7 +23,9 @@ import {
 import { AppMenuItem } from "./AppMenuItem";
 import { AppMenuVariant, useAppMenuVariant } from "./useAppMenuVariant";
 import { useAuth } from "firebaseUtils/useAuth";
-import { useTheme } from "theme";
+import { logLogout } from "firebaseUtils/analytics";
+import { AppTheme, useTheme } from "theme";
+import { useUserStatus } from "~storage";
 
 const items = [
   ITEM_CREATE_HABIT,
@@ -33,7 +35,7 @@ const items = [
   ITEM_ME,
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: AppTheme) => ({
   root: {},
   variantTemporary: {
     width: "240px",
@@ -43,6 +45,24 @@ const useStyles = makeStyles(() => ({
   },
   variantPermanentLarge: {
     width: "200px",
+  },
+  header: {
+    padding: theme.spacing(0, 1),
+    borderBottom: "1px solid grey",
+  },
+  appTitle: {
+    textTransform: "uppercase", // TODO decide
+    marginBottom: theme.spacing(1),
+    color: theme.palette.primary.main,
+    fontSize: "20px", // watch for scrollbar!
+  },
+  userData: {
+    marginTop: 0,
+    marginBottom: theme.spacing(2),
+    color: theme.palette.text.secondary,
+    fontWeight: "normal",
+    fontSize: "15px",
+    ...theme.mixins.overflow,
   },
 }));
 
@@ -87,6 +107,24 @@ const getOptsByVariant = (
   }
 };
 
+type UserStatus = ReturnType<typeof useUserStatus>;
+
+const getUserText = (userStatus: UserStatus): string | null => {
+  if (userStatus.status !== "logged") {
+    return null;
+  }
+
+  const has = (k?: string | null): k is string => k != null && k.length > 0;
+
+  if (has(userStatus.user.email)) {
+    return userStatus.user.email;
+  }
+  if (has(userStatus.user.displayName)) {
+    return userStatus.user.displayName;
+  }
+  return userStatus.user.isAnonymous ? "Anonymous" : null;
+};
+
 export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
   const styles = useStyles();
   const auth = useAuth();
@@ -94,8 +132,12 @@ export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
   const variant = useAppMenuVariant();
   const temporaryIsOpen = useIsAppMenuOpen();
   const hideDrawer = useHideDrawer();
+  const userStatus = useUserStatus();
 
-  const logout = useCallback(() => auth.signOut(), [auth]);
+  const logout = useCallback(() => {
+    logLogout();
+    auth.signOut();
+  }, [auth]);
   const handleClickAway = useCallback(() => {
     if (variant === "temporary" && temporaryIsOpen) {
       hideDrawer();
@@ -103,6 +145,7 @@ export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
   }, [variant, temporaryIsOpen, hideDrawer]);
 
   const opts = getOptsByVariant(variant, styles, temporaryIsOpen);
+  const userText = getUserText(userStatus);
 
   return (
     <Drawer
@@ -117,6 +160,15 @@ export const AppMenuDrawer: React.FC<Props> = ({ className, currentItem }) => {
         {/* This wrapper is required for ClickAwayListener to work (needs to hold a ref) */}
         <Box display="flex" flexDirection="column" height="100%">
           {variant === "temporary" ? <AppMenuHideButton /> : null}
+
+          {variant !== "permanent-small" ? (
+            <header className={styles.header}>
+              <h2 className={styles.appTitle}>Habit Tracker</h2>
+              {userText != null ? (
+                <h4 className={styles.userData}>{userText}</h4>
+              ) : null}
+            </header>
+          ) : null}
 
           <Box
             display="flex"

@@ -9,6 +9,7 @@ import { createRepeatHistoryKey } from "../converters";
 import { habitDocRef, habitsCollectionRef } from "../references";
 import { useFirestore } from "firebaseUtils/useFirestore";
 import { CurrentUser, useLoggedUser } from "~storage";
+import { logApiError, logSimpleEvent } from "firebaseUtils/analytics";
 
 type HabitId = Habit["id"];
 
@@ -20,17 +21,23 @@ const createHabit = async (
   values: FormValues,
   userId: CurrentUser["uid"]
 ): Promise<HabitId> => {
-  const now = new Date();
-  const repeatKey = createRepeatHistoryKey(now);
-  const collectionRef = habitsCollectionRef(db);
-  const doc = await addDoc(collectionRef, {
-    ...omit(values, "repeat"),
-    createdAt: Timestamp.fromDate(now),
-    editedAt: Timestamp.fromDate(now),
-    repeat: { [repeatKey]: values.repeat },
-    userId,
-  });
-  return doc.id;
+  try {
+    const now = new Date();
+    const repeatKey = createRepeatHistoryKey(now);
+    const collectionRef = habitsCollectionRef(db);
+    const doc = await addDoc(collectionRef, {
+      ...omit(values, "repeat"),
+      createdAt: Timestamp.fromDate(now),
+      editedAt: Timestamp.fromDate(now),
+      repeat: { [repeatKey]: values.repeat },
+      userId,
+    });
+    logSimpleEvent("habit_created");
+    return doc.id;
+  } catch (e) {
+    logApiError({ name: "habit_created" }, e);
+    throw e;
+  }
 };
 
 const editHabit = async (
@@ -38,17 +45,23 @@ const editHabit = async (
   id: HabitId,
   values: FormValues
 ): Promise<HabitId> => {
-  const now = new Date();
-  const repeatKey = createRepeatHistoryKey(now);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref: DocReference<any> = habitDocRef(db, id);
-  await updateDoc(ref, {
-    ...omit(values, "repeat"),
-    editedAt: Timestamp.fromDate(now),
-    [`repeat.${repeatKey}`]: values.repeat, // partial object update
-    // preserve `createdAt` and userId
-  });
-  return id;
+  try {
+    const now = new Date();
+    const repeatKey = createRepeatHistoryKey(now);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ref: DocReference<any> = habitDocRef(db, id);
+    await updateDoc(ref, {
+      ...omit(values, "repeat"),
+      editedAt: Timestamp.fromDate(now),
+      [`repeat.${repeatKey}`]: values.repeat, // partial object update
+      // preserve `createdAt` and userId
+    });
+    logSimpleEvent("habit_edited");
+    return id;
+  } catch (e) {
+    logApiError({ name: "habit_edited" }, e);
+    throw e;
+  }
 };
 
 export const useSaveHabit = (id: HabitId | undefined): SaveHabitFn => {

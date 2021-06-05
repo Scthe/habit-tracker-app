@@ -12,7 +12,7 @@ export default (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
 
   return (
-    <AppPage>
+    <AppPage documentTitle="Details">
       <HabitDetails id={id} isInMasterDetailLayout={false} />
     </AppPage>
   );

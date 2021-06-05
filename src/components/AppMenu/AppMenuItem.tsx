@@ -13,6 +13,7 @@ import {
 } from "./constants";
 import { AppMenuVariant } from "./useAppMenuVariant";
 import { AppTheme } from "theme";
+import { logSimpleEvent } from "firebaseUtils/analytics";
 
 const useItemStyles = makeStyles((theme: AppTheme) => ({
   root: {
@@ -100,6 +101,9 @@ export const AppMenuItem: React.FC<Props> = ({
           target="_blank"
           rel="noopener noreferrer"
           className={styles.externalLink}
+          onClick={() => {
+            logSimpleEvent("github_outgoing", { to });
+          }}
         >
           {element}
         </a>
