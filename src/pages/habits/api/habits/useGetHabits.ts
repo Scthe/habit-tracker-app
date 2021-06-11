@@ -10,7 +10,7 @@ import {
 } from "firebaseUtils/firestore/useFirestoreOnce";
 import { useLoggedUser } from "~storage";
 
-const getAll = async (
+const getAllHabits = async (
   db: firestoreNS.FirebaseFirestore,
   userId: string
 ): Promise<Habit[]> => {
@@ -21,5 +21,5 @@ const getAll = async (
 
 export const useGetHabits = (): UseFirestoreOnceType<Habit[]> => {
   const { uid } = useLoggedUser();
-  return useFirestoreOnce(getAll, [uid]);
+  return useFirestoreOnce(getAllHabits, [uid]);
 };

@@ -32,7 +32,7 @@ export const DetailsHeader: React.FC<Props> = ({ habit, showBackButton }) => {
   const styles = useStyles();
   const history = useHistory();
 
-  const goBack = useCallback(() => history.push(ROUTES.manage), []);
+  const goBack = useCallback(() => history.push(ROUTES.manage), [history]);
   const habitName = habit?.name;
 
   return (

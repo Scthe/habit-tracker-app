@@ -1445,6 +1445,111 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/browser@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/browser@npm:6.6.0"
+  dependencies:
+    "@sentry/core": 6.6.0
+    "@sentry/types": 6.6.0
+    "@sentry/utils": 6.6.0
+    tslib: ^1.9.3
+  checksum: 0f6b67bd2d21c5cf448aabd74da8fdad61564e786d48e9afa215f76625f785b0056160de38a88fbe56e367860010107d3a05068e838a8e60c25c723287636c62
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/core@npm:6.6.0"
+  dependencies:
+    "@sentry/hub": 6.6.0
+    "@sentry/minimal": 6.6.0
+    "@sentry/types": 6.6.0
+    "@sentry/utils": 6.6.0
+    tslib: ^1.9.3
+  checksum: 8f3cd0b3a1b027a6b8e7ee3c90d6d1b18d0b0383c3f3aa6ace39e8ba0f31bf9ac0451c352784972329d17400ccc0d9bcec0ef2bc280663e91702e71379ce8579
+  languageName: node
+  linkType: hard
+
+"@sentry/hub@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/hub@npm:6.6.0"
+  dependencies:
+    "@sentry/types": 6.6.0
+    "@sentry/utils": 6.6.0
+    tslib: ^1.9.3
+  checksum: 7f4e59a470774f872aaf5bfcf6c72c17dae9304b9022e08290142f25b9a9680ae65bd32e137eb623f9c42df938d2f1c3aea775fae21357d18ed4be0683396e46
+  languageName: node
+  linkType: hard
+
+"@sentry/integrations@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/integrations@npm:6.6.0"
+  dependencies:
+    "@sentry/types": 6.6.0
+    "@sentry/utils": 6.6.0
+    localforage: ^1.8.1
+    tslib: ^1.9.3
+  checksum: b55ba3aedecd96daeedba44d665f02ae4be113246691d3729c49f3f00b5cdc36b273170e8471957ee5e1dc289f92b5c7b0fff42c1c99ef9ccf4ac2f03dfc7ce8
+  languageName: node
+  linkType: hard
+
+"@sentry/minimal@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/minimal@npm:6.6.0"
+  dependencies:
+    "@sentry/hub": 6.6.0
+    "@sentry/types": 6.6.0
+    tslib: ^1.9.3
+  checksum: 4e3379bb6bdba5de8ce3ed55de63770fe14d3e45cbee83a1ace854e2c140b86460e712995ae1011accfedd416a58ab14d85748a215d7bfd9bdc1e2f0e21b95fe
+  languageName: node
+  linkType: hard
+
+"@sentry/react@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/react@npm:6.6.0"
+  dependencies:
+    "@sentry/browser": 6.6.0
+    "@sentry/minimal": 6.6.0
+    "@sentry/types": 6.6.0
+    "@sentry/utils": 6.6.0
+    hoist-non-react-statics: ^3.3.2
+    tslib: ^1.9.3
+  peerDependencies:
+    react: 15.x || 16.x || 17.x
+  checksum: ce65bf34291079385f175462840b8591ce98f2741625b2fb32823229ef5e4b0e1b31a92b9eac8501a0a03c3f1f88b83ccd4980fdfc8b5700c11de9cf6bb4d3a5
+  languageName: node
+  linkType: hard
+
+"@sentry/tracing@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/tracing@npm:6.6.0"
+  dependencies:
+    "@sentry/hub": 6.6.0
+    "@sentry/minimal": 6.6.0
+    "@sentry/types": 6.6.0
+    "@sentry/utils": 6.6.0
+    tslib: ^1.9.3
+  checksum: 6c4197f3ad9fb5b92b01215f72f570c4da7aff6f8e32fffba8c8666d8278cb5a5d66b4950ce47927c089a25edd2e1d1b5b8d7f3da0fc01a8f1656ae9b80b6d2c
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/types@npm:6.6.0"
+  checksum: d5752dbeb95244e414dc80b948ba6d8461a30c676f0ff797b7180ef273f330dea511b972ac0df1c1ec96c04d8d1cffae02340e0d6985748e0e592f2954d76e55
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@sentry/utils@npm:6.6.0"
+  dependencies:
+    "@sentry/types": 6.6.0
+    tslib: ^1.9.3
+  checksum: 028b1181509e2476d808df6c2c21eed8be78331af801857f5e5a2478f77ca77b2bff59ecdd9c8b659deb278a74489eb418b0092de12c1a7963d11a6b5d7eb33e
+  languageName: node
+  linkType: hard
+
 "@sinonjs/commons@npm:^1.7.0":
   version: 1.8.3
   resolution: "@sinonjs/commons@npm:1.8.3"
@@ -1639,7 +1744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/history@npm:*":
+"@types/history@npm:*, @types/history@npm:^4.7.8":
   version: 4.7.8
   resolution: "@types/history@npm:4.7.8"
   checksum: 54020371a412e949d0a329cc325253f16daf5b33e2e485135d39d3b30d3f9a8e323b00ce1162da82387c8ecf0397a8da49ad36ab309f06284326c064092879c7
@@ -5308,10 +5413,14 @@ __metadata:
     "@material-ui/core": ^4.11.3
     "@material-ui/lab": ^4.0.0-alpha.58
     "@material-ui/pickers": ^3.3.10
+    "@sentry/integrations": ^6.6.0
+    "@sentry/react": ^6.6.0
+    "@sentry/tracing": ^6.6.0
     "@testing-library/dom": ^7.29.6
     "@testing-library/jest-dom": ^5.11.9
     "@testing-library/react": ^11.2.5
     "@testing-library/react-hooks": ^5.0.3
+    "@types/history": ^4.7.8
     "@types/jest": ^26.0.20
     "@types/lodash": ^4.14.168
     "@types/node": ^14.14.31
@@ -5334,6 +5443,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     firebase: 9.0.0-beta.2
     formik: ^2.2.6
+    history: 4.10.1
     html-webpack-plugin: ^5.1.0
     husky: ^5.0.9
     jest: ^26.6.3
@@ -5512,7 +5622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"history@npm:^4.9.0":
+"history@npm:4.10.1, history@npm:^4.9.0":
   version: 4.10.1
   resolution: "history@npm:4.10.1"
   dependencies:
@@ -7246,6 +7356,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lie@npm:3.1.1":
+  version: 3.1.1
+  resolution: "lie@npm:3.1.1"
+  dependencies:
+    immediate: ~3.0.5
+  checksum: 33a07ffeb7eb5aaec59a5f7a72ba7e6a2ce9d011bd7894f36ed11e2da43f076467019e5f9826c5864500c6a792450aa54b263f31cef0a1774553851dce8a501c
+  languageName: node
+  linkType: hard
+
 "lie@npm:~3.3.0":
   version: 3.3.0
   resolution: "lie@npm:3.3.0"
@@ -7298,6 +7417,15 @@ __metadata:
     emojis-list: ^3.0.0
     json5: ^2.1.2
   checksum: a1c2e48781e1501e126a32c39bc1fb1a7e2f02bd99e5aeb8853ddaf3c121fffefcc4579367f97ca6890b58369e571af1c9ec82e4e20db238d560ab359ff25c33
+  languageName: node
+  linkType: hard
+
+"localforage@npm:^1.8.1":
+  version: 1.9.0
+  resolution: "localforage@npm:1.9.0"
+  dependencies:
+    lie: 3.1.1
+  checksum: 0645f5ec6fe28799081a9a21dc23796fbb665dcc20e09061228302750a05671bd13a42688e41b523f1598fff5d8e219f468d826595b75db07b555d4ff223943e
   languageName: node
   linkType: hard
 
@@ -11164,7 +11292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.10.0, tslib@npm:^1.8.1":
+"tslib@npm:^1.10.0, tslib@npm:^1.8.1, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: f44fe7f216946b17d3e3074df3746372703cf24e9127b4c045511456e8e4bf25515fb0a1bb3937676cc305651c5d4fcb6377b0588a4c6a957e748c4c28905d17

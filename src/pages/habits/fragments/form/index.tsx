@@ -45,7 +45,7 @@ const HabitFormPage: React.FC<Props> = ({ id, classes }) => {
 
   return (
     <HabitForm
-      onSubmit={saveHabit}
+      onSubmit={saveHabit.execute}
       history={history}
       showAlert={showAlert}
       className={clsx(styles.form, classes?.root)}

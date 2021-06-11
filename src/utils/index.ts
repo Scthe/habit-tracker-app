@@ -65,3 +65,12 @@ export const hasSameElements = <T>(
     as.length === bs.length && as.every((a) => bs.find((b) => cmpFn(a, b)))
   );
 };
+
+/** remove id's. Change `/habit/123121232/edit` to `/habit/:id/edit` */
+export const pathnameRemoveIds = (pathname = ""): string => {
+  const hasNumber = (s: string) => /\d/.test(s);
+
+  const parts = pathname.split("/");
+  const parts2 = parts.map((e) => (hasNumber(e) ? ":id" : e));
+  return parts2.join("/");
+};

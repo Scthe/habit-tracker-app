@@ -48,10 +48,10 @@ const useStyles = makeStyles((theme: AppTheme) => ({
   },
   header: {
     padding: theme.spacing(0, 1),
-    borderBottom: "1px solid grey",
+    textAlign: "center",
   },
   appTitle: {
-    textTransform: "uppercase", // TODO decide
+    textTransform: "uppercase",
     marginBottom: theme.spacing(1),
     color: theme.palette.primary.main,
     fontSize: "20px", // watch for scrollbar!

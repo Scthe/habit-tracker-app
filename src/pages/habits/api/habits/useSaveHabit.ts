@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { addDoc, Timestamp, updateDoc } from "firebase/firestore";
 import type firestoreNS from "firebase/firestore";
+import { UseAsyncReturn } from "react-async-hook";
 import omit from "lodash/omit";
 
 import { Habit } from "../../_types";
@@ -9,10 +10,12 @@ import { createRepeatHistoryKey } from "../converters";
 import { habitDocRef, habitsCollectionRef } from "../references";
 import { useFirestore } from "firebaseUtils/useFirestore";
 import { CurrentUser, useLoggedUser } from "~storage";
-import { logApiError, logSimpleEvent } from "firebaseUtils/analytics";
+import { logSimpleEvent } from "firebaseUtils/analytics";
+import { useFirestoreWrite } from "firebaseUtils/firestore/useFirestoreWrite";
 
 type HabitId = Habit["id"];
 
+type Firestore = ReturnType<typeof useFirestore>;
 type DocReference<T> = firestoreNS.DocumentReference<T>;
 export type SaveHabitFn = (values: FormValues) => Promise<HabitId>;
 
@@ -21,61 +24,57 @@ const createHabit = async (
   values: FormValues,
   userId: CurrentUser["uid"]
 ): Promise<HabitId> => {
-  try {
-    const now = new Date();
-    const repeatKey = createRepeatHistoryKey(now);
-    const collectionRef = habitsCollectionRef(db);
-    const doc = await addDoc(collectionRef, {
-      ...omit(values, "repeat"),
-      createdAt: Timestamp.fromDate(now),
-      editedAt: Timestamp.fromDate(now),
-      repeat: { [repeatKey]: values.repeat },
-      userId,
-    });
-    logSimpleEvent("habit_created");
-    return doc.id;
-  } catch (e) {
-    logApiError({ name: "habit_created" }, e);
-    throw e;
-  }
+  const now = new Date();
+  const repeatKey = createRepeatHistoryKey(now);
+  const collectionRef = habitsCollectionRef(db);
+
+  const doc = await addDoc(collectionRef, {
+    ...omit(values, "repeat"),
+    createdAt: Timestamp.fromDate(now),
+    editedAt: Timestamp.fromDate(now),
+    repeat: { [repeatKey]: values.repeat },
+    userId,
+  });
+
+  logSimpleEvent("habit_created", { userId, repeat: values.repeat.type });
+  return doc.id;
 };
 
 const editHabit = async (
   db: firestoreNS.FirebaseFirestore,
   id: HabitId,
-  values: FormValues
+  values: FormValues,
+  userId: CurrentUser["uid"]
 ): Promise<HabitId> => {
-  try {
-    const now = new Date();
-    const repeatKey = createRepeatHistoryKey(now);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const ref: DocReference<any> = habitDocRef(db, id);
-    await updateDoc(ref, {
-      ...omit(values, "repeat"),
-      editedAt: Timestamp.fromDate(now),
-      [`repeat.${repeatKey}`]: values.repeat, // partial object update
-      // preserve `createdAt` and userId
-    });
-    logSimpleEvent("habit_edited");
-    return id;
-  } catch (e) {
-    logApiError({ name: "habit_edited" }, e);
-    throw e;
-  }
+  const now = new Date();
+  const repeatKey = createRepeatHistoryKey(now);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ref: DocReference<any> = habitDocRef(db, id);
+
+  await updateDoc(ref, {
+    ...omit(values, "repeat"),
+    editedAt: Timestamp.fromDate(now),
+    [`repeat.${repeatKey}`]: values.repeat, // partial object update
+    // preserve `createdAt` and userId
+  });
+
+  logSimpleEvent("habit_edited", { userId, repeat: values.repeat.type });
+  return id;
 };
 
-export const useSaveHabit = (id: HabitId | undefined): SaveHabitFn => {
-  const db = useFirestore();
+export const useSaveHabit = (
+  id: HabitId | undefined
+): UseAsyncReturn<HabitId, [FormValues]> => {
   const { uid } = useLoggedUser();
-
-  return useCallback(
-    (values): Promise<HabitId> => {
+  const implFn = useCallback(
+    (db: Firestore, values: FormValues) => {
       if (id == null) {
         return createHabit(db, values, uid);
       } else {
-        return editHabit(db, id, values);
+        return editHabit(db, id, values, uid);
       }
     },
-    [db, id, uid]
+    [id, uid]
   );
+  return useFirestoreWrite(implFn);
 };

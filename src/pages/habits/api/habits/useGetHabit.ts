@@ -10,7 +10,7 @@ import {
 
 type HabitId = Habit["id"];
 
-const getById = async (
+const getHabitById = async (
   db: firestoreNS.FirebaseFirestore,
   id?: HabitId
 ): Promise<Habit | null> => {
@@ -29,7 +29,7 @@ export const useGetHabit = (
   id: HabitId | undefined,
   errorOnNotFound = true
 ): UseFirestoreOnceType<Habit | null> => {
-  const result = useFirestoreOnce(getById, [id]);
+  const result = useFirestoreOnce(getHabitById, [id]);
 
   const isFinishedButNoData =
     result.data.status === "success" && result.data.data == null;

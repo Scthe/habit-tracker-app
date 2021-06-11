@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const packageJson = require("../package.json");
 
 const ROOT = path.resolve(__dirname, "..", "src");
 const DESTINATION = path.resolve(__dirname, "..", "dist");
@@ -73,6 +74,7 @@ const baseWebpackConfig = (mode) => ({
   plugins: [
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(mode), // just in case
+      NPM_PACKAGE_VERSION: JSON.stringify(packageJson.version),
     }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new MiniCssExtractPlugin({

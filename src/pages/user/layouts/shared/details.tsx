@@ -7,7 +7,7 @@ const UserDetailsFragment = lazy(
 
 export default (): JSX.Element => {
   return (
-    <AppPage appMenuActiveItem="me">
+    <AppPage appMenuActiveItem="me" documentTitle="My Account">
       <UserDetailsFragment />
     </AppPage>
   );

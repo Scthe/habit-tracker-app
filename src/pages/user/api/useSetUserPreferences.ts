@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useAsyncCallback, UseAsyncReturn } from "react-async-hook";
+import { UseAsyncReturn } from "react-async-hook";
 import { setDoc } from "firebase/firestore";
 
 import {
@@ -9,6 +9,7 @@ import {
   userPreferencesDoc,
 } from "~storage";
 import { useFirestore } from "firebaseUtils/useFirestore";
+import { useFirestoreWrite } from "firebaseUtils/firestore/useFirestoreWrite";
 
 type UserPrefEditData = Partial<UserPreferences>;
 type Firestore = ReturnType<typeof useFirestore>;
@@ -27,12 +28,10 @@ export const useSetUserPreferences = (): UseAsyncReturn<
   [UserPrefEditData]
 > => {
   const { uid } = useLoggedUser();
-  const db = useFirestore();
-
   const implFn = useCallback(
-    (data: UserPrefEditData) => setUserPreferences(db, data, uid),
-    [db, uid]
+    (db: Firestore, data: UserPrefEditData) =>
+      setUserPreferences(db, data, uid),
+    [uid]
   );
-
-  return useAsyncCallback(implFn);
+  return useFirestoreWrite(implFn);
 };

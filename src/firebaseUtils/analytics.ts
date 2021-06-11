@@ -1,5 +1,6 @@
 import once from "lodash/once";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { captureMessage } from "@sentry/react";
 
 import { __getFirebaseApp } from "./firebaseApp";
 import { HabitCompletionStatus } from "pages/habits/_types";
@@ -35,8 +36,9 @@ export const logSimpleEvent = (
       // TODO test me!
       logEvent(getAnalytics(app), name, params);
     } else {
-      // TODO sentry me!
-      console.error("Not init yet?");
+      const msg = "Could not analytics event, firebase app not ready";
+      console.error(msg);
+      captureMessage(msg);
     }
   }
 };
@@ -74,29 +76,6 @@ export const logPageView = (
     ...params,
     page_path: pageData.pathname,
     theme: pageData.theme,
-  });
-};
-
-export const logError = (
-  type: string,
-  error: Error,
-  params: EventParams = {}
-): void => {
-  logSimpleEvent("error", { ...params, type, message: error.message });
-};
-
-// TODO finish
-export const logApiError = (
-  requestData: {
-    name: string;
-  },
-  error: Error,
-  params: EventParams = {}
-): void => {
-  logSimpleEvent("api_error", {
-    ...params,
-    ...requestData,
-    message: error.message,
   });
 };
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import type firebaseNS from "firebase/auth";
+import * as Sentry from "@sentry/react";
 
 import {
   AuthProviderData,
@@ -33,8 +34,16 @@ export const useUserLoginState = (): UserLoggedState => {
     const onSuccess = (firebaseUser: firebaseNS.User | null) => {
       // console.log("onAuthStateChanged:", firebaseUser);
       if (firebaseUser == null) {
+        Sentry.configureScope((scope) => scope.setUser(null));
         setUserData({ status: "notlogged" });
       } else {
+        Sentry.setUser({
+          email: firebaseUser.email || "",
+          id: firebaseUser.uid,
+          username: `${firebaseUser.isAnonymous ? "Anon." : ""}${
+            firebaseUser.displayName
+          }`,
+        });
         const user = adaptFirebaseUser(firebaseUser);
         logSimpleEvent("user_account_data", {
           isAnonymous: String(user.isAnonymous),

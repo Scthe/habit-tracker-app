@@ -7,7 +7,7 @@ import { LoadingPageWithDrawer } from "./internal/LoadingPageWithDrawer";
 import { ErrorPageWithDrawer } from "./internal/ErrorPageWithDrawer";
 import { AppMenuDrawer } from "components/AppMenu";
 import { useAppMenuActiveLink } from "~storage";
-import { globalErrorHandler } from "utils/errorHandler";
+import { errorBoundaryHandler } from "utils/errorHandler/errorBoundaryHandler";
 
 const useStyles = makeStyles(() => ({
   drawer: {
@@ -31,7 +31,7 @@ export const AppLayout: React.FC<unknown> = ({ children }) => {
 
       <ErrorBoundary
         FallbackComponent={ErrorPageWithDrawer}
-        onError={globalErrorHandler}
+        onError={errorBoundaryHandler}
       >
         <Suspense fallback={<LoadingPageWithDrawer />}>
           <div className={styles.content}>{children}</div>

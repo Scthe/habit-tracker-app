@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useFirestore } from "../useFirestore";
 import { AsyncData } from "~types";
+import { logApiError } from "utils/errorHandler";
 
 type Firestore = firestoreNS.FirebaseFirestore;
 type DocumentReference<T> = firestoreNS.DocumentReference<T>;
@@ -45,6 +46,14 @@ export const useFirestoreDocSubscription = <R = unknown, U = unknown>(
         });
       },
       (error) => {
+        logApiError(
+          {
+            firebasePath: ref.path,
+            name: createReference.name,
+            rw: "subscription",
+          },
+          error
+        );
         onError && onError(error);
         setAsyncData({ status: "error", error });
       }

@@ -1,11 +1,12 @@
 import { useCallback } from "react";
-import { useAsyncCallback, UseAsyncReturn } from "react-async-hook";
+import { UseAsyncReturn } from "react-async-hook";
 import { setDoc } from "firebase/firestore";
 
 import { HabitStatus } from "../../_types";
 import { habitMonthlyActivityDoc } from "../references";
 import { CurrentUser, useLoggedUser } from "~storage";
-import { useFirestore } from "firebaseUtils/useFirestore";
+import type { useFirestore } from "firebaseUtils/useFirestore";
+import { useFirestoreWrite } from "firebaseUtils/firestore/useFirestoreWrite";
 
 type SetHabitDoneArg = Omit<HabitStatus, "userId">;
 type Firestore = ReturnType<typeof useFirestore>;
@@ -13,7 +14,7 @@ type Firestore = ReturnType<typeof useFirestore>;
 // semantic:
 // habit_activity[userId, year-month, day-habitId] = DONE etc.
 
-const setStatus = async (
+const setHabitStatus = async (
   db: Firestore,
   data: SetHabitDoneArg,
   uid: CurrentUser["uid"]
@@ -36,14 +37,11 @@ export const useSetHabitDone = (): UseAsyncReturn<
   [SetHabitDoneArg]
 > => {
   const { uid } = useLoggedUser();
-  const db = useFirestore();
-
   const implFn = useCallback(
-    (data: SetHabitDoneArg) => setStatus(db, data, uid),
-    [db, uid]
+    (db: Firestore, data: SetHabitDoneArg) => setHabitStatus(db, data, uid),
+    [uid]
   );
-
-  return useAsyncCallback(implFn);
+  return useFirestoreWrite(implFn);
 };
 
 export type SetHabitDoneFn = ReturnType<typeof useSetHabitDone>["execute"];

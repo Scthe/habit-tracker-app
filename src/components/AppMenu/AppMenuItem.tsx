@@ -84,6 +84,7 @@ export const AppMenuItem: React.FC<Props> = ({
         )}
       </ListItemIcon>
 
+      {/* TODO nope, show label below */}
       {onlyIcon ? null : (
         <ListItemText
           className={ifActive(styles.itemActiveText)}

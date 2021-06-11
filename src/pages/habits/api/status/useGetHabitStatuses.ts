@@ -10,7 +10,7 @@ import {
 import { MonthOfYear } from "utils/date";
 import { useLoggedUser } from "~storage";
 
-const getAllStatuses = async (
+const getAllHabitStatuses = async (
   db: firestoreNS.FirebaseFirestore,
   userId: string,
   year: number,
@@ -30,5 +30,5 @@ export const useGetHabitStatuses = ({
   year,
 }: MonthOfYear): UseFirestoreOnceType<HabitStatus[]> => {
   const { uid } = useLoggedUser();
-  return useFirestoreOnce(getAllStatuses, [uid, year, month]);
+  return useFirestoreOnce(getAllHabitStatuses, [uid, year, month]);
 };

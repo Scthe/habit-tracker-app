@@ -27,4 +27,5 @@ export type PickByValueType<T, ValueType> = {
 
 declare global {
   const NODE_ENV: "production" | "development";
+  const NPM_PACKAGE_VERSION: string;
 }

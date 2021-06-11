@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
 export const EmptyStaticPage: React.FC = ({ children }) => {
   const styles = useStyles();
   return (
-    <AppPage className={styles.content}>
+    <AppPage className={styles.content} documentTitle="">
       <AppBar position="static">
         <Toolbar>
           <AppMenuToggleButton />

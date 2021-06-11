@@ -11,7 +11,6 @@ import { HabitFormValidationSchema } from "./validation.schema";
 
 import type { ShowAlertFn } from "hooks/useShowAlert";
 import { onFormSubmitErrorFn, useFormSubmitError } from "utils/form";
-import { logError } from "firebaseUtils/analytics";
 
 interface Props {
   initialValues: FormValues;
@@ -86,7 +85,6 @@ export default withFormik<Props, FormValues>({
         state: { id },
       });
     } catch (e) {
-      logError("habit_form_submit_error", e);
       showAlert({
         severity: "error",
         message: "Error, could not submit the form",
