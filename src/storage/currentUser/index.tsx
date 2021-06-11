@@ -32,15 +32,8 @@ const mergeUserAndPreferences = (
   userStatus: ReturnType<typeof useUserLoginState>,
   preferencesAsync: ReturnType<typeof useUserPreferencesAsync>
 ): AuthCtxType => {
-  // console.log("mergeUserAndPreferences", {
-  // userStatus, preferencesAsync
-  // });
-  if (
-    userStatus.status === "init" ||
-    preferencesAsync.status === "init" ||
-    preferencesAsync.status === "loading" // we subscribe to firebase, so this happens only once
-  ) {
-    return { status: "init" };
+  if (userStatus.status === "notlogged") {
+    return userStatus;
   }
 
   // ok, so we have both responses, but one of them can be an error
@@ -51,10 +44,16 @@ const mergeUserAndPreferences = (
     return preferencesAsync;
   }
 
-  // both responses are ok, combine
-  if (userStatus.status === "notlogged") {
-    return userStatus;
+  // loading
+  if (
+    userStatus.status === "init" ||
+    preferencesAsync.status === "init" ||
+    preferencesAsync.status === "loading" // we subscribe to firebase, so this happens only once
+  ) {
+    return { status: "init" };
   }
+
+  // both responses are ok, combine
   return {
     status: "logged",
     user: userStatus.user,

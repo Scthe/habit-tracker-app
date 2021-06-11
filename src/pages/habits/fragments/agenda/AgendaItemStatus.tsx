@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import clsx from "clsx";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -93,13 +92,14 @@ const ToggleStatusCheckbox: React.FC<Props> = ({
   const handleToggle = async () => {
     try {
       const nextStatus = getOppositeStatus(status);
-      logHabitStatusChange("agenda", nextStatus);
+      onStatusChanged && onStatusChanged(nextStatus);
+
       await setHabitDone.execute({
         habitId: habit.id,
         status: nextStatus,
         day: currentDate,
       });
-      onStatusChanged && onStatusChanged(nextStatus);
+      logHabitStatusChange("agenda", nextStatus);
     } catch (e) {
       showAlert({
         severity: "error",
@@ -107,10 +107,6 @@ const ToggleStatusCheckbox: React.FC<Props> = ({
       });
     }
   };
-
-  if (setHabitDone.loading) {
-    return <CircularProgress size="35px" color="primary" />;
-  }
 
   return (
     <Checkbox

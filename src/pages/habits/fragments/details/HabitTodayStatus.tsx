@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { getNextDateWhenHabitIsDoable } from "../../utils";
 import { getOppositeStatus, Habit, HabitCompletionStatus } from "../../_types";
@@ -46,12 +45,12 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
   const handleToggle = async () => {
     try {
       const nextStatus = getOppositeStatus(status);
-      logHabitStatusChange("details", nextStatus);
       await setHabitDone.execute({
         habitId: habit.id,
         status: nextStatus,
         day: deconstructDate(new Date()),
       });
+      logHabitStatusChange("details", nextStatus);
     } catch (e) {
       showAlert({
         severity: "error",
@@ -71,16 +70,12 @@ const ToggleTodayHabitDone: React.FC<Props> = ({ habit, status }) => {
           label: styles.activeLabelText,
         }}
         control={
-          setHabitDone.loading ? (
-            <CircularProgress size={LOADER_SIZE} color="primary" />
-          ) : (
-            <Checkbox
-              checked={isDone}
-              onChange={handleToggle}
-              color="primary"
-              disabled={hasError}
-            />
-          )
+          <Checkbox
+            checked={isDone}
+            onChange={handleToggle}
+            color="primary"
+            disabled={hasError}
+          />
         }
       />
     </>

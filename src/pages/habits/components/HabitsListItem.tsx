@@ -20,6 +20,8 @@ const useStyles = makeStyles((theme: AppTheme) => ({
     flexDirection: "row",
     padding: theme.spacing(0), // required for onClick to work
     background: theme.palette.background.paper,
+    marginBottom: theme.spacing(1),
+    borderRadius: "4px",
     "&:hover": {
       background: darken(theme.palette.background.paper, 0.05),
     },

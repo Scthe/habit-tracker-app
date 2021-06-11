@@ -42,7 +42,6 @@ export const ActivityCalendar: React.FC<Props> = ({
   const styles = useStyles();
   const [shownMonth, setShownMonth] = useDetailsMonth();
   const statusesAsync = useGetHabitStatuses(shownMonth).data;
-  // TODO [error] add error handling
 
   return (
     <div className={styles.root}>
@@ -63,10 +62,7 @@ export const ActivityCalendar: React.FC<Props> = ({
           shownMonth={shownMonth}
           setShownMonth={setShownMonth}
           allowKeyboardControl={allowKeyboardControl}
-          loading={
-            statusesAsync.status === "init" ||
-            statusesAsync.status === "loading"
-          }
+          loading={statusesAsync.status !== "success"}
           className={styles.calendar}
           classes={{ skeleton: styles.skeleton }}
           renderDay={(props) => (
