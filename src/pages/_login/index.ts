@@ -25,7 +25,7 @@ firebase.initializeApp(firebaseConfig);
 const uiConfig = {
   signInSuccessUrl: "/app",
   signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    // firebase.auth.GoogleAuthProvider.PROVIDER_ID, // TODO restore
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
     firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
   ],
