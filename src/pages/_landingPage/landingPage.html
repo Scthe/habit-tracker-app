@@ -4,18 +4,374 @@
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="minimum-scale=1, initial-scale=1, width=device-width"
+      content="width=device-width, minimum-scale=1, initial-scale=1, viewport-fit=cover"
     />
-    <title>Habit tracker</title>
-  </head>
-  <body>
-    <h1>Landing page</h1>
+    <meta name="theme-color" content="#f3f7fa" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
 
-    <ul>
-      <li><a href="/login.html">login.html</a></li>
-      <li><a href="/app.html">app.html</a></li>
-      <li><a href="/login">login</a></li>
-      <li><a href="/app">app</a></li>
-    </ul>
+    <title>Habit tracker</title>
+    <meta
+      name="description"
+      content="The simplest habit diary, to focus on things that matter"
+    />
+    <meta name="author" content="Marcin Matuszczyk" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Habit tracker" />
+    <meta property="og:site_name" content="Habit tracker" />
+    <meta
+      property="og:description"
+      content="The simplest habit diary, to focus on things that matter"
+    />
+    <meta
+      property="og:url"
+      content="https://habit-tracker-app-f12cd.web.app/"
+    />
+    <meta
+      property="og:image"
+      content="https://habit-tracker-app-f12cd.web.app/agenda.png"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Habit tracker" />
+    <meta
+      name="twitter:description"
+      content="The simplest habit diary, to focus on things that matter"
+    />
+    <meta
+      name="twitter:url"
+      content="https://habit-tracker-app-f12cd.web.app/"
+    />
+    <meta
+      name="twitter:image"
+      content="https://habit-tracker-app-f12cd.web.app/agenda.png"
+    />
+
+    <!-- TODO local server only -->
+    <!--
+  <link href="./landingPage.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  -->
+    <script>
+      /*
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }*/
+    </script>
+  </head>
+
+  <body>
+    <!-- TODO add analytics, sentry -->
+
+    <nav class="header">
+      <h1 class="app-name">Habit tracker</h1>
+      <div class="header-buttons">
+        <a
+          href="https://github.com/Scthe/habit-tracker-app"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="github-btn button"
+        >
+          <svg
+            focusable="false"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            class="github-icon"
+          >
+            <path
+              d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"
+            ></path>
+          </svg>
+          GitHub
+        </a>
+
+        <a href="/login" class="header-login-btn button button-primary"
+          >Sign up</a
+        >
+      </div>
+    </nav>
+
+    <main class="main">
+      <!-- above the fold -->
+      <section class="above-fold container row text-left">
+        <div class="above-fold-text center-vertical half-width">
+          <h1 class="hook">
+            How To Build Habits That Last. Everyday. Consistently.
+          </h1>
+          <p class="description">
+            The simplest habit diary, to focus on things that matter.
+          </p>
+
+          <a href="/login" class="login-btn button button-primary">
+            Get started, for free (forever)
+          </a>
+          <p class="demo-wrapper text-secondary">
+            Still hesistant?
+            <!-- TODO use demo parameter to bypass the login screen and use guest account -->
+            <a href="/login?demo" class="demo-btn">Try the demo</a>
+          </p>
+        </div>
+
+        <div class="above-fold-hero-image half-width column-right">
+          <!-- TODO image/video on phone in iPhone skin:
+              Guitar practice, Duolingo - German, Drawing, Anki, Magic tricks! -->
+          <img
+            src="assets/landingPage/agenda.png"
+            alt="The simplest habit diary, to focus on things that matter"
+            class="image hero-image"
+          />
+        </div>
+      </section>
+
+      <!-- More doing, less planning -->
+      <section class="content-section container">
+        <h2 class="section-header text-center">More doing, less planning</h2>
+
+        <div class="row">
+          <div class="half-width agenda-image-container">
+            <img
+              src="assets/landingPage/calendar.png"
+              alt="Check progress reports to see history of your success"
+              class="image agenda-image"
+            />
+          </div>
+
+          <div class="half-width center-vertical text-column column-right">
+            <p>
+              So, you want to
+              <span id="ae" class="activity-example">speak german</span>&nbsp;?
+            </p>
+            <p>You know it will be a tough.</p>
+            <p>
+              Our app will <em>plan your day</em> and
+              <em>give you reminders</em> at the appropriate time. We will take
+              care of formalities for you.
+            </p>
+          </div>
+        </div>
+
+        <script>
+          const ITEMS = [
+            "play guitar",
+            "speak german",
+            "speak spanish",
+            "draw",
+            "read books",
+            "play chess",
+            "finish marathon",
+            "paint",
+            "sculpt",
+          ];
+          let current = undefined;
+
+          function randomizeActivity() {
+            const items = ITEMS.filter((e) => e != current);
+            current = items[Math.floor(Math.random() * items.length)];
+            ae.textContent = current;
+          }
+
+          randomizeActivity();
+          setInterval(randomizeActivity, 3 * 1000);
+        </script>
+      </section>
+
+      <!-- QUOTE -->
+      <section class="content-section quote-section">
+        <div class="section-skew-masked">
+          <div class="skew-bg-mask">
+            <div class="skew-bg"></div>
+          </div>
+
+          <figure class="quote-figure skew-content container-small">
+            <blockquote class="quote-blockquote">
+              <p>
+                “You do not rise to the level of your goals. You fall to the
+                level of your systems.”
+              </p>
+            </blockquote>
+            <figcaption class="quote-figcaption">
+              James Clear,
+              <cite
+                >Atomic Habits: An Easy & Proven Way to Build Good Habits &
+                Break Bad Ones</cite
+              >
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- TRACK ANYTHING -->
+      <section class="content-section container">
+        <h2 class="section-header text-center">Track anything</h2>
+        <div class="row">
+          <div class="half-width center-vertical text-column">
+            <p>
+              You can track anything, from everyday tasks to weekly and montlhy
+              goals.
+            </p>
+            <p>
+              Set reminders to easier establish the habit. Consistency is the
+              key!
+            </p>
+            <p>
+              Add helpful notes. You don't have to remember about anything, just
+              leave it to us.
+            </p>
+          </div>
+
+          <div class="half-width add-habit-image-container column-right">
+            <!-- TODO photo: edit habit everyday. Change text to "Practice guitar" so it matches "I want to" better. Add link to show fancy styles -->
+            <!-- TODO photo 2: weekly target read 250 pages -->
+            <img
+              src="assets/landingPage/add-habit.png"
+              alt="Create tasks to do with based on type, repeatition and activity date."
+              class="image add-habit-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <!--
+      - track progress - calendar.png
+      - offline mode - video clicks
+      - dark/light theme
+      - free and open source - svg heart
+
+      -(opt) habit stacking - just go to create form with reminder +15min
+    -->
+      <section class="content-section container">
+        <h2 class="section-header text-center">Features</h2>
+        <div class="row">
+          <div class="half-width center-vertical text-column">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <h4>Track progress</h4>
+                <p>Use historical data to track progress you're making</p>
+              </li>
+              <li class="feature-item">
+                <h4>Offline mode</h4>
+                <p>
+                  Perfect on the go. We will sync the data once you regain the
+                  connection.
+                </p>
+              </li>
+              <li class="feature-item">
+                <h4>Dark theme</h4>
+                <p>Customize the appearance to suit your preferences.</p>
+              </li>
+              <li class="feature-item">
+                <h4>Free and open source</h4>
+                <p>The best things in life are free!</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="half-width add-habit-image-container column-right">
+            <img
+              src="assets/landingPage/agenda.png"
+              alt="The simplest habit diary, to focus on things that matter"
+              class="image agenda-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="content-section faq-section">
+        <h2 class="section-header text-center">Frequently Asked Questions</h2>
+
+        <div class="faq-content container">
+          <div class="faq-item" data-q="what-if-not-right-for-me">
+            <div class="faq-item-trigger">
+              <h3 class="faq-item-q">What if it's not right for me?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+
+            <p class="faq-item-text">
+              No problem! The app is free, there are no subscribtions. If you
+              decide our system is not for you you can leave anytime. We would
+              also appropriate a feedback from you!
+            </p>
+          </div>
+
+          <div class="faq-item" data-q="what-if-not-right-for-me">
+            <div class="faq-item-trigger">
+              <h3 class="faq-item-q">Is it really free?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+
+            <p class="faq-item-text">
+              Yes, this app is not only free, you also get access to full source
+              code on
+              <a
+                href="https://github.com/Scthe/habit-tracker-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="github-link-faq"
+              >
+                GitHub </a
+              >.
+            </p>
+          </div>
+
+          <div class="faq-item" data-q="what-if-not-right-for-me">
+            <div class="faq-item-trigger">
+              <h3 class="faq-item-q">What can I track?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+
+            <p class="faq-item-text">
+              Tracking habits is the most obvious purpose. You can also track
+              weekly goals like "read a book every week". Habit Tracker will
+              remind you on a selected day. I also use monthly goals to pay my
+              bills/subscriptions or as a shopping list (coffee ❤️).
+            </p>
+          </div>
+        </div>
+
+        <script>
+          const faqItems = document.getElementsByClassName("faq-item");
+
+          Array.from(faqItems).forEach((el) => {
+            const trigger = el.children[0];
+            const text = el.children[1];
+
+            trigger.addEventListener("click", () => {
+              const isOpen = el.classList.contains("is-open");
+              if (!isOpen) {
+                // text.style.display = "block";
+                el.classList.add("is-open");
+              } else {
+                // text.style.display = "none";
+                el.classList.remove("is-open");
+              }
+            });
+          });
+        </script>
+      </section>
+
+      <!-- 2nd CTA -->
+      <section class="content-section">
+        <h2 class="section-header text-center">Ready to get started?</h2>
+        <p class="cta-2-subtext text-center">
+          Create an account, add the habits and start tracking:
+        </p>
+
+        <div class="center-horizontal">
+          <a href="/login" class="login-btn cta-2-btn button button-primary">
+            Get started, for free (forever)
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Founder's note -->
   </body>
 </html>

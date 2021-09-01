@@ -13,6 +13,9 @@ import { GlobalErrorBoundary } from "./pages/_shared";
 import { ContentLoader } from "./components/contentStatus";
 import { AlertProvider } from "./hooks/useShowAlert";
 
+// import css
+require("./app.css").default;
+
 const App: React.FC<{ history: History }> = ({ history }) => {
   return (
     <GlobalErrorBoundary>

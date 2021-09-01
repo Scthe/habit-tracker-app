@@ -4,10 +4,18 @@
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="minimum-scale=1, initial-scale=1, width=device-width"
+      content="width=device-width, minimum-scale=1, initial-scale=1, viewport-fit=cover"
     />
-    <title>Habit tracker</title>
+    <meta name="theme-color" content="#f3f7fa" />
 
+    <title>Habit tracker</title>
+    <meta
+      name="description"
+      content="The simplest habit diary, to focus on things that matter"
+    />
+    <meta name="author" content="Marcin Matuszczyk" />
+
+    <!-- Need to use with CDN cause firebase v9 -->
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
     <link
       type="text/css"
@@ -15,10 +23,13 @@
       href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css"
     />
   </head>
+
   <body>
     <div class="content">
       <!-- TODO this should be a link. TBH this page does not render correctly -->
-      <h1 class="app-name">Habit Tracker</h1>
+      <h1 class="app-name">
+        <a href="/">Habit Tracker</a>
+      </h1>
       <div class="auth-modal">
         <h2 class="sign-in">Sign in to your account</h2>
         <div id="firebaseui-auth-container"></div>

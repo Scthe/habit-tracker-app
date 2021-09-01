@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const packageJson = require("../package.json");
 
 const ROOT = path.resolve(__dirname, "..", "src");
@@ -80,6 +81,17 @@ const baseWebpackConfig = (mode) => ({
     new MiniCssExtractPlugin({
       filename: createFilename(mode, "css"),
     }),
+    // copy static files
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "pages/_landingPage/*.png",
+
+          to: path.resolve(DESTINATION, "assets", "landingPage", "[name][ext]"),
+        },
+      ],
+    }),
+    // HTML files
     new HtmlWebpackPlugin({
       ...HTML_PLUGIN_OPTS,
       template: "app.html",

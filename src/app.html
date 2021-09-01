@@ -8,13 +8,17 @@
     />
     <meta name="theme-color" content="#3f51b5" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Habit tracker</title>
   </head>
+
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <script>
       let isLight = !window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const storageThemeColor = JSON.parse(localStorage.getItem("appTheme"));
+      const storageThemeColor = JSON.parse(
+        localStorage.getItem("appTheme") || ""
+      );
       if (storageThemeColor === "dark") {
         isLight = false;
       }

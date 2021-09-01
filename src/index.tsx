@@ -37,6 +37,7 @@ Sentry.init({
   },
 });
 
+// import css
 require("./index.css").default;
 
 // <StrictMode> is not used as it conflicts with material-ui

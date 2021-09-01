@@ -44,18 +44,18 @@ export const logSimpleEvent = (
 };
 
 // TODO use
-export const logLogin = (provider: string, params: EventParams = {}): void => {
-  logSimpleEvent("login", { ...params, provider });
-};
+// export const logLogin = (provider: string, params: EventParams = {}): void => {
+// logSimpleEvent("login", { ...params, provider });
+// };
 
 export const logLogout = (params: EventParams = {}): void => {
   logSimpleEvent("logout", params);
 };
 
 // TODO use
-export const logSignup = (provider: string, params: EventParams = {}): void => {
-  logSimpleEvent("sign_up", { ...params, provider });
-};
+// export const logSignup = (provider: string, params: EventParams = {}): void => {
+// logSimpleEvent("sign_up", { ...params, provider });
+// };
 
 const logAppLoadedImpl = (
   theme: ThemeColor,

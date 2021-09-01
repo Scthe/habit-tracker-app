@@ -27,6 +27,8 @@ import { logLogout } from "firebaseUtils/analytics";
 import { AppTheme, useTheme } from "theme";
 import { useUserStatus } from "~storage";
 
+// TODO https://www.youtube.com/watch?v=may0MddSzNc - anim
+
 const items = [
   ITEM_CREATE_HABIT,
   ITEM_AGENDA,
